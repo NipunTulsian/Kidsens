@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "i": "^0.3.7",
+    "npm": "^9.6.1",
+    "reac": "^0.0.0",
+    "react-form-builder2": "^0.14.2",
+    "react-window": "^1.8.8"
+  }
+}

@@ -1,0 +1,59 @@
+body {
+  font-family: 'Lexend Deca', sans-serif;
+  padding: 10px 20px;
+}
+
+.forms {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* border: 2px solid green; */
+}
+
+.center {
+  text-align: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0px;
+  /* border: 2px solid red; */
+  width: 35%;
+  pointer-events: none;
+}
+
+.marks {
+  margin: 0px auto;
+  text-align: center;
+  width: 26%;
+}
+
+.grade-inner {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.grade {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  height: 600px;
+  max-height: 500px;
+  overflow-y: scroll;
+  overflow-x: none;
+}
+
+.grade input[type="text"] {
+  height: 30px;
+  width: 30%;
+  text-align: center;
+}
+
+input[type="button"] {
+  font-size: 16px;
+  padding: 5px 10px;
+
+}
