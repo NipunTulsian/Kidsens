@@ -18,7 +18,8 @@ import DefaultWorkflow from './pages/DefaultWorkflow'
 import StagesPageStudentView from './pages/StagesPageStudentView';
 import AssessmentPageStudentView from './pages/AssessmentPageStudentView';
 import FormsPageStudentView from './pages/FormsPageStudentView';
-import ProfilePage from './pages/ProfilePage';
+import ProfilePageStudent from './pages/ProfilePageStudent';
+import ProfilePageTherapist from './pages/ProfilePageTherapist';
 import {
 	createBrowserRouter,
 	RouterProvider,
@@ -65,8 +66,12 @@ const router = createBrowserRouter([
     element: <StagesPage />
   },
   {
-    path: "/ProfilePage/:id",
-    element: <ProfilePage />
+    path: "/ProfilePageStudent/:id",
+    element: <ProfilePageStudent/>
+  },
+  {
+    path: "/ProfilePageTherapist/:id",
+    element: <ProfilePageTherapist/>
   },
   {
     path: "/FormsPage/:id",

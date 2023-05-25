@@ -117,13 +117,13 @@ router.use("/therapist-register", protectAdmin, async (req, res) => {
 })
 
 router.use("/fill-therapist", therapistUpload, async (req, res) => {
-    const { username, password, speciality, Email, Address } = req.body
+    const { username, password, speciality, Email, Address,id } = req.body
     const salt = await bcrypt.genSalt(10);
     const decoded = jwt.verify(Email, "abc123")
     const hash = await bcrypt.hash(password, salt);
     const query2 = `UPDATE therapist SET username="${username}", password="${hash}",Address= "${Address}", image= "${req.files?.image[0].path}", 
     speciality="${speciality}", Identity= "${req.files?.Identity[0].path}",Certificate= "${req.files?.Certification[0].path}", 
-    Resume= "${req.files?.Resume[0].path}" WHERE
+    Resume= "${req.files?.Resume[0].path}", EMP_ID="${id}" WHERE
     Email="${decoded.id}"`;
     const query = `Select COUNT(Email) as num from therapist where username= "${username}"`;
     db.query(query, function (err, result, fields) {
@@ -253,9 +253,7 @@ router.use("/get-therapist", protectTherapist, async (req, res) => {
         const decoded = jwt.verify(req.body.therapist, "abc123").id
         var query = `SELECT * FROM therapist where Email="${decoded}"`;
         db.query(query, (err, result, fields) => {
-            res.status(200).json({
-                therapist: result
-            })
+            res.status(200).json(result[0]);
         })
     }
     catch (err) {
@@ -973,6 +971,22 @@ router.use("/get-student-profile", protectTherapistAdmin, async (req, res) => {
             }
 
             return res.status(200).json(obj);
+        })
+    }
+    catch (err) {
+        ;
+        return res.status(500).send(err);
+    }
+
+})
+
+router.use("/get-therapist-profile", protectTherapistAdmin, async (req, res) => {
+    try {
+        const id = req.body.id;
+        var query = `select * from therapist where EMP_ID='${id}'`;
+        db.query(query, function (err, result) {
+            console.log(result[0]);
+            return res.status(200).json(result[0]);
         })
     }
     catch (err) {

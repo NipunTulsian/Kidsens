@@ -388,7 +388,7 @@ export default function LandStudent() {
 					</ListItem>
 				</List>
 			</Drawer>
-			<Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{backgroundColor:"#f5f5f5"}}>
+			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 				<DrawerHeader />
 				<div>
 					{displayThis === 'Profile' && <div>

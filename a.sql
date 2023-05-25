@@ -370,20 +370,20 @@ DROP TABLE IF EXISTS `therapist`;
 CREATE TABLE `therapist` (
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(512) DEFAULT NULL,
-  `EMP_ID` int NOT NULL AUTO_INCREMENT,
+  `EMP_ID` varchar(512) DEFAULT NULL,
   `fname` varchar(255) DEFAULT NULL,
   `lname` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `speciality` varchar(255) DEFAULT NULL,
   `Phone` varchar(255) DEFAULT NULL,
-  `Email` varchar(255) DEFAULT NULL,
+  `Email` varchar(255),
   `Address` varchar(255) DEFAULT NULL,
   `Identity` varchar(255) DEFAULT NULL,
   `Certificate` varchar(255) DEFAULT NULL,
   `Resume` varchar(255) DEFAULT NULL,
   `Assigned_Admin` varchar(1000) DEFAULT NULL,
-  PRIMARY KEY (`EMP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`Email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

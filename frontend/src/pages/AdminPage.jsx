@@ -334,7 +334,7 @@ export default function AdminPage() {
                         <ListItemText primary={allStudents[index].c_fname + " " + allStudents[index].c_lname} />
                         {/* <ListItemText primary={`${allStudents[index].c_fname} ${allStudents[index].c_lname}`} /> */}
                         <Box style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                            <Button variant="outlined" onClick={() => navigate(`/ProfilePage/${allStudents[index].student_Id}`)}>Profile</Button>
+                            <Button variant="outlined" onClick={() => navigate(`/ProfilePageStudent/${allStudents[index].student_Id}`)}>Profile</Button>
                             <Button variant="outlined" onClick={() => navigate(`/StagesPage/${allStudents[index].student_Id}`)}>Manage</Button>
                             <IconButton onClick={() => { DeleteStudent(allStudents[index].p_email) }}>
                                 <DeleteIcon style={{ cursor: 'pointer' }} color="error" />
@@ -357,6 +357,7 @@ export default function AdminPage() {
                     <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                         <ListItemText primary={allTherapists[index].fname + " " + allTherapists[index].lname} />
                         {/* <ListItemText primary={`${allTherapists[index].c_fname} ${allTherapists[index].c_lname}`} /> */}
+                        <Button variant="outlined" onClick={() => navigate(`/ProfilePageTherapist/${allTherapists[index].EMP_ID}`)}>Profile</Button>
                         <Button variant="text" onClick={() => { DeleteTherapist(allTherapists[index].Email) }}>Delete</Button>
                         {/* <Button variant="text">Edit</Button> */}
                     </Box>

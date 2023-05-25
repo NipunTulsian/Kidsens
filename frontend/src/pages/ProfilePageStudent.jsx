@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 import { get } from 'jquery';
 
-export default function ProfilePage() {
+export default function ProfilePageStudent() {
     const { id } = useParams();
     const [student, setStudent] = useState({
         username: "",

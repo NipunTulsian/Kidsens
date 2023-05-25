@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import TextField from "@mui/material/TextField"
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
@@ -227,7 +228,19 @@ class FormBuilder extends Component {
 export default function LandTherapy() {
 	const theme = useTheme();
 	const [myStudents, setallStudents] = React.useState([])
-	const [therapist, setTherapist] = React.useState()
+	const [therapist, setTherapist] = React.useState({
+		username: "",
+		password: "",
+		speciality: "",
+		Address: "",
+		id: "",
+		image: null,
+		Identity: null,
+		Certification: null,
+		Resume: null,
+		fname: "",
+		lname: "",
+	})
 	const [open, setOpen] = React.useState(false);
 	const [pendingForms, setPendingForms] = React.useState([])
 
@@ -259,7 +272,19 @@ export default function LandTherapy() {
 		})
 		if (serverRes.status === 200) {
 			const serverResJson = await serverRes.json();
-			setTherapist(serverResJson.therapist)
+			setTherapist({
+				fname: serverResJson.fname,
+				lname: serverResJson.lname,
+				id: serverResJson.EMP_ID,
+				username: serverResJson.username,
+				speciality: serverResJson.speciality,
+				Address: serverResJson.Address,
+				phonte: serverResJson.phone,
+				image: "http://localhost:8000" + serverResJson.image.replace("../uploads", ""),
+				Identity: "http://localhost:8000" + serverResJson.Identity.replace("../uploads", ""),
+				Certification: "http://localhost:8000" + serverResJson.Certificate.replace("../uploads", ""),
+				Resume: "http://localhost:8000" + serverResJson.Resume.replace("../uploads", ""),
+			})
 		}
 
 		serverRes = await fetch("http://localhost:8000/get-fetchPending", {
@@ -272,7 +297,7 @@ export default function LandTherapy() {
 				therapist: localStorage.getItem("User")
 			})
 		})
-		if(serverRes.status===200){
+		if (serverRes.status === 200) {
 			const serverResJson = await serverRes.json();
 			console.log(serverResJson)
 			setPendingForms(serverResJson.answer)
@@ -467,8 +492,80 @@ export default function LandTherapy() {
 				<DrawerHeader />
 				<div>
 					{displayThis === 'Profile' && <div>
-						<Typography align='center' margin={3} variant='h3'>Welcome,{therapist ? therapist[0]?.fname + " " + therapist[0]?.lname : null}</Typography>
+						<Typography align='center' margin={3} variant='h3'>Welcome,{therapist ? therapist.fname + " " + therapist.lname : null}</Typography>
 
+						<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+							{therapist ? <img src={therapist.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
+							<TextField
+								style={{ width: "30%", margin: "10px auto" }}
+								variant="outlined"
+								label="Username"
+								value={therapist.username}
+								InputProps={{
+									readOnly: true,
+								}}
+								InputLabelProps={{
+									style: {
+										fontSize: 18,
+										color: "#2196F3"
+									}
+								}}
+							></TextField>
+							<TextField
+								style={{ width: "30%", margin: "10px auto" }}
+								variant="outlined"
+								label="Speciality"
+								value={therapist.speciality}
+								InputProps={{
+									readOnly: true,
+								}}
+								InputLabelProps={{
+									style: {
+										fontSize: 18,
+										color: "#2196F3"
+									}
+								}}
+							></TextField>
+							<TextField
+								style={{ width: "30%", margin: "10px auto" }}
+								variant="outlined"
+								label="Address"
+								value={therapist.Address}
+								InputProps={{
+									readOnly: true,
+								}}
+								InputLabelProps={{
+									style: {
+										fontSize: 18,
+										color: "#2196F3"
+									}
+								}}
+							></TextField>
+							<TextField
+								style={{ width: "30%", margin: "10px auto" }}
+								variant="outlined"
+								label="id"
+								value={therapist.id}
+								InputProps={{
+									readOnly: true,
+								}}
+								InputLabelProps={{
+									style: {
+										fontSize: 18,
+										color: "#2196F3"
+									}
+								}}
+							></TextField>
+							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3", fontSize: "15px" }}>Identification</Typography>
+							<iframe src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
+							</iframe>
+							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Certification</Typography>
+							<iframe src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
+							</iframe>
+							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Resume</Typography>
+							<iframe src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
+							</iframe>
+						</div>
 					</div>}
 
 					{displayThis === 'My Students' && <div>
