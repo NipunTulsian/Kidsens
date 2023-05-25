@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.32, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.32, for macos13.0 (arm64)
 --
 -- Host: localhost    Database: kidsens_db
 -- ------------------------------------------------------
--- Server version	8.0.32-0ubuntu0.20.04.2
+-- Server version	8.0.32
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,31 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `admin` (
+  `ADMIN_ID` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`ADMIN_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `admin`
+--
+
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES (1,'abc@gmail.com','abc');
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ANSWERS`
@@ -68,56 +93,6 @@ CREATE TABLE `AssessFormMap` (
 LOCK TABLES `AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `AssessFormMap` DISABLE KEYS */;
 /*!40000 ALTER TABLE `AssessFormMap` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Marks`
---
-
-DROP TABLE IF EXISTS `Marks`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Marks` (
-  `student_Id` varchar(100) DEFAULT NULL,
-  `FORM_ID` varchar(100) DEFAULT NULL,
-  `QUESTION_ID` varchar(200) DEFAULT NULL,
-  `Max_Marks` int DEFAULT NULL,
-  `Marks_Obtained` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Marks`
---
-
-LOCK TABLES `Marks` WRITE;
-/*!40000 ALTER TABLE `Marks` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Marks` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `admin`
---
-
-DROP TABLE IF EXISTS `admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `admin` (
-  `ADMIN_ID` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(512) DEFAULT NULL,
-  PRIMARY KEY (`ADMIN_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admin`
---
-
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'abc@gmail.com','abc');
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -252,7 +227,7 @@ DROP TABLE IF EXISTS `forms_obj`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `forms_obj` (
   `FORM_ID` varchar(200) NOT NULL,
-  `FORM_OBJ` varchar(2000) NOT NULL,
+  `FORM_OBJ` longtext,
   `SENDER_TYPE` varchar(2000) NOT NULL,
   `SENDER_ID` varchar(2000) NOT NULL,
   PRIMARY KEY (`FORM_ID`)
@@ -266,6 +241,31 @@ CREATE TABLE `forms_obj` (
 LOCK TABLES `forms_obj` WRITE;
 /*!40000 ALTER TABLE `forms_obj` DISABLE KEYS */;
 /*!40000 ALTER TABLE `forms_obj` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Marks`
+--
+
+DROP TABLE IF EXISTS `Marks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Marks` (
+  `student_Id` varchar(100) DEFAULT NULL,
+  `FORM_ID` varchar(100) DEFAULT NULL,
+  `QUESTION_ID` varchar(200) DEFAULT NULL,
+  `Max_Marks` int DEFAULT NULL,
+  `Marks_Obtained` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Marks`
+--
+
+LOCK TABLES `Marks` WRITE;
+/*!40000 ALTER TABLE `Marks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Marks` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -306,6 +306,7 @@ CREATE TABLE `parent` (
 
 LOCK TABLES `parent` WRITE;
 /*!40000 ALTER TABLE `parent` DISABLE KEYS */;
+INSERT INTO `parent` VALUES ('Nipun100','$2a$10$J6R0.rhIP4Y7XE4dRzFsHO5cV1.Rdm34eWUkwCcT2won/iDmBRv7C','Ashish','Tulsian','nipun.tulsian@students.iiit.ac.in','8780583781','undefined','Nipun','Tulsian',16,'2003-06-13','../uploads/Nipun100/image-1684900127084.kidsens_photo.jpeg','ADHD','../uploads/Nipun100/identification-1684900127092.NipunTulsianResume (1).pdf','../uploads/Nipun100/reports-1684900127093.coorg_hotel.pdf','M','','abc@gmail.com',NULL,'1684899880199');
 /*!40000 ALTER TABLE `parent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +377,7 @@ CREATE TABLE `therapist` (
   `image` varchar(255) DEFAULT NULL,
   `speciality` varchar(255) DEFAULT NULL,
   `Phone` varchar(255) DEFAULT NULL,
-  `Email` varchar(255),
+  `Email` varchar(255) NOT NULL,
   `Address` varchar(255) DEFAULT NULL,
   `Identity` varchar(255) DEFAULT NULL,
   `Certificate` varchar(255) DEFAULT NULL,
@@ -392,6 +393,7 @@ CREATE TABLE `therapist` (
 
 LOCK TABLES `therapist` WRITE;
 /*!40000 ALTER TABLE `therapist` DISABLE KEYS */;
+INSERT INTO `therapist` VALUES ('NipunTherapist','$2a$10$Jmzia559AE2AdIb7fC7FN.5ePyR0jxjqJV2NMmLJU/xn39l71GIKe','2021101055','Nipun2','Tulsian','../uploads/NipunTherapist/image-1684952740541.kidsens_photo.jpeg','any','8780583781','nipun.tulsian.nt@gmail.com','add','../uploads/NipunTherapist/Identity-1684952740544.Nipun_Resume (1).pdf','../uploads/NipunTherapist/Certification-1684952740544.Science-2 Quiz1 with Answers.pdf','../uploads/NipunTherapist/Resume-1684952740548.25.pdf','abc@gmail.com'),(NULL,'$2a$10$hQ4RZnfHkbSLIPLhjfFs1eh7EDtfxdg0ikIfjfCR7f3WoRdO4gMSO',NULL,'Shaan','Shah',NULL,NULL,'1234567890','sima39806@gmail.com',NULL,NULL,NULL,NULL,'abc@gmail.com');
 /*!40000 ALTER TABLE `therapist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -404,4 +406,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-05 13:00:32
+-- Dump completed on 2023-05-25 15:19:16
