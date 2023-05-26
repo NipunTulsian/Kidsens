@@ -2,12 +2,7 @@ import React from 'react'
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import { each } from 'jquery';
-import { useNavigate } from 'react-router';
 function RegisterStudent() {
     const [allTherapists, setallTherapists] = React.useState([])
     const [studentData, setStudentData] = React.useState({
@@ -34,7 +29,7 @@ function RegisterStudent() {
         {
             if(document.getElementById(allTherapists[i].Email).checked)
             {
-                if(str=="")
+                if(str==="")
                 {
                     str+=allTherapists[i].Email
                 }
@@ -82,6 +77,7 @@ function RegisterStudent() {
             setallTherapists(serverResJson);
         }
     }
+
     React.useEffect(() => {
         getTherapist()
     }, [])
@@ -131,7 +127,7 @@ function RegisterStudent() {
                 <p id="demo-simple-select-label">Assign Therapist</p>
                 {allTherapists.map(eachTherapist => {
                     return (
-                        <form>
+                        <form key={eachTherapist.Email}>
                             <input type="checkbox" id={eachTherapist.Email}/>
                             <label htmlFor={eachTherapist.Email}>{eachTherapist.fname}</label>
                         </form>

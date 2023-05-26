@@ -18,10 +18,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
-import { FixedSizeList } from 'react-window';
 import { useNavigate } from 'react-router'
 import logo from '../logo.png'
 import BoyIcon from '@mui/icons-material/Boy';
@@ -29,11 +26,12 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import MedicationIcon from '@mui/icons-material/Medication';
 import RegisterStudent from './RegisterStudent';
 import RegisterTherapist from './RegisterTherapist';
-import BorderAllIcon from '@mui/icons-material/BorderAll';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import SchemaIcon from '@mui/icons-material/Schema';
 import $ from "jquery";
+import DisplayStudents from "./DisplayStudents";
+import DisplayTherapist from "./DisplayTherapist";
+
 window.jQuery = $;
 window.$ = $;
 
@@ -183,7 +181,6 @@ const SaveForm = async (a) => {
     })
 
     if (serverRes.status === 200) {
-        const serverResJson = await serverRes.json();
         window.alert("From Saved")
         window.location.reload(false)
     }
@@ -213,6 +210,8 @@ class FormBuilder extends Component {
 
 export default function AdminPage() {
     const theme = useTheme();
+    const [searchStudent, setsearchStudent] = React.useState("");
+    const [searchTherapist, setsearchTherapist] = React.useState("");
     const [open, setOpen] = React.useState(false);
     const [allStudents, setallStudents] = React.useState([])
     const [allTherapists, setallTherapists] = React.useState([])
@@ -238,13 +237,13 @@ export default function AdminPage() {
 
     const [displayThis, setDisplayThis] = React.useState('Register Student')
 
-    function registerStudent() {
-        navigate('/registerStudent')
-    }
+    // function registerStudent() {
+    //     navigate('/registerStudent')
+    // }
 
-    function registerTherapist() {
-        navigate('/registerTherapist')
-    }
+    // function registerTherapist() {
+    //     navigate('/registerTherapist')
+    // }
 
     const getStudent = async () => {
         const serverRes = await fetch("http://localhost:8000/display-student", {
@@ -281,90 +280,19 @@ export default function AdminPage() {
             setallTherapists(serverResJson);
         }
     }
-    const DeleteTherapist = async (email) => {
-        let data = {
-            email: email
-        }
-        const serverRes = await fetch("http://localhost:8000/delete-therapist", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                "authorization": "Bearer".concat(" ", localStorage.getItem("User")),
-            },
-            body: JSON.stringify(data)
-        })
 
-        if (serverRes.status === 200) {
-            alert("Deleted Successfully")
-            window.location.reload(false)
-        }
-    }
-    const DeleteStudent = async (email) => {
-        let data = {
-            p_email: email
-        }
-        const serverRes = await fetch("http://localhost:8000/delete-student", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                "authorization": "Bearer".concat(" ", localStorage.getItem("User")),
-            },
-            body: JSON.stringify(data)
-        })
-        if (serverRes.status === 200) {
-            alert("Deleted Successfully")
-            window.location.reload(false)
-        }
-    }
 
     React.useEffect(() => {
         getStudent();
         getTherapist()
     }, [])
 
-
-
-    function renderStudentsRow(props) {
-        const { index, style } = props;
-
-        return (
-            <ListItem style={{ ...style, padding: '25px 20px' }} key={index} component="div" disablePadding>
-                <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%' }}>
-                    <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                        <ListItemText primary={allStudents[index].c_fname + " " + allStudents[index].c_lname} />
-                        {/* <ListItemText primary={`${allStudents[index].c_fname} ${allStudents[index].c_lname}`} /> */}
-                        <Box style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                            <Button variant="outlined" onClick={() => navigate(`/ProfilePageStudent/${allStudents[index].student_Id}`)}>Profile</Button>
-                            <Button variant="outlined" onClick={() => navigate(`/StagesPage/${allStudents[index].student_Id}`)}>Manage</Button>
-                            <IconButton onClick={() => { DeleteStudent(allStudents[index].p_email) }}>
-                                <DeleteIcon style={{ cursor: 'pointer' }} color="error" />
-                            </IconButton>
-                        </Box>
-                        {/* <Button variant="text" color="error" onClick={() => { DeleteStudent(allStudents[index].p_email) }}>Delete</Button> */}
-                    </Box>
-                    <Divider style={{ margin: '5px 0' }} />
-                </Box>
-            </ListItem>
-        );
+    function changeStudentSearch(event) {
+        setsearchStudent(event.target.value);
     }
 
-    function renderTherapistsRow(props) {
-        const { index, style } = props;
-
-        return (
-            <ListItem style={{ ...style, padding: '25px 20px' }} key={index} component="div" disablePadding>
-                <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%' }}>
-                    <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                        <ListItemText primary={allTherapists[index].fname + " " + allTherapists[index].lname} />
-                        {/* <ListItemText primary={`${allTherapists[index].c_fname} ${allTherapists[index].c_lname}`} /> */}
-                        <Button variant="outlined" onClick={() => navigate(`/ProfilePageTherapist/${allTherapists[index].EMP_ID}`)}>Profile</Button>
-                        <Button variant="text" onClick={() => { DeleteTherapist(allTherapists[index].Email) }}>Delete</Button>
-                        {/* <Button variant="text">Edit</Button> */}
-                    </Box>
-                    <Divider style={{ margin: '5px 0' }} />
-                </Box>
-            </ListItem>
-        );
+    function changeTherapistSearch(event) {
+        setsearchTherapist(event.target.value);
     }
 
     const textAndIcon = [['Register Student', '<BoyIcon />'], ['All Students', '<GroupsIcon />'], ['Register Therapist', '<MedicationIcon />'], ['All Therapists', '<GroupsIcon />'], ['Create a new form', '<BorderColorIcon />']]
@@ -484,39 +412,8 @@ export default function AdminPage() {
                 <div>
                     {displayThis === 'Register Student' && <RegisterStudent />}
                     {displayThis === 'Register Therapist' && <RegisterTherapist />}
-                    {displayThis === 'All Students' && <div>
-                        <Typography align='center' margin={1} variant='h4'>All students</Typography>
-                        <Box
-                            sx={{ padding: '10px', width: '60%', height: 520, bgcolor: 'background.paper', margin: 'auto', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
-                        >
-                            <FixedSizeList
-                                height={500}
-                                itemSize={46}
-                                itemCount={allStudents.length}
-                                overscanCount={5}
-                            >
-                                {renderStudentsRow}
-                            </FixedSizeList>
-                        </Box>
-                    </div>}
-
-                    {displayThis === 'All Therapists' && <div>
-                        <Typography align='center' margin={1} variant='h4'>All therapists</Typography>
-                        <Box
-                            sx={{ padding: '10px', width: '60%', height: 520, bgcolor: 'background.paper', margin: 'auto', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
-                        >
-                            <FixedSizeList
-                                height={500}
-                                itemSize={46}
-                                itemCount={allTherapists.length}
-                                overscanCount={5}
-                            >
-                                {renderTherapistsRow}
-                            </FixedSizeList>
-                        </Box>
-
-                    </div>}
-
+                    {displayThis === 'All Students' && <DisplayStudents arr={allStudents} search={searchStudent} filter={searchStudent} SearchFunc={changeStudentSearch} />}
+                    {displayThis === 'All Therapists' && <DisplayTherapist arr={allTherapists} search={searchTherapist} filter={searchTherapist} SearchFunc={changeTherapistSearch} />}
                     {displayThis === 'Create a new form' && <FormBuilder />}
                 </div>
             </Box>
