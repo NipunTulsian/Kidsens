@@ -20,22 +20,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Grid from '@mui/material/Grid';
-import { FixedSizeList } from 'react-window';
 import { useNavigate } from 'react-router'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import SchemaIcon from '@mui/icons-material/Schema';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 
 import logo from '../logo.png'
 
 import $ from "jquery";
-import { Container } from "@mui/system";
 window.jQuery = $;
 window.$ = $;
 

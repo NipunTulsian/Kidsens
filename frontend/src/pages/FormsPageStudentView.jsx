@@ -1,18 +1,8 @@
 import React from 'react'
 import Navbar from './CommonNavbar'
 import { useNavigate } from 'react-router'
-import { Typography, Grid, Card, CardContent, CardActions, Button, TextField, Box, IconButton, Divider } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import Modal from '@mui/material/Modal';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
+import { Typography, Grid, Card, CardContent, Button, Box, } from '@mui/material';
 import { useParams } from 'react-router';
-import DeleteIcon from '@mui/icons-material/Delete';
-
 
 function FormsPageStudentView() {
     const navigate = useNavigate();
@@ -50,7 +40,7 @@ function FormsPageStudentView() {
     // fetch forms which have been scored by therapist
 
     const [hi, setHi] = React.useState("hello")
-    
+
     const [checked, setChecked] = React.useState([
     ]);
 
@@ -88,7 +78,7 @@ function FormsPageStudentView() {
                     </Grid>
                     <br />
                     <br />
-                </Box>:null}
+                </Box> : null}
             {notChecked.length ?
                 <Box>
                     <Typography variant='h3' style={{ textAlign: 'center' }}> Unchecked Forms </Typography>
@@ -113,7 +103,7 @@ function FormsPageStudentView() {
                     </Grid>
                     <br />
                     <br />
-                </Box>:null}
+                </Box> : null}
             {unfilled.length ?
                 <Box>
                     <Typography variant='h3' style={{ textAlign: 'center' }}> Pending Forms </Typography>
@@ -128,7 +118,7 @@ function FormsPageStudentView() {
                                         <Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
                                         <Box>
                                             {/* this button */}
-                                            <Button variant='outlined' onClick={() => window.location.href = '/formSubmit.html?id='+`${form.FORM_ID}`}>Fill Form</Button>
+                                            <Button variant='outlined' onClick={() => window.location.href = '/formSubmit.html?id=' + `${form.FORM_ID}`}>Fill Form</Button>
                                         </Box>
                                     </CardContent>
 
@@ -137,7 +127,7 @@ function FormsPageStudentView() {
                         ))}
 
                     </Grid>
-                </Box>:null}
+                </Box> : null}
         </div>
     )
 }

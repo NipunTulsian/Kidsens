@@ -117,7 +117,7 @@ router.use("/therapist-register", protectAdmin, async (req, res) => {
 })
 
 router.use("/fill-therapist", therapistUpload, async (req, res) => {
-    const { username, password, speciality, Email, Address,id } = req.body
+    const { username, password, speciality, Email, Address, id } = req.body
     const salt = await bcrypt.genSalt(10);
     const decoded = jwt.verify(Email, "abc123")
     const hash = await bcrypt.hash(password, salt);
@@ -800,15 +800,93 @@ router.use("/get-FormObject", async (req, res) => {
     }
 })
 
-router.use("/store-FormObject", async (req, res) => {
+router.use("/get-FormObjectStudent", protectParent, async (req, res) => {
+    try {
+        const { id } = req.body;
+        let query = `select stage from AssessFormMap where FORM_ID='${id}' and student_Id='${req.user}'`;
+        db.query(query, (err, result) => {
+            query = `select count(stage_name) as num from screening where student_id='${req.user}' and stage_name='${result[0]["stage"]}'`;
+            db.query(query, (err, result2) => {
+                if (result2[0]["num"] != 0) {
+                    query = `select FORM_OBJ from forms_obj where FORM_ID='${id}'`;
+                    db.query(query, (err, result) => {
+                        return res.status(200).json({
+                            form: result[0]["FORM_OBJ"]
+                        });
+                    })
+                }
+                else {
+                    let date_curr = new Date();
+                    let year = '' + date_curr.getFullYear()
+                    let month = '' + (date_curr.getMonth() + 1)
+                    let date = '' + date_curr.getDate();
+
+                    if (month.length === 1) {
+                        month = '0' + month;
+                    }
+                    date_curr = year + "-" + month + "-" + date;
+
+                    query = `insert into screening (student_id,stage_name,start_date) values('${req.user}','${result[0]["stage"]}','${date_curr}')`;
+                    db.query(query, (err, result3) => {
+                        query = `select FORM_OBJ from forms_obj where FORM_ID='${id}'`;
+                        db.query(query, (err, result) => {
+                            return res.status(200).json({
+                                form: result[0]["FORM_OBJ"]
+                            });
+                        })
+                    })
+                }
+            })
+
+        })
+    }
+    catch (err) {
+
+        res.sendStatus(500)
+    }
+})
+
+router.use("/store-FormObject", protectParent, async (req, res) => {
     try {
         let { id, form, student } = req.body
-        student = jwt.verify(student, "abc123").id
+        student = jwt.verify(student, "abc123").id;
         let query = `INSERT INTO student_responses value('${student}','${id}','${form}')`;
-        db.query(query, (err, result) => {
-            return res.status(200).json({
-                message: "done"
-            });
+        db.query(query, (err, result0) => {
+            query = `select stage from AssessFormMap where FORM_ID='${id}' and student_Id='${req.user}'`;
+            db.query(query, (err, result) => {
+                let stage = result[0]["stage"];
+                query = `select count(FORM_ID) as num from AssessFormMap where stage='${stage}' and student_Id='${req.user}'`
+                db.query(query, (err, result2) => {
+                    let total_ass = result2[0]["num"];
+                    query = `select count(FORM_ID) as num from student_responses where student_Id='${student}' and FORM_ID in (select FORM_ID from AssessFormMap where stage='${stage}' and student_Id='${req.user}')`
+                    db.query(query, (err, result3) => {
+                        let total_com = result3[0]["num"];
+                        if (total_ass === total_com) {
+                            let date_curr = new Date();
+                            let year = '' + date_curr.getFullYear()
+                            let month = '' + (date_curr.getMonth() + 1)
+                            let date = '' + date_curr.getDate();
+
+                            if (month.length === 1) {
+                                month = '0' + month;
+                            }
+                            date_curr = year + "-" + month + "-" + date;
+
+                            query = `update screening set end_date='${date_curr}' where student_id='${req.user}' and stage_name='${stage}'`;
+                            db.query(query, (err, result4) => {
+                                return res.status(200).json({
+                                    message: "done"
+                                })
+                            })
+                        }
+                        else {
+                            return res.status(200).json({
+                                message: "done"
+                            })
+                        }
+                    })
+                })
+            })
         })
     }
     catch (err) {

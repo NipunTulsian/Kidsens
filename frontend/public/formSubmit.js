@@ -12,7 +12,7 @@ const fbRender = document.getElementById("fb-render");
 var originalFormData = null;
 
 async function fetchForm() {
-  const serverRes = await fetch("http://localhost:8000/get-FormObject", {
+  const serverRes = await fetch("http://localhost:8000/get-FormObjectStudent", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
