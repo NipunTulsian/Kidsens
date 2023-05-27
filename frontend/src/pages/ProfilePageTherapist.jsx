@@ -38,15 +38,15 @@ export default function ProfilePageTherapist() {
             setTherapist({
                 fname: serverResJson.fname,
                 lname: serverResJson.lname,
-                id: serverResJson.EMP_ID,
-                username: serverResJson.username,
-                speciality: serverResJson.speciality,
-                Address: serverResJson.Address,
-                phonte: serverResJson.phone,
-                image: "http://localhost:8000" + serverResJson.image.replace("../uploads", ""),
-                Identity: "http://localhost:8000" + serverResJson.Identity.replace("../uploads", ""),
-                Certification: "http://localhost:8000" + serverResJson.Certificate.replace("../uploads", ""),
-                Resume: "http://localhost:8000" + serverResJson.Resume.replace("../uploads", ""),
+                id: serverResJson.EMP_ID ? serverResJson.EMP_ID : "",
+                username: serverResJson.username ? serverResJson.username : "",
+                speciality: serverResJson.speciality ? serverResJson.speciality : "",
+                Address: serverResJson.Address ? serverResJson.Address : "",
+                phonte: serverResJson.phone ? serverResJson.phone : "",
+                image: serverResJson.image ? "http://localhost:8000" + serverResJson.image.replace("../uploads", "") : null,
+                Identity: serverResJson.Identity ? "http://localhost:8000" + serverResJson.Identity.replace("../uploads", "") : null,
+                Certification: serverResJson.Certificate ? "http://localhost:8000" + serverResJson.Certificate.replace("../uploads", "") : serverResJson.Certificate,
+                Resume: serverResJson.Resume ? "http://localhost:8000" + serverResJson.Resume.replace("../uploads", "") : serverResJson.Resume,
             })
         }
     }
@@ -60,7 +60,7 @@ export default function ProfilePageTherapist() {
             <Navbar pageTitle="Therapist Profile" />
             <Typography align='center' margin={3} variant='h3'>Details Of,{therapist ? " " + therapist.fname + " " + therapist.lname + " " : null}</Typography>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                {therapist ? <img src={therapist.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
+                {therapist.image ? <img src={therapist.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
                 <TextField
                     style={{ width: "30%", margin: "10px auto" }}
                     variant="outlined"
@@ -122,14 +122,14 @@ export default function ProfilePageTherapist() {
                     }}
                 ></TextField>
                 <Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3", fontSize: "15px" }}>Identification</Typography>
-                <iframe src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
-                </iframe>
+                {therapist.Identity ? <iframe src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
+                </iframe> : null}
                 <Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Certification</Typography>
-                <iframe src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
-                </iframe>
+                {therapist.Certification ? <iframe src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
+                </iframe> : null}
                 <Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Resume</Typography>
-                <iframe src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
-                </iframe>
+                {therapist.Resume ? <iframe src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
+                </iframe> : null}
             </div>
 
         </div>

@@ -41,20 +41,21 @@ export default function ProfilePageStudent() {
 
         if (serverRes.status === 200) {
             const serverResJson = await serverRes.json();
+            console.log(serverResJson)
             setStudent({
                 student_Id: serverResJson.student_Id,
                 c_fname: serverResJson.c_fname,
                 c_lname: serverResJson.c_lname,
-                image: "http://localhost:8000" + serverResJson.c_img.replace("../uploads", ""),
-                username: serverResJson.username,
-                p_fname: serverResJson.p_fname,
-                p_lname: serverResJson.p_lname,
-                p_Address: serverResJson.p_Address,
-                c_DOB: serverResJson.c_DOB,
-                c_gender: serverResJson.c_gender,
-                Diagnosis: serverResJson.Diagnosis,
-                identification: "http://localhost:8000" + serverResJson.identification.replace("../uploads", ""),
-                reports: "http://localhost:8000" + serverResJson.reports.replace("../uploads", ""),
+                image: serverResJson.c_img ? "http://localhost:8000" + serverResJson.c_img.replace("../uploads", "") : null,
+                username: serverResJson.username ? serverResJson.username : "",
+                p_fname: serverResJson.p_fname ? serverResJson.p_fname : "",
+                p_lname: serverResJson.p_lname ? serverResJson.p_lname : "",
+                p_Address: serverResJson.p_Address ? serverResJson.p_Address : "",
+                c_DOB: serverResJson.c_DOB ? serverResJson.c_DOB : "",
+                c_gender: serverResJson.c_gender ? serverResJson.c_gender : "",
+                Diagnosis: serverResJson.Diagnosis ? serverResJson.Diagnosis : "",
+                identification: serverResJson.identification ? "http://localhost:8000" + serverResJson.identification.replace("../uploads", "") : null,
+                reports: serverResJson.reports ? "http://localhost:8000" + serverResJson.reports.replace("../uploads", "") : null,
             })
         }
     }
@@ -68,7 +69,7 @@ export default function ProfilePageStudent() {
             <Navbar pageTitle="Student Profile" />
             <Typography align='center' margin={3} variant='h3'>Details Of,{student ? " " + student.c_fname + " " + student.c_lname + " " : null}</Typography>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                {student ? <img src={student.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
+                {student.image ? <img src={student.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
                 <TextField
                     style={{ width: "30%", margin: "10px auto" }}
                     variant="outlined"
@@ -160,11 +161,11 @@ export default function ProfilePageStudent() {
                     }}
                 ></TextField>
                 <Typography align='center' style={{ marginTop: "15px", color: "black", fontSize: "15px" }}>Identification</Typography>
-                <iframe src={student.identification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
-                </iframe>
+                {student.identification ? <iframe src={student.identification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
+                </iframe> : null}
                 <Typography align='center' style={{ marginTop: "15px", color: "black" }}>Reports</Typography>
-                <iframe src={student.reports} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
-                </iframe>
+                {student.reports ? <iframe src={student.reports} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
+                </iframe> : null}
             </div>
         </div>
     )
