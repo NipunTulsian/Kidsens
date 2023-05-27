@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from './CommonNavbar'
 import { useNavigate } from 'react-router'
-import { useParams } from 'react-router-dom'
 import Tree from 'react-d3-tree';
 function StagesPage() {
     const navigate = useNavigate();

@@ -1,8 +1,6 @@
 import React from 'react'
 import Navbar from './CommonNavbar'
 import { useNavigate } from 'react-router'
-import { useParams } from 'react-router-dom'
-import Draggable from 'react-draggable'
 import { Typography, Grid, Card, CardContent, CardActions, Button, TextField, Box, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';

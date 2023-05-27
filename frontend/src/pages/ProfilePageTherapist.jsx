@@ -1,11 +1,9 @@
 import React from 'react';
 import Navbar from './CommonNavbar'
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-
-import { get } from 'jquery';
 
 export default function ProfilePageTherapist() {
     const { id } = useParams();

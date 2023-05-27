@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './CommonNavbar'
 import { useNavigate } from 'react-router'
-import { Typography, Grid, Card, CardContent, CardActions, Button, TextField, Box, IconButton } from '@mui/material';
+import { Typography, Grid, Card, CardContent, Button, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Modal';
 import List from '@mui/material/List';
@@ -11,8 +11,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import { useParams } from 'react-router';
-import DeleteIcon from '@mui/icons-material/Delete';
-
 
 function FormsPage() {
     const navigate = useNavigate();
@@ -142,7 +140,7 @@ function FormsPage() {
                                         <Button variant='contained' color='error' onClick={() => { deleteForm(form.FORM_ID) }}>Delete</Button>
                                     </Box>
                                     <Box>
-                                        <Button variant='contained' onClick={() => window.location.href = '/gradeForm.html?id='+`${form.FORM_ID}&student=${id.split(';')[0]}`}>Score Form</Button>
+                                        <Button variant='contained' onClick={() => window.location.href = '/gradeForm.html?id=' + `${form.FORM_ID}&student=${id.split(';')[0]}`}>Score Form</Button>
                                     </Box>
                                 </Box>
                             </CardContent>

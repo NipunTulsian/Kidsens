@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from './CommonNavbar'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router'
-import { Typography, Grid, Card, CardContent, CardActions, Button, TextField, Box, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Checkbox, Modal } from '@mui/material';
+import { Typography, Grid, Card, CardContent, Button, Box, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Checkbox, Modal } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
 import AddIcon from '@mui/icons-material/Add';

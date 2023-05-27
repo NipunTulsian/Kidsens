@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from './CommonNavbar'
 import { useNavigate } from 'react-router'
-import { Typography, Grid, Card, CardContent, CardActions, Button, TextField, Box,IconButton } from '@mui/material';
+import { Typography, Grid, Card, CardContent, Button, Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Modal';
 import List from '@mui/material/List';
@@ -22,7 +22,7 @@ function DefaultForms() {
         }
         getForms()
     }, [])
-    const getForms = async()=>{
+    const getForms = async () => {
         const serverRes = await fetch("http://localhost:8000/get-default-forms", {
             method: "POST",
             headers: {
@@ -31,8 +31,8 @@ function DefaultForms() {
             },
             body: JSON.stringify({
                 id: localStorage.getItem("User"),
-                stage_name:assessment.split(";")[0],
-                assess_name:assessment.split(";")[1],
+                stage_name: assessment.split(";")[0],
+                assess_name: assessment.split(";")[1],
             })
         })
 
@@ -90,9 +90,9 @@ function DefaultForms() {
             },
             body: JSON.stringify({
                 id: localStorage.getItem("User"),
-                stage_name:assessment.split(";")[0],
-                assess_name:assessment.split(";")[1],
-                form_id:form
+                stage_name: assessment.split(";")[0],
+                assess_name: assessment.split(";")[1],
+                form_id: form
             })
         })
 
@@ -109,9 +109,9 @@ function DefaultForms() {
             },
             body: JSON.stringify({
                 id: localStorage.getItem("User"),
-                stage_name:assessment.split(";")[0],
-                assess_name:assessment.split(";")[1],
-                forms:checked
+                stage_name: assessment.split(";")[0],
+                assess_name: assessment.split(";")[1],
+                forms: checked
             })
         })
 
@@ -132,8 +132,8 @@ function DefaultForms() {
                         <Card variant="outlined">
                             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '20px' }}>
                                 <Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
-                                <IconButton onClick={()=>{deleteForm(form.FORM_ID)}}>
-                                    <DeleteIcon/>
+                                <IconButton onClick={() => { deleteForm(form.FORM_ID) }}>
+                                    <DeleteIcon />
                                 </IconButton>
                             </CardContent>
 
@@ -189,9 +189,9 @@ function DefaultForms() {
                                     );
                                 })}
                             </List>
-                            <Box style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '20px'}}>
+                            <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '20px' }}>
                                 <Button variant='outlined' onClick={assignForm}>Add</Button>
-                                <Button variant='outlined' color='error' onClick={() => {setOpen(false)}}>Cancel</Button>
+                                <Button variant='outlined' color='error' onClick={() => { setOpen(false) }}>Cancel</Button>
                             </Box>
                         </Box>
                     </Modal>
