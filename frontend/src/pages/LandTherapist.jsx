@@ -24,15 +24,14 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Grid from '@mui/material/Grid';
-import { FixedSizeList } from 'react-window';
 import { useNavigate } from 'react-router'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import logo from '../logo.png'
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 
 import $ from "jquery";
+import DisplayStudentTherapist from "./DisplayStudentTherapist";
 window.jQuery = $;
 window.$ = $;
 
@@ -199,7 +198,7 @@ const SaveForm = async (a) => {
 	})
 
 	if (serverRes.status === 200) {
-		const serverResJson = await serverRes.json();
+		// const serverResJson = await serverRes.json();
 		window.alert("From Saved")
 		window.location.reload(false)
 	}
@@ -330,23 +329,13 @@ export default function LandTherapy() {
 
 	const [displayThis, setDisplayThis] = React.useState('Profile')
 	const [formsArr, setFormsArr] = React.useState(['Form 1', 'Form 2', 'Form 3', 'Form 4', 'Form 5', 'Form 6'])
+	const [searchStudent, setsearchStudent] = React.useState("");
 
-	function renderRow(props) {
-		const { index, style } = props;
+	function changeStudentSearch(event) {
+        setsearchStudent(event.target.value);
+    }
 
-		return (
-			<ListItem style={{ ...style, padding: '25px 20px' }} key={index} component="div" disablePadding>
-				<Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%' }}>
-					<Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-						<ListItemText primary={myStudents[index].c_fname + " " + myStudents[index].c_lname} />
-						<Button variant="outlined" onClick={() => navigate(`/ProfilePage/${myStudents[index].student_Id}`)}>Profile</Button>
-						<Button variant="outlined" onClick={() => navigate(`/StagesPage/${myStudents[index].student_Id}`)}>Manage</Button>
-					</Box>
-					<Divider style={{ margin: '5px 0' }} />
-				</Box>
-			</ListItem>
-		);
-	}
+	
 	return (
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
@@ -364,7 +353,7 @@ export default function LandTherapy() {
 					>
 						<MenuIcon />
 					</IconButton>
-					<img href="/" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
+					<img href="/" alt="Kidsens" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
 					<Typography variant="h6" noWrap component="div">
 						{displayThis}
 					</Typography>
@@ -495,7 +484,7 @@ export default function LandTherapy() {
 						<Typography align='center' margin={3} variant='h3'>Welcome,{therapist ? therapist.fname + " " + therapist.lname : null}</Typography>
 
 						<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-							{therapist ? <img src={therapist.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
+							{therapist ? <img alt="Profile" src={therapist.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
 							<TextField
 								style={{ width: "30%", margin: "10px auto" }}
 								variant="outlined"
@@ -557,33 +546,15 @@ export default function LandTherapy() {
 								}}
 							></TextField>
 							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3", fontSize: "15px" }}>Identification</Typography>
-							<iframe src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
-							</iframe>
+							<iframe title={therapist.Identity} src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }} />
 							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Certification</Typography>
-							<iframe src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
-							</iframe>
+							<iframe title={therapist.Certification} src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}/>
 							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Resume</Typography>
-							<iframe src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
-							</iframe>
+							<iframe title={therapist.Resume} src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}/>
 						</div>
 					</div>}
 
-					{displayThis === 'My Students' && <div>
-						<Typography align='center' margin={1} variant='h4'>All the students registered under you</Typography>
-						<Box
-							sx={{ padding: '10px', width: '70%', height: 520, bgcolor: 'background.paper', margin: 'auto', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
-						>
-							<FixedSizeList
-								height={500}
-								itemSize={46}
-								itemCount={myStudents.length}
-								overscanCount={5}
-							>
-								{renderRow}
-							</FixedSizeList>
-						</Box>
-
-					</div>}
+					{displayThis === 'My Students' && <DisplayStudentTherapist arr={myStudents} search={searchStudent} filter={searchStudent} SearchFunc={changeStudentSearch} />}
 
 					{displayThis === 'Create a new form' && <div style={{ padding: '20px' }}>
 						<FormBuilder />
