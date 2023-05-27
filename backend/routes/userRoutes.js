@@ -676,6 +676,12 @@ router.use("/add-map", protectTherapistAdmin, async (req, res) => {
     try {
         const { id, stage_name, assess_name, forms } = req.body
         const db_query = util.promisify(db.query).bind(db);
+        let query = `select count(stage_name) as num from screening where student_id='${id}' and stage_name='${stage_name}' and end_date is not null`;
+        let result = await db_query(query);
+        if (result[0]["num"] != 0) {
+            query = `update screening set end_date=NULL where student_id='${id}' and stage_name='${stage_name}'`;
+            await db_query(query);
+        }
         for (let i = 0; i < forms.length; i++) {
             let query = `insert into AssessFormMap values ('${id}','${stage_name}','${assess_name}','${forms[i]}')`
             await db_query(query);
@@ -772,14 +778,13 @@ router.use("/get-Scores", async (req, res) => {
 
 router.use("/delete-map", protectTherapistAdmin, async (req, res) => {
     try {
-        const { id, stage_name, assess_name, form_id } = req.body
+        const { id, stage_name, assess_name, form_id } = req.body;
         let query = `delete from AssessFormMap where student_id='${id}' and stage='${stage_name}' and assessment='${assess_name}' and FORM_ID='${form_id}'`;
         db.query(query, (err, result) => {
             return res.sendStatus(200);
         })
     }
     catch (err) {
-
         res.sendStatus(500)
     }
 })
