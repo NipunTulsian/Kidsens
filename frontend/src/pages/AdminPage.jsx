@@ -121,12 +121,38 @@ const options = {
                 value: '0',
                 style: 'border: 3px solid red'
             },
+            Category: {
+                label: 'Category',
+                options: {
+                    "speech": "speech",
+                    "motor": "motor",
+                    "social": "social",
+                    "cognitive": "cognitive",
+                    "emotional": "emotional",
+                    "sensory": "sensory",
+                    "behaviour": "behaviour"
+                },
+                style: 'border: 3px solid red'
+            }
         },
         date: {
             Marks: {
                 label: 'Marks',
                 type: 'number',
                 value: '0',
+                style: 'border: 3px solid red'
+            },
+            Category: {
+                label: 'Category',
+                options: {
+                    "speech": "speech",
+                    "motor": "motor",
+                    "social": "social",
+                    "cognitive": "cognitive",
+                    "emotional": "emotional",
+                    "sensory": "sensory",
+                    "behaviour": "behaviour"
+                },
                 style: 'border: 3px solid red'
             }
         },
@@ -136,6 +162,19 @@ const options = {
                 type: 'number',
                 value: '0',
                 style: 'border: 3px solid red'
+            },
+            Category: {
+                label: 'Category',
+                options: {
+                    "speech": "speech",
+                    "motor": "motor",
+                    "social": "social",
+                    "cognitive": "cognitive",
+                    "emotional": "emotional",
+                    "sensory": "sensory",
+                    "behaviour": "behaviour"
+                },
+                style: 'border: 3px solid red'
             }
         },
 
@@ -144,6 +183,19 @@ const options = {
                 label: 'Marks',
                 type: 'number',
                 value: '0',
+                style: 'border: 3px solid red'
+            },
+            Category: {
+                label: 'Category',
+                options: {
+                    "speech": "speech",
+                    "motor": "motor",
+                    "social": "social",
+                    "cognitive": "cognitive",
+                    "emotional": "emotional",
+                    "sensory": "sensory",
+                    "behaviour": "behaviour"
+                },
                 style: 'border: 3px solid red'
             }
         },
@@ -155,6 +207,19 @@ options.typeUserAttrs['checkbox-group'] = {
         type: 'number',
         value: '0',
         style: 'border: 3px solid red'
+    },
+    Category: {
+        label: 'Category',
+        options: {
+            "speech": "speech",
+            "motor": "motor",
+            "social": "social",
+            "cognitive": "cognitive",
+            "emotional": "emotional",
+            "sensory": "sensory",
+            "behaviour": "behaviour"
+        },
+        style: 'border: 3px solid red'
     }
 }
 options.typeUserAttrs['radio-group'] = {
@@ -162,6 +227,19 @@ options.typeUserAttrs['radio-group'] = {
         label: 'Marks',
         type: 'number',
         value: '0',
+        style: 'border: 3px solid red'
+    },
+    Category: {
+        label: 'Category',
+        options: {
+            "speech": "speech",
+            "motor": "motor",
+            "social": "social",
+            "cognitive": "cognitive",
+            "emotional": "emotional",
+            "sensory": "sensory",
+            "behaviour": "behaviour"
+        },
         style: 'border: 3px solid red'
     }
 }

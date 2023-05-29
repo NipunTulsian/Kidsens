@@ -502,15 +502,16 @@ router.use("/add-default-map", protectTherapistAdmin, async (req, res) => {
 })
 const destructure_form_obj = async (form_obj, form_id) => {
     const query = util.promisify(db.query).bind(db);
-    var que_query = "", name = "", type = "", ques_id = 0, opt_name = "", opt_query = "";
+    var que_query = "", name = "", type = "", ques_id = 0, opt_name = "", opt_query = "",category="";
     for (let i = 0; i < form_obj.length; i++) {
         type = form_obj[i]["type"];
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             name = form_obj[i]["label"];
             Max_Marks = form_obj[i]["Marks"];
+            category=form_obj[i]["Category"];
             ques_id = Date.now();
             var options = form_obj[i]["values"];
-            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks})`
+            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`
             await query(que_query);
             for (let j = 0; j < options.length; j++) {
                 opt_name = options[j]["label"];
@@ -522,8 +523,9 @@ const destructure_form_obj = async (form_obj, form_id) => {
         else if (type === "text") {
             name = form_obj[i]["label"];
             Max_Marks = form_obj[i]["Marks"];
+            category=form_obj[i]["Category"];
             ques_id = Date.now();
-            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks})`;
+            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
             opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${form_obj[i]["value"]}',NULL)`;
             await query(opt_query);
@@ -531,15 +533,17 @@ const destructure_form_obj = async (form_obj, form_id) => {
         else if (type === "file") {
             name = form_obj[i]["label"];
             Max_Marks = form_obj[i]["Marks"];
+            category=form_obj[i]["Category"];
             ques_id = Date.now();
-            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks})`;
+            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
         }
         else if (type === "date") {
             name = form_obj[i]["label"];
             ques_id = Date.now();
             Max_Marks = form_obj[i]["Marks"];
-            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks})`;
+            category=form_obj[i]["Category"];
+            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
         }
     }

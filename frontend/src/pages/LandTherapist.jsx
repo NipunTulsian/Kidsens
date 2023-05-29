@@ -139,12 +139,38 @@ const options = {
 				value: '0',
 				style: 'border: 3px solid red'
 			},
+			Category: {
+				label: 'Category',
+				options: {
+					"speech": "speech",
+					"motor": "motor",
+					"social": "social",
+					"cognitive": "cognitive",
+					"emotional": "emotional",
+					"sensory": "sensory",
+					"behaviour": "behaviour"
+				},
+				style: 'border: 3px solid red'
+			}
 		},
 		date: {
 			Marks: {
 				label: 'Marks',
 				type: 'number',
 				value: '0',
+				style: 'border: 3px solid red'
+			},
+			Category: {
+				label: 'Category',
+				options: {
+					"speech": "speech",
+					"motor": "motor",
+					"social": "social",
+					"cognitive": "cognitive",
+					"emotional": "emotional",
+					"sensory": "sensory",
+					"behaviour": "behaviour"
+				},
 				style: 'border: 3px solid red'
 			}
 		},
@@ -154,6 +180,19 @@ const options = {
 				type: 'number',
 				value: '0',
 				style: 'border: 3px solid red'
+			},
+			Category: {
+				label: 'Category',
+				options: {
+					"speech": "speech",
+					"motor": "motor",
+					"social": "social",
+					"cognitive": "cognitive",
+					"emotional": "emotional",
+					"sensory": "sensory",
+					"behaviour": "behaviour"
+				},
+				style: 'border: 3px solid red'
 			}
 		},
 
@@ -162,6 +201,19 @@ const options = {
 				label: 'Marks',
 				type: 'number',
 				value: '0',
+				style: 'border: 3px solid red'
+			},
+			Category: {
+				label: 'Category',
+				options: {
+					"speech": "speech",
+					"motor": "motor",
+					"social": "social",
+					"cognitive": "cognitive",
+					"emotional": "emotional",
+					"sensory": "sensory",
+					"behaviour": "behaviour"
+				},
 				style: 'border: 3px solid red'
 			}
 		},
@@ -173,6 +225,19 @@ options.typeUserAttrs['checkbox-group'] = {
 		type: 'number',
 		value: '0',
 		style: 'border: 3px solid red'
+	},
+	Category: {
+		label: 'Category',
+		options: {
+			"speech": "speech",
+			"motor": "motor",
+			"social": "social",
+			"cognitive": "cognitive",
+			"emotional": "emotional",
+			"sensory": "sensory",
+			"behaviour": "behaviour"
+		},
+		style: 'border: 3px solid red'
 	}
 }
 options.typeUserAttrs['radio-group'] = {
@@ -180,6 +245,19 @@ options.typeUserAttrs['radio-group'] = {
 		label: 'Marks',
 		type: 'number',
 		value: '0',
+		style: 'border: 3px solid red'
+	},
+	Category: {
+		label: 'Category',
+		options: {
+			"speech": "speech",
+			"motor": "motor",
+			"social": "social",
+			"cognitive": "cognitive",
+			"emotional": "emotional",
+			"sensory": "sensory",
+			"behaviour": "behaviour"
+		},
 		style: 'border: 3px solid red'
 	}
 }
@@ -332,10 +410,10 @@ export default function LandTherapy() {
 	const [searchStudent, setsearchStudent] = React.useState("");
 
 	function changeStudentSearch(event) {
-        setsearchStudent(event.target.value);
-    }
+		setsearchStudent(event.target.value);
+	}
 
-	
+
 	return (
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
@@ -548,9 +626,9 @@ export default function LandTherapy() {
 							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3", fontSize: "15px" }}>Identification</Typography>
 							<iframe title={therapist.Identity} src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }} />
 							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Certification</Typography>
-							<iframe title={therapist.Certification} src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}/>
+							<iframe title={therapist.Certification} src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }} />
 							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Resume</Typography>
-							<iframe title={therapist.Resume} src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}/>
+							<iframe title={therapist.Resume} src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }} />
 						</div>
 					</div>}
 
