@@ -780,8 +780,52 @@ router.use("/delete-map", protectTherapistAdmin, async (req, res) => {
     try {
         const { id, stage_name, assess_name, form_id } = req.body;
         let query = `delete from AssessFormMap where student_id='${id}' and stage='${stage_name}' and assessment='${assess_name}' and FORM_ID='${form_id}'`;
-        db.query(query, (err, result) => {
-            return res.sendStatus(200);
+        db.query(query, (err) => {
+            query = `select p_email from parent where student_Id='${id}'`;
+            db.query(query, (err, result) => {
+                query = `select count(stage_name) as num from screening where student_id='${id}' and stage_name='${stage_name}' and end_date is null`;
+                db.query(query, (err, result2) => {
+                    if (result2[0]["num"] != 0) {
+                        query = `select count(FORM_ID) as num from AssessFormMap where stage='${stage_name}' and student_Id='${id}'`;
+                        db.query(query, (err, result3) => {
+                            let total_ass = result3[0]["num"];
+                            query = `select count(FORM_ID) as num from student_responses where student_Id='${result[0]["p_email"]}' and FORM_ID in (select FORM_ID from AssessFormMap where stage='${stage_name}' and student_Id='${id}')`
+                            db.query(query, (err, result4) => {
+                                let total_com = result4[0]["num"];
+                                if (total_ass === total_com) {
+                                    let date_curr = new Date();
+                                    let year = '' + date_curr.getFullYear()
+                                    let month = '' + (date_curr.getMonth() + 1)
+                                    let date = '' + date_curr.getDate();
+                                    let hours = '' + (date_curr.getHours() + 1);
+                                    let minutes = '' + (date_curr.getMinutes() + 1);
+                                    let seconds = '' + (date_curr.getSeconds() + 1)
+
+                                    if (month.length === 1) {
+                                        month = '0' + month;
+                                    }
+                                    date_curr = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+
+                                    query = `update screening set end_date='${date_curr}' where student_id='${id}' and stage_name='${stage_name}'`;
+                                    db.query(query, (err, result4) => {
+                                        return res.status(200).json({
+                                            message: "done"
+                                        })
+                                    })
+                                }
+                                else {
+                                    return res.status(200).json({
+                                        message: "done"
+                                    })
+                                }
+                            })
+                        })
+                    }
+                    else {
+                        return res.sendStatus(200);
+                    }
+                })
+            })
         })
     }
     catch (err) {
@@ -825,11 +869,14 @@ router.use("/get-FormObjectStudent", protectParent, async (req, res) => {
                     let year = '' + date_curr.getFullYear()
                     let month = '' + (date_curr.getMonth() + 1)
                     let date = '' + date_curr.getDate();
+                    let hours = '' + (date_curr.getHours() + 1);
+                    let minutes = '' + (date_curr.getMinutes() + 1);
+                    let seconds = '' + (date_curr.getSeconds() + 1)
 
                     if (month.length === 1) {
                         month = '0' + month;
                     }
-                    date_curr = year + "-" + month + "-" + date;
+                    date_curr = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
                     query = `insert into screening (student_id,stage_name,start_date) values('${req.user}','${result[0]["stage"]}','${date_curr}')`;
                     db.query(query, (err, result3) => {
@@ -871,12 +918,14 @@ router.use("/store-FormObject", protectParent, async (req, res) => {
                             let year = '' + date_curr.getFullYear()
                             let month = '' + (date_curr.getMonth() + 1)
                             let date = '' + date_curr.getDate();
+                            let hours = '' + (date_curr.getHours() + 1);
+                            let minutes = '' + (date_curr.getMinutes() + 1);
+                            let seconds = '' + (date_curr.getSeconds() + 1)
 
                             if (month.length === 1) {
                                 month = '0' + month;
                             }
-                            date_curr = year + "-" + month + "-" + date;
-
+                            date_curr = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
                             query = `update screening set end_date='${date_curr}' where student_id='${req.user}' and stage_name='${stage}'`;
                             db.query(query, (err, result4) => {
                                 return res.status(200).json({
