@@ -679,7 +679,7 @@ router.use("/add-map", protectTherapistAdmin, async (req, res) => {
         let query = `select count(stage_name) as num from screening where student_id='${id}' and stage_name='${stage_name}' and end_date is not null`;
         let result = await db_query(query);
         if (result[0]["num"] != 0) {
-            query = `update screening set end_date=NULL where student_id='${id}' and stage_name='${stage_name}'`;
+            query = `update screening set end_date=NULL,screening_indicator='${1}' where student_id='${id}' and stage_name='${stage_name}'`;
             await db_query(query);
         }
         for (let i = 0; i < forms.length; i++) {
@@ -806,7 +806,7 @@ router.use("/delete-map", protectTherapistAdmin, async (req, res) => {
                                     }
                                     date_curr = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
-                                    query = `update screening set end_date='${date_curr}' where student_id='${id}' and stage_name='${stage_name}'`;
+                                    query = `update screening set end_date='${date_curr}',screening_indicator='${3}' where student_id='${id}' and stage_name='${stage_name}'`;
                                     db.query(query, (err, result4) => {
                                         return res.status(200).json({
                                             message: "done"
@@ -876,8 +876,14 @@ router.use("/get-FormObjectStudent", protectParent, async (req, res) => {
                     if (month.length === 1) {
                         month = '0' + month;
                     }
+                    if (hours.length === 1) {
+                        hours = '0' + hours;
+                    }
+                    if (minutes.length === 1) {
+                        minutes = '0' + minutes;
+                    }
                     date_curr = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
-
+                    console.log(date_curr);
                     query = `insert into screening (student_id,stage_name,start_date) values('${req.user}','${result[0]["stage"]}','${date_curr}')`;
                     db.query(query, (err, result3) => {
                         query = `select FORM_OBJ from forms_obj where FORM_ID='${id}'`;
@@ -926,7 +932,7 @@ router.use("/store-FormObject", protectParent, async (req, res) => {
                                 month = '0' + month;
                             }
                             date_curr = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
-                            query = `update screening set end_date='${date_curr}' where student_id='${req.user}' and stage_name='${stage}'`;
+                            query = `update screening set end_date='${date_curr}', screening_indicator='${3}' where student_id='${req.user}' and stage_name='${stage}'`;
                             db.query(query, (err, result4) => {
                                 return res.status(200).json({
                                     message: "done"
