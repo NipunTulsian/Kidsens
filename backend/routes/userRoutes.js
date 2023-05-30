@@ -500,15 +500,16 @@ router.use("/add-default-map", protectTherapistAdmin, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 const destructure_form_obj = async (form_obj, form_id) => {
     const query = util.promisify(db.query).bind(db);
-    var que_query = "", name = "", type = "", ques_id = 0, opt_name = "", opt_query = "",category="";
+    var que_query = "", name = "", type = "", ques_id = 0, opt_name = "", opt_query = "", category = "";
     for (let i = 0; i < form_obj.length; i++) {
         type = form_obj[i]["type"];
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             name = form_obj[i]["label"];
             Max_Marks = form_obj[i]["Marks"];
-            category=form_obj[i]["Category"];
+            category = form_obj[i]["Category"];
             ques_id = Date.now();
             var options = form_obj[i]["values"];
             que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`
@@ -523,7 +524,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
         else if (type === "text") {
             name = form_obj[i]["label"];
             Max_Marks = form_obj[i]["Marks"];
-            category=form_obj[i]["Category"];
+            category = form_obj[i]["Category"];
             ques_id = Date.now();
             que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
@@ -533,7 +534,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
         else if (type === "file") {
             name = form_obj[i]["label"];
             Max_Marks = form_obj[i]["Marks"];
-            category=form_obj[i]["Category"];
+            category = form_obj[i]["Category"];
             ques_id = Date.now();
             que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
@@ -542,12 +543,14 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = form_obj[i]["label"];
             ques_id = Date.now();
             Max_Marks = form_obj[i]["Marks"];
-            category=form_obj[i]["Category"];
+            category = form_obj[i]["Category"];
             que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
         }
     }
 }
+
+
 router.use("/delete-assessment", protectTherapistAdmin, async (req, res) => {
     try {
         const { id, stage_name, assess_name } = req.body
@@ -914,6 +917,7 @@ router.use("/store-FormObject", protectParent, async (req, res) => {
         student = jwt.verify(student, "abc123").id;
         let query = `INSERT INTO student_responses value('${student}','${id}','${form}')`;
         db.query(query, (err, result0) => {
+            destructure_form_obj_answers(JSON.parse(form), id, req.user);
             query = `select stage from AssessFormMap where FORM_ID='${id}' and student_Id='${req.user}'`;
             db.query(query, (err, result) => {
                 let stage = result[0]["stage"];
@@ -958,6 +962,39 @@ router.use("/store-FormObject", protectParent, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
+const destructure_form_obj_answers = async (form_obj, form_id, student_id) => {
+    const query = util.promisify(db.query).bind(db);
+    var que_query = "", type = "", opt_query = "";
+    que_query = `select QUESTION_ID from questions where FORM_ID='${form_id}'`;
+    var result = await query(que_query);
+    let index = 0;
+    for (let i = 0; i < form_obj.length; i++) {
+        type = form_obj[i]["type"];
+        if (type === "checkbox-group" || type === "radio-group" || type === "select") {
+            var options = form_obj[i]["userData"];
+            for (let j = 0; j < options.length; j++) {
+                opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${options[j]}')`;
+                await query(opt_query);
+                index++;
+            }
+
+        }
+        else if (type === "text") {
+            opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${form_obj[i]["userData"][0]}')`;
+            await query(opt_query);
+            index++;
+        }
+        // else if (type === "file") {
+        //     que_query = `Insert into student_answers Values('${result[i]["QUESTION_ID"]}','${student_id}','${form_obj[i]["value"]}')`;
+        //     await query(que_query);
+        // }
+        // else if (type === "date") {
+        //     que_query = `Insert into student_answers Values('${result[i]["QUESTION_ID"]}','${student_id}','${name}','${type}',${Max_Marks},'${category}')`;
+        //     await query(que_query);
+        // }
+    }
+}
 
 router.use("/delete-default-map", protectTherapistAdmin, async (req, res) => {
     try {

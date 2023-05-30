@@ -27,6 +27,7 @@ import {
 import LandStudent from './pages/LandStudent';
 import LandTherapy from './pages/LandTherapist';
 import BasicPDFDocument from './components/makePDF';
+import ViewPDF from './components/viewPDF';
 
 const router = createBrowserRouter([
 	{
@@ -110,8 +111,12 @@ const router = createBrowserRouter([
     element: <FormsPageStudentView />
   },
   {
-    path: '/viewPDF',
+    path: '/makePDF',
     element: <BasicPDFDocument />
+  },
+  {
+    path: '/viewPDF',
+    element: <ViewPDF />
   }
 ]);
 
