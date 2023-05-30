@@ -26,7 +26,6 @@ import {
 }  from "react-router-dom"
 import LandStudent from './pages/LandStudent';
 import LandTherapy from './pages/LandTherapist';
-import BasicPDFDocument from './components/makePDF';
 import ViewPDF from './components/viewPDF';
 
 const router = createBrowserRouter([
@@ -109,10 +108,6 @@ const router = createBrowserRouter([
   {
     path: "/FormsPageStudentView/:id",
     element: <FormsPageStudentView />
-  },
-  {
-    path: '/makePDF',
-    element: <BasicPDFDocument />
   },
   {
     path: '/viewPDF',
