@@ -117,7 +117,13 @@ export default function ViewPDF() {
                                                 SPEECH
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }} />
+                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
+                                                    <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                            85%
+                                                        </Text>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -125,7 +131,13 @@ export default function ViewPDF() {
                                                 MOTOR
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }} />
+                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }} >
+                                                    <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                            85%
+                                                        </Text>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -133,7 +145,13 @@ export default function ViewPDF() {
                                                 SOCIAL
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }} />
+                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }} >
+                                                    <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                            85%
+                                                        </Text>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -141,7 +159,13 @@ export default function ViewPDF() {
                                                 COGNITIVE
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }} />
+                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }} >
+                                                    <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                            85%
+                                                        </Text>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -149,7 +173,13 @@ export default function ViewPDF() {
                                                 EMOTIONAL
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }} />
+                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }} >
+                                                    <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                            85%
+                                                        </Text>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -157,7 +187,13 @@ export default function ViewPDF() {
                                                 SENSORY
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }} />
+                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }} >
+                                                    <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                            85%
+                                                        </Text>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -165,7 +201,13 @@ export default function ViewPDF() {
                                                 BEHAVIOUR
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }} />
+                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }} >
+                                                    <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                            85%
+                                                        </Text>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -916,7 +958,7 @@ export default function ViewPDF() {
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "100%", paddingRight: "20px" }}>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    The total scores obtained by Aaditri on Developmental Screening Checklist is 23, which makes the child fall in the range of<Text  style={{ fontSize: "12px",fontWeight:"bold",opacity:"1"}}> Moderate Developmental Delay.</Text>
+                                    The total scores obtained by Aaditri on Developmental Screening Checklist is 23, which makes the child fall in the range of<Text style={{ fontSize: "12px", fontWeight: "bold", opacity: "1" }}> Moderate Developmental Delay.</Text>
                                 </Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                     RECOMMENDATIONS
