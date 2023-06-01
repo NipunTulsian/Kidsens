@@ -65,7 +65,6 @@ CREATE TABLE `ANSWERS` (
 
 LOCK TABLES `ANSWERS` WRITE;
 /*!40000 ALTER TABLE `ANSWERS` DISABLE KEYS */;
-INSERT INTO `ANSWERS` VALUES ('1685186260532','1685186260530','Option 1',0),('1685186260532','1685186260530','Option 2',1),('1685186260532','1685186260530','Option 3',0),('1685186276673','1685186276671','Option 1',0),('1685186276673','1685186276671','Option 2',1),('1685186276673','1685186276671','Option 3',0),('1685186295914','1685186295913','Option 1',0),('1685186295914','1685186295913','Option 2',0),('1685186295914','1685186295913','Option 3',1),('1685186311750','1685186311747','Option 1',0),('1685186311750','1685186311747','Option 2',0),('1685186311750','1685186311747','Option 3',1),('1685335472145','1685335472139','Option 1',0),('1685335472145','1685335472139','Option 2',1),('1685335472145','1685335472139','Option 3',0);
 /*!40000 ALTER TABLE `ANSWERS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +92,6 @@ CREATE TABLE `AssessFormMap` (
 
 LOCK TABLES `AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `AssessFormMap` DISABLE KEYS */;
-INSERT INTO `AssessFormMap` VALUES ('1684899880199','PreConsult','precon1','1685186260530'),('1684899880199','Consult','con1','1685186276671'),('1684899880199','Assessment','assess1','1685186295913'),('1684899880199','Therapy','ther1','1685186311747');
 /*!40000 ALTER TABLE `AssessFormMap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +116,6 @@ CREATE TABLE `assessments` (
 
 LOCK TABLES `assessments` WRITE;
 /*!40000 ALTER TABLE `assessments` DISABLE KEYS */;
-INSERT INTO `assessments` VALUES ('1684899880199','Assessment','assess1'),('1684899880199','Consult','con1'),('1684899880199','PreConsult','precon1'),('1684899880199','Therapy','ther1');
 /*!40000 ALTER TABLE `assessments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +140,6 @@ CREATE TABLE `default_AssessFormMap` (
 
 LOCK TABLES `default_AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `default_AssessFormMap` DISABLE KEYS */;
-INSERT INTO `default_AssessFormMap` VALUES ('abc@gmail.com','PreConsult','precon1','1685186260530'),('abc@gmail.com','Consult','con1','1685186276671'),('abc@gmail.com','Assessment','assess1','1685186295913'),('abc@gmail.com','Therapy','ther1','1685186311747'),('abc@gmail.com','PreConsult','precon1','1685335472139');
 /*!40000 ALTER TABLE `default_AssessFormMap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +168,6 @@ CREATE TABLE `default_assessments` (
 
 LOCK TABLES `default_assessments` WRITE;
 /*!40000 ALTER TABLE `default_assessments` DISABLE KEYS */;
-INSERT INTO `default_assessments` VALUES ('abc@gmail.com','PreConsult','precon1',20,10,'mild','sev','mod'),('abc@gmail.com','Consult','con1',20,10,'mild','sev','mod'),('abc@gmail.com','Assessment','assess1',20,10,'mild','sev','mod'),('abc@gmail.com','Therapy','ther1',20,10,'mild','sev','mod');
 /*!40000 ALTER TABLE `default_assessments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +192,6 @@ CREATE TABLE `default_stages` (
 
 LOCK TABLES `default_stages` WRITE;
 /*!40000 ALTER TABLE `default_stages` DISABLE KEYS */;
-INSERT INTO `default_stages` VALUES ('abc@gmail.com','Assessment',3),('abc@gmail.com','Consult',2),('abc@gmail.com','PreConsult',1),('abc@gmail.com','Therapy',4);
 /*!40000 ALTER TABLE `default_stages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +215,6 @@ CREATE TABLE `forms` (
 
 LOCK TABLES `forms` WRITE;
 /*!40000 ALTER TABLE `forms` DISABLE KEYS */;
-INSERT INTO `forms` VALUES ('1685186260530','precon1'),('1685186276671','con1'),('1685186295913','assess1'),('1685186311747','ther1'),('1685335472139','check');
 /*!40000 ALTER TABLE `forms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +240,6 @@ CREATE TABLE `forms_obj` (
 
 LOCK TABLES `forms_obj` WRITE;
 /*!40000 ALTER TABLE `forms_obj` DISABLE KEYS */;
-INSERT INTO `forms_obj` VALUES ('1685186260530','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"precon1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685186252590-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":true},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]}]','admin','abc@gmail.com'),('1685186276671','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"con1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685186272799-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":true},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]}]','admin','abc@gmail.com'),('1685186295913','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"assess1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685186280523-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":true}]}]','admin','abc@gmail.com'),('1685186311747','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"ther1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685186308315-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":true}]}]','admin','abc@gmail.com'),('1685335472139','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"check\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685335467466-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":true},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]}]','admin','abc@gmail.com');
 /*!40000 ALTER TABLE `forms_obj` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +306,6 @@ CREATE TABLE `parent` (
 
 LOCK TABLES `parent` WRITE;
 /*!40000 ALTER TABLE `parent` DISABLE KEYS */;
-INSERT INTO `parent` VALUES ('Nipun100','$2a$10$J6R0.rhIP4Y7XE4dRzFsHO5cV1.Rdm34eWUkwCcT2won/iDmBRv7C','Ashish','Tulsian','nipun.tulsian@students.iiit.ac.in','8780583781','undefined','Nipun','Tulsian',16,'2003-06-13','../uploads/Nipun100/image-1684900127084.kidsens_photo.jpeg','ADHD','../uploads/Nipun100/identification-1684900127092.NipunTulsianResume (1).pdf','../uploads/Nipun100/reports-1684900127093.coorg_hotel.pdf','M','','abc@gmail.com',NULL,'1684899880199');
 /*!40000 ALTER TABLE `parent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,6 +322,7 @@ CREATE TABLE `questions` (
   `Question` varchar(2000) DEFAULT NULL,
   `QUESTION_TYPE` varchar(100) DEFAULT NULL,
   `max_marks` int DEFAULT NULL,
+  `Category` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`QUESTION_ID`),
   KEY `FORM_ID` (`FORM_ID`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`FORM_ID`) REFERENCES `forms` (`FORM_ID`)
@@ -343,8 +335,31 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES ('1685186260532','1685186260530','Radio Group','radio-group',0),('1685186276673','1685186276671','Radio Group','radio-group',0),('1685186295914','1685186295913','Radio Group','radio-group',0),('1685186311750','1685186311747','Radio Group','radio-group',0),('1685335472145','1685335472139','Radio Group','radio-group',0);
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `report_details`
+--
+
+DROP TABLE IF EXISTS `report_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `report_details` (
+  `type` varchar(200) DEFAULT NULL,
+  `lower` int DEFAULT NULL,
+  `upper` int DEFAULT NULL,
+  `message` longtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `report_details`
+--
+
+LOCK TABLES `report_details` WRITE;
+/*!40000 ALTER TABLE `report_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `report_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -365,7 +380,7 @@ CREATE TABLE `screening` (
   `screening_status` varchar(200) DEFAULT 'REGULAR',
   `comments` longtext,
   PRIMARY KEY (`screening_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,8 +389,30 @@ CREATE TABLE `screening` (
 
 LOCK TABLES `screening` WRITE;
 /*!40000 ALTER TABLE `screening` DISABLE KEYS */;
-INSERT INTO `screening` VALUES (1,'1684899880199','Assessment','2023-05-27 00:00:00','2023-05-27 00:00:00','ONLINE',1,'REGULAR',NULL),(2,'1684899880199','Consult','2023-05-27 00:00:00','2023-05-27 00:00:00','ONLINE',1,'REGULAR',NULL),(3,'1684899880199','PreConsult','2023-05-27 00:00:00','2023-05-29 00:00:00','ONLINE',1,'REGULAR',NULL),(4,'1684899880199','Therapy','2023-05-27 00:00:00','2023-05-27 00:00:00','ONLINE',1,'REGULAR',NULL);
 /*!40000 ALTER TABLE `screening` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student_answers`
+--
+
+DROP TABLE IF EXISTS `student_answers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `student_answers` (
+  `QUESTION_ID` varchar(200) DEFAULT NULL,
+  `student_id` varchar(200) DEFAULT NULL,
+  `answer` varchar(2000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student_answers`
+--
+
+LOCK TABLES `student_answers` WRITE;
+/*!40000 ALTER TABLE `student_answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `student_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -398,7 +435,6 @@ CREATE TABLE `student_responses` (
 
 LOCK TABLES `student_responses` WRITE;
 /*!40000 ALTER TABLE `student_responses` DISABLE KEYS */;
-INSERT INTO `student_responses` VALUES ('nipun.tulsian@students.iiit.ac.in','1685186295913','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"assess1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685186280523-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}],\"userData\":[\"option-2\"]}]'),('nipun.tulsian@students.iiit.ac.in','1685186276671','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"con1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685186272799-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}],\"userData\":[\"option-3\"]}]'),('nipun.tulsian@students.iiit.ac.in','1685186260530','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"precon1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685186252590-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}],\"userData\":[\"option-1\"]}]'),('nipun.tulsian@students.iiit.ac.in','1685186311747','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"ther1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1685186308315-0\",\"other\":false,\"Marks\":0,\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}],\"userData\":[\"option-2\"]}]');
 /*!40000 ALTER TABLE `student_responses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -434,7 +470,6 @@ CREATE TABLE `therapist` (
 
 LOCK TABLES `therapist` WRITE;
 /*!40000 ALTER TABLE `therapist` DISABLE KEYS */;
-INSERT INTO `therapist` VALUES ('NipunTherapist','$2a$10$Wz00d.MMATXubSuApJdIku7L4jlfJYHcGUEe69qGTf54PLwj6L/6K','2021101055','Nipun','Tulsian','../uploads/NipunTherapist/image-1685204905057.kidsens_photo.jpeg','Neuro','8780583781','nipun.tulsian.nt@gmail.com','citylight','../uploads/NipunTherapist/Identity-1685204905060.Nipun_Resume (1).pdf','../uploads/NipunTherapist/Certification-1685204905060.Science-2 Quiz1 with Answers.pdf','../uploads/NipunTherapist/Resume-1685204905062.Nipun_Resume (1).pdf','abc@gmail.com');
 /*!40000 ALTER TABLE `therapist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -447,4 +482,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-29 11:40:18
+-- Dump completed on 2023-06-01 18:05:32
