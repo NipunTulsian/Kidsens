@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import land from "./landing.png"
 import logo from "./logo.png"
 import tick from "./tick.png"
@@ -14,6 +14,10 @@ import {
     Font,
     Svg,
 } from "@react-pdf/renderer";
+import { useEffect } from 'react'
+
+const urlParams = new URLSearchParams(window.location.search);
+const form_id = urlParams.get("id");
 
 Font.register({
     family: "Roboto",
@@ -67,6 +71,119 @@ const styles = StyleSheet.create({
 });
 
 export default function ViewPDF() {
+    const [student, setStudent] = React.useState({
+        c_fname: "",
+        c_lname: "",
+        c_DOB: "",
+        gender: "",
+        p_fname: "",
+        p_lname: "",
+        roll_num: ""
+    })
+
+    const [land_msg, setland_msg] = useState("");
+    const [speech_msg, setspeech_msg] = useState("");
+    const [total_speech, set_total_speech] = useState(0);
+    const [total_speech_cor, set_total_speech_cor] = useState(0);
+
+    const [motor_msg, setmotor_msg] = useState("");
+    const [total_motor, set_total_motor] = useState(0);
+    const [total_motor_cor, set_total_motor_cor] = useState(0);
+
+    const [social_msg, setsocial_msg] = useState("");
+    const [total_social, set_total_social] = useState(0);
+    const [total_social_cor, set_total_social_cor] = useState(0);
+
+    const [cognition_msg, setcognition_msg] = useState("");
+    const [total_cognition, set_total_cognition] = useState(0);
+    const [total_cognition_cor, set_total_cognition_cor] = useState(0);
+
+    const [emotional_msg, setemotional_msg] = useState("");
+    const [total_emotional, set_total_emotional] = useState(0);
+    const [total_emotional_cor, set_total_emotional_cor] = useState(0);
+
+    const [sensory_msg, setsensory_msg] = useState("");
+    const [total_sensory, set_total_sensory] = useState(0);
+    const [total_sensory_cor, set_total_sensory_cor] = useState(0);
+
+    const [behavior_msg, setbehaviour_msg] = useState("");
+    const [total_behaviour, set_total_behaviour] = useState(5);
+    const [total_behaviour_cor, set_total_behaviour_cor] = useState(0);
+
+    const [lower, setlower] = useState(null);
+    const [upper, setupper] = useState(null);
+
+    const getDetails = async () => {
+        const serverRes = await fetch("http://localhost:8000/get-report-details", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                "authorization": "Bearer".concat(" ", localStorage.getItem("User")),
+            },
+            body: JSON.stringify({
+                id: form_id,
+            })
+        })
+        if (serverRes.status === 200) {
+            const serverResJson = await serverRes.json();
+            setStudent({
+                c_fname: serverResJson.student.c_fname,
+                c_lname: serverResJson.student.c_lname,
+                c_DOB: serverResJson.student.c_DOB,
+                gender: serverResJson.student.c_gender,
+                p_fname: serverResJson.student.p_fname,
+                p_lname: serverResJson.student.p_lname,
+                roll_num: serverResJson.student.c_ROLL_NUMBER
+            });
+            setlower(serverResJson.lower);
+            setupper(serverResJson.upper);
+            set_total_behaviour(serverResJson.total_behaviour);
+            set_total_behaviour_cor(serverResJson.total_behaviour_cor);
+            set_total_sensory(serverResJson.total_sensory);
+            set_total_sensory_cor(serverResJson.total_sensory_cor);
+            set_total_emotional(serverResJson.total_emotional);
+            set_total_emotional_cor(serverResJson.total_emotional_cor);
+            set_total_cognition(serverResJson.total_cognition);
+            set_total_cognition_cor(serverResJson.total_cognition_cor);
+            set_total_social(serverResJson.total_social);
+            set_total_social_cor(serverResJson.total_social_cor);
+            set_total_motor(serverResJson.total_motor);
+            set_total_motor_cor(serverResJson.total_motor_cor);
+            set_total_speech(serverResJson.total_speech);
+            set_total_speech_cor(serverResJson.total_speech_cor);
+
+            for (let i = 0; i < serverResJson.details.length; i++) {
+                if (serverResJson.details[i]["type"] === "general") {
+                    setland_msg(serverResJson.details[i]["message"]);
+                }
+                else if (serverResJson.details[i]["type"] === "speech") {
+                    setspeech_msg(serverResJson.details[i]["message"]);
+                }
+                else if (serverResJson.details[i]["type"] === "motor") {
+                    setmotor_msg(serverResJson.details[i]["message"]);
+                }
+                else if (serverResJson.details[i]["type"] === "social") {
+                    setsocial_msg(serverResJson.details[i]["message"]);
+                }
+                else if (serverResJson.details[i]["type"] === "cognitive") {
+                    setcognition_msg(serverResJson.details[i]["message"]);
+                }
+                else if (serverResJson.details[i]["type"] === "emotional") {
+                    setemotional_msg(serverResJson.details[i]["message"]);
+                }
+                else if (serverResJson.details[i]["type"] === "sensory") {
+                    setsensory_msg(serverResJson.details[i]["message"]);
+                }
+                else if (serverResJson.details[i]["type"] === "behaviour") {
+                    setbehaviour_msg(serverResJson.details[i]["message"]);
+                }
+            }
+            console.log()
+        }
+    }
+    useEffect(() => {
+        getDetails();
+    }, [])
     return (
         <PDFViewer style={styles.viewer}>
             <Document>
@@ -85,14 +202,12 @@ export default function ViewPDF() {
                         </div>
                         <div style={{ marginTop: "40px", paddingLeft: "60px" }}>
                             <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
-                                CHILD DEVELOPMENT (2-3 YEARS)
+                                CHILD DEVELOPMENT ({lower}-{upper} YEARS)
                             </Text>
                             <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "5px" }}></div>
                             <div style={{ display: "flex", flexDirection: "row" }}>
                                 <div style={{ width: "60%", paddingRight: "20px" }}>
-                                    <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                        For a child to develop normally they must attain physical milestones like sitting and walking. They must acquire the expression and the comprehension of language. They must be able to retain old knowledge and use it as the foundation for new knowledge. They must learn to relate effectively to the people and the environment around them. It is rare to find a task that relies solely on one skill which is why fi one area is lagging or dysfunctional, the entire process of development is compromised. When these areas of cognition or function are delayed, a child may be said to be experiencing a developmental delay.
-                                    </Text>
+                                    <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>{land_msg}</Text>
                                     <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                         REPORT
                                     </Text>
@@ -117,13 +232,13 @@ export default function ViewPDF() {
                                                 SPEECH
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
+                                                {total_speech !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor*100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            85%
+                                                            {Math.round(total_speech_cor*100 / total_speech)}%
                                                         </Text>
                                                     </div>
-                                                </div>
+                                                </div> : null}
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -131,13 +246,13 @@ export default function ViewPDF() {
                                                 MOTOR
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }} >
+                                                {total_motor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor*100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            85%
+                                                            {Math.round(total_motor_cor*100 / total_motor)}%
                                                         </Text>
                                                     </div>
-                                                </div>
+                                                </div> : null}
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -145,13 +260,13 @@ export default function ViewPDF() {
                                                 SOCIAL
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }} >
+                                                {total_social !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor*100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            85%
+                                                            {Math.round(total_social_cor*100 / total_social)}%
                                                         </Text>
                                                     </div>
-                                                </div>
+                                                </div> : null}
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -159,13 +274,13 @@ export default function ViewPDF() {
                                                 COGNITIVE
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }} >
+                                                {total_cognition !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor*100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            85%
+                                                            {Math.round(total_cognition_cor*100 / total_cognition)}%
                                                         </Text>
                                                     </div>
-                                                </div>
+                                                </div> : null}
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -173,13 +288,13 @@ export default function ViewPDF() {
                                                 EMOTIONAL
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }} >
+                                                {total_emotional !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor*100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            85%
+                                                            {Math.round(total_emotional_cor*100 / total_emotional)}%
                                                         </Text>
                                                     </div>
-                                                </div>
+                                                </div> : null}
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -187,13 +302,13 @@ export default function ViewPDF() {
                                                 SENSORY
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }} >
+                                                {total_sensory !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor*100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            85%
+                                                            {Math.round(total_sensory_cor*100 / total_sensory)}%
                                                         </Text>
                                                     </div>
-                                                </div>
+                                                </div> : null}
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
@@ -201,13 +316,13 @@ export default function ViewPDF() {
                                                 BEHAVIOUR
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                <div style={{ position: "relative", width: "85%", borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }} >
+                                                {total_behaviour !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor*100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            85%
+                                                            {Math.round(total_behaviour_cor*100 / total_behaviour)}%
                                                         </Text>
                                                     </div>
-                                                </div>
+                                                </div> : null}
                                             </div>
                                         </div>
                                     </div>
@@ -223,20 +338,20 @@ export default function ViewPDF() {
                                                 Information
                                             </Text>
                                         </div>
-                                        <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
+                                        {/* <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
                                             <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
                                                 School :
                                             </Text>
                                             <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
                                                 JH Ambani
                                             </Text>
-                                        </div>
+                                        </div> */}
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
                                             <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
                                                 Name :
                                             </Text>
                                             <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                Nipun Tulsian
+                                                {student.c_fname + " " + student.c_lname}
                                             </Text>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
@@ -244,7 +359,7 @@ export default function ViewPDF() {
                                                 DOB :
                                             </Text>
                                             <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                13/06/2003
+                                                {student.c_DOB}
                                             </Text>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
@@ -252,7 +367,7 @@ export default function ViewPDF() {
                                                 Gender :
                                             </Text>
                                             <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                Male
+                                                {student.gender}
                                             </Text>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
@@ -260,15 +375,15 @@ export default function ViewPDF() {
                                                 Roll No. :
                                             </Text>
                                             <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                16
+                                                {student.roll_num}
                                             </Text>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
                                             <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
-                                                School:
+                                                Parent:
                                             </Text>
                                             <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                JH Ambani
+                                                {student.p_fname + " " + student.p_lname}
                                             </Text>
                                         </div>
 
@@ -330,16 +445,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ marginTop: "30px", paddingLeft: "50px" }}>
                         <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
-                            SPEECH AND LANGUAGE DEVELOPMENT (2-3 YEARS)
+                            SPEECH AND LANGUAGE DEVELOPMENT ({lower}-{upper} YEARS)
                         </Text>
                         <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "10px" }}></div>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "60%", paddingRight: "20px" }}>
-                                <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    Learning language is a crucial task in their development and acquisition of language profoundly extends their horizons. Though the pace of language development varies considerably from child to child, a 3year would be able to form short sentences using 2-3 words together. He/she would be able to name the common objects in the surrounding. He/she would be able to make his/her needs known by using relevant words.
-                                </Text>
+                                <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>{speech_msg}</Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    NIPUN'S REPORT
+                                    {(student.c_fname).toUpperCase()}'S REPORT
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -377,7 +490,7 @@ export default function ViewPDF() {
                                         stroke="hotpink"
                                         strokeWidth={10}
                                     />
-                                    <Text x="38" y="55">4/5</Text>
+                                    <Text x="38" y="55">{total_speech_cor + "/" + total_speech}</Text>
                                 </Svg>
                             </div>
                         </div>
@@ -418,15 +531,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ marginTop: "30px", paddingLeft: "50px" }}>
                         <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
-                            MOTOR DEVELOPMENT (2-3 YEARS)
+                            MOTOR DEVELOPMENT ({lower}-{upper} YEARS)
                         </Text>
                         <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "10px" }}></div>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "60%", paddingRight: "20px" }}>
-                                <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    The ability to walk and move around freely, gives the child some control over his/her movement. The mobility expands his/her world. Mobility also enables the child to determine when and approach a certain movement and when to withdraw. At 3, a child can move about freely avoiding simple hazards and not getting hurt at least 8 out of 10 times. He/she can balance himself/herself while jumping with both feet, will be able to kick a large ball, will be able to go up the stairs using alternate feet.                                </Text>
+                                <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>{motor_msg}</Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    NIPUN'S REPORT
+                                    {(student.c_fname).toUpperCase()}'S REPORT
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -464,7 +576,7 @@ export default function ViewPDF() {
                                         stroke="hotpink"
                                         strokeWidth={10}
                                     />
-                                    <Text x="38" y="55">4/5</Text>
+                                    <Text x="38" y="55">{total_motor_cor + "/" + total_motor}</Text>
                                 </Svg>
                             </div>
                         </div>
@@ -506,15 +618,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ marginTop: "30px", paddingLeft: "50px" }}>
                         <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
-                            SOCIAL DEVELOPMENT (2-3 YEARS)
+                            SOCIAL DEVELOPMENT ({lower}-{upper} YEARS)
                         </Text>
                         <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "10px" }}></div>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "60%", paddingRight: "20px" }}>
-                                <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    By the age of 3, children will start picking up social cues. They indulge in exploratory behavior and start expressing their preferences. They would want to participate in group activities, would be able to understand and verbalize when they need to use the toilet and help themselves with food.                                </Text>
+                                <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>{social_msg}</Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    NIPUN'S REPORT
+                                    {(student.c_fname).toUpperCase()}'S REPORT
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -552,7 +663,7 @@ export default function ViewPDF() {
                                         stroke="hotpink"
                                         strokeWidth={10}
                                     />
-                                    <Text x="38" y="55">4/5</Text>
+                                    <Text x="38" y="55">{total_social_cor + "/" + total_social}</Text>
                                 </Svg>
                             </div>
                         </div>
@@ -594,19 +705,16 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ marginTop: "30px", paddingLeft: "50px" }}>
                         <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
-                            COGNITIVE DEVELOPMENT (2-3 YEARS)
+                            COGNITIVE DEVELOPMENT ({lower}-{upper} YEARS)
                         </Text>
                         <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "10px" }}></div>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "60%", paddingRight: "20px" }}>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    Cognitive development of the child reflects the overall 5/5 development of the child in the rest of the domains
-                                    (Speech and Language, Motor, Social and Emotional
-                                    Skills). By the age of 3, the child can understand the
-                                    simple rules during group activities. They can create new behaviors from old ones (originality) and engage in
-                                    symbolic activity. When inquired, he/she would be able answer and to relate to his/her day to day experiences. He/she would be able to identify themselves with their name and gender.                                </Text>
+                                    {cognition_msg}
+                                </Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    NIPUN'S REPORT
+                                    {(student.c_fname).toUpperCase()}'S REPORT
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -644,7 +752,7 @@ export default function ViewPDF() {
                                         stroke="hotpink"
                                         strokeWidth={10}
                                     />
-                                    <Text x="38" y="55">4/5</Text>
+                                    <Text x="38" y="55">{total_cognition_cor + "/" + total_cognition}</Text>
                                 </Svg>
                             </div>
                         </div>
@@ -686,15 +794,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ marginTop: "30px", paddingLeft: "50px" }}>
                         <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
-                            EMOTIONAL DEVELOPMENT (2-3 YEARS)
+                            EMOTIONAL DEVELOPMENT ({lower}-{upper} YEARS)
                         </Text>
                         <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "10px" }}></div>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "60%", paddingRight: "20px" }}>
-                                <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    At the age of 3, the child develops the capacity for organized demonstration of love for e.g. when the child runs up and hugs, kisses and tries to speak all at the same time. Comfort with family and apprehension with strangers would be present. He/she would be able ot understand and relate when happy and when distressed.                                </Text>
+                                <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>{emotional_msg}</Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    NIPUN'S REPORT
+                                    {(student.c_fname).toUpperCase()}'S REPORT
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -732,7 +839,7 @@ export default function ViewPDF() {
                                         stroke="hotpink"
                                         strokeWidth={10}
                                     />
-                                    <Text x="38" y="55">4/5</Text>
+                                    <Text x="38" y="55">{total_emotional_cor + "/" + total_emotional}</Text>
                                 </Svg>
                             </div>
                         </div>
@@ -773,18 +880,16 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ marginTop: "30px", paddingLeft: "50px" }}>
                         <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
-                            SENSORY DEVELOPMENT (2-3 YEARS)
+                            SENSORY DEVELOPMENT ({lower}-{upper} YEARS)
                         </Text>
                         <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "10px" }}></div>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "60%", paddingRight: "20px" }}>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    Everything the child does involves one or the other senses. It is through the senses that the child discovers the world around himher and starts to
-                                    learn. At the age of 3, the child would cooperate with dressing and would like to dress up for occasions. Heshe would explore tovs and different obiects
-                                    using his/her hands. The child would also like to touch and feel various things in his/her environment. Children in this age also enjoy messy play. The child would eat a range of foods.
+                                    {sensory_msg}
                                 </Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    NIPUN'S REPORT
+                                    {(student.c_fname).toUpperCase()}'S REPORT
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -822,7 +927,7 @@ export default function ViewPDF() {
                                         stroke="hotpink"
                                         strokeWidth={10}
                                     />
-                                    <Text x="38" y="55">4/5</Text>
+                                    <Text x="38" y="55">{total_sensory_cor + "/" + total_sensory}</Text>
                                 </Svg>
                             </div>
                         </div>
@@ -863,17 +968,16 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ marginTop: "30px", paddingLeft: "50px" }}>
                         <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
-                            BEHAVIOUR DEVELOPMENT (2-3 YEARS)
+                            BEHAVIOUR DEVELOPMENT ({lower}-{upper} YEARS)
                         </Text>
                         <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "10px" }}></div>
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "60%", paddingRight: "20px" }}>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    Around the age of 3, a child is realizing that they are separate individual from their parents and caregivers.
-                                    They start learning to express their likes and dislikes though their behaviour and act independently. In the classroom, the child would be curious with the new toys, would like to play with other kids a n d try to follow what the teachers are asking them ot do.
+                                    {behavior_msg}
                                 </Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    NIPUN'S REPORT
+                                    {(student.c_fname).toUpperCase()}'S REPORT
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -911,7 +1015,7 @@ export default function ViewPDF() {
                                         stroke="hotpink"
                                         strokeWidth={10}
                                     />
-                                    <Text x="38" y="55">4/5</Text>
+                                    <Text x="38" y="55">{total_behaviour_cor + "/" + total_behaviour}</Text>
                                 </Svg>
                             </div>
                         </div>

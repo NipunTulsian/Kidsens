@@ -1251,6 +1251,64 @@ router.use("/get-report", protectParent, async (req, res) => {
         return res.status(500).json(e)
     }
 })
+
+router.use("/get-report-details", protectParent, async (req, res) => {
+    try {
+        const query = util.promisify(db.query).bind(db);
+        const form_id = req.body.id;
+        var que_query = "";
+        que_query = `select * from parent where student_Id='${req.user}'`;
+        const student = await query(que_query);
+        console.log(student)
+        var birth_year = parseInt((student[0]["c_DOB"]).substring(0, 4));
+        var date = new Date();
+        date = date.getFullYear();
+        var age = date - birth_year;
+        que_query = `select * from report_details where lower<='${age}' and upper>='${age}'`;
+        const details = query(que_query);
+        var lower = 0, upper = 0;
+        if (details.length) {
+            lower = details[0]["lower"];
+            upper = details[0]["upper"];
+        }
+        const category = ["speech", "motor", "social", "cognitive", "emotional", "sensory", "behaviour"];
+        var obj = {};
+        for (let i = 0; i < category.length; i++) {
+            que_query = `select count(QUESTION_ID) as num from questions where FORM_ID='${form_id}' and Category='${category[i]}'`;
+            let total = await query(que_query);
+            total = total[0].num;
+            que_query = `select count(QUESTION_ID) as num from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Max_Marks=Marks_Obtained and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}')`
+            let total_cor = await query(que_query);
+            total_cor = total_cor[0].num;
+            obj["total_" + category[i]] = total;
+            obj["total_" + category[i] + "_cor"] = total_cor;
+        }
+        return res.status(200).json({
+            student: student[0],
+            details: details,
+            lower: lower,
+            upper: upper,
+            total_behaviour:obj["total_behaviour"],
+            total_behaviour_cor:obj["total_behaviour_cor"],
+            total_sensory:obj["total_sensory"],
+            total_sensory_cor:obj["total_sensory_cor"],
+            total_emotional:obj["total_emotional"],
+            total_emotional_cor:obj["total_emotional_cor"],
+            total_cognition:obj["total_cognitive"],
+            total_cognition_cor:obj["total_cognitive_cor"],
+            total_social:obj["total_social"],
+            total_social_cor:obj["total_social_cor"],
+            total_motor:obj["total_motor"],
+            total_motor_cor:obj["total_motor_cor"],
+            total_speech:obj["total_speech"],
+            total_speech_cor:obj["total_speech_cor"]
+        })
+    }
+    catch (e) {
+        console.log(e)
+        return res.status(500).json(e);
+    }
+})
 router.use("/get-scale", protectParent, async (req, res) => {
     try {
         const { stage, assessment, percentage } = req.body
