@@ -82,33 +82,49 @@ export default function ViewPDF() {
     })
 
     const [land_msg, setland_msg] = useState("");
+    const [summary, set_summary] = useState("");
+
     const [speech_msg, setspeech_msg] = useState("");
     const [total_speech, set_total_speech] = useState(0);
     const [total_speech_cor, set_total_speech_cor] = useState(0);
+    const [speech_correct, set_speech_correct] = useState([]);
+    const [speech_incorrect, set_speech_incorrect] = useState([]);
 
     const [motor_msg, setmotor_msg] = useState("");
     const [total_motor, set_total_motor] = useState(0);
     const [total_motor_cor, set_total_motor_cor] = useState(0);
+    const [motor_correct, set_motor_correct] = useState([]);
+    const [motor_incorrect, set_motor_incorrect] = useState([]);
 
     const [social_msg, setsocial_msg] = useState("");
     const [total_social, set_total_social] = useState(0);
     const [total_social_cor, set_total_social_cor] = useState(0);
+    const [social_correct, set_social_correct] = useState([]);
+    const [social_incorrect, set_social_incorrect] = useState([]);
 
     const [cognition_msg, setcognition_msg] = useState("");
     const [total_cognition, set_total_cognition] = useState(0);
     const [total_cognition_cor, set_total_cognition_cor] = useState(0);
+    const [cognition_correct, set_cognition_correct] = useState([]);
+    const [cognition_incorrect, set_cognition_incorrect] = useState([]);
 
     const [emotional_msg, setemotional_msg] = useState("");
     const [total_emotional, set_total_emotional] = useState(0);
     const [total_emotional_cor, set_total_emotional_cor] = useState(0);
+    const [emotional_correct, set_emotional_correct] = useState([]);
+    const [emotional_incorrect, set_emotional_incorrect] = useState([]);
 
     const [sensory_msg, setsensory_msg] = useState("");
     const [total_sensory, set_total_sensory] = useState(0);
     const [total_sensory_cor, set_total_sensory_cor] = useState(0);
+    const [sensory_correct, set_sensory_correct] = useState([]);
+    const [sensory_incorrect, set_sensory_incorrect] = useState([]);
 
     const [behavior_msg, setbehaviour_msg] = useState("");
-    const [total_behaviour, set_total_behaviour] = useState(5);
+    const [total_behaviour, set_total_behaviour] = useState(0);
     const [total_behaviour_cor, set_total_behaviour_cor] = useState(0);
+    const [behaviour_correct, set_behaviour_correct] = useState([]);
+    const [behaviour_incorrect, set_behaviour_incorrect] = useState([]);
 
     const [lower, setlower] = useState(null);
     const [upper, setupper] = useState(null);
@@ -126,6 +142,7 @@ export default function ViewPDF() {
         })
         if (serverRes.status === 200) {
             const serverResJson = await serverRes.json();
+            set_summary(serverResJson.summary);
             setStudent({
                 c_fname: serverResJson.student.c_fname,
                 c_lname: serverResJson.student.c_lname,
@@ -151,6 +168,20 @@ export default function ViewPDF() {
             set_total_motor_cor(serverResJson.total_motor_cor);
             set_total_speech(serverResJson.total_speech);
             set_total_speech_cor(serverResJson.total_speech_cor);
+            set_speech_correct(serverResJson.speech_correct);
+            set_speech_incorrect(serverResJson.speech_incorrect);
+            set_motor_correct(serverResJson.motor_correct);
+            set_motor_incorrect(serverResJson.motor_incorrect);
+            set_social_correct(serverResJson.social_correct);
+            set_social_incorrect(serverResJson.social_incorrect);
+            set_cognition_correct(serverResJson.cognition_correct);
+            set_cognition_incorrect(serverResJson.cognition_incorrect);
+            set_emotional_correct(serverResJson.emotional_correct);
+            set_emotional_incorrect(serverResJson.emotional_incorrect);
+            set_sensory_correct(serverResJson.sensory_correct);
+            set_sensory_incorrect(serverResJson.sensory_incorrect);
+            set_behaviour_correct(serverResJson.behaviour_correct);
+            set_behaviour_incorrect(serverResJson.behaviour_incorrect);
 
             for (let i = 0; i < serverResJson.details.length; i++) {
                 if (serverResJson.details[i]["type"] === "general") {
@@ -232,10 +263,10 @@ export default function ViewPDF() {
                                                 SPEECH
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_speech !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor*100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
+                                                {total_speech !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                        <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            {Math.round(total_speech_cor*100 / total_speech)}%
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            {Math.round(total_speech_cor * 100 / total_speech)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null}
@@ -246,10 +277,10 @@ export default function ViewPDF() {
                                                 MOTOR
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_motor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor*100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
+                                                {total_motor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            {Math.round(total_motor_cor*100 / total_motor)}%
+                                                            {Math.round(total_motor_cor * 100 / total_motor)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null}
@@ -260,10 +291,10 @@ export default function ViewPDF() {
                                                 SOCIAL
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_social !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor*100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
+                                                {total_social !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            {Math.round(total_social_cor*100 / total_social)}%
+                                                            {Math.round(total_social_cor * 100 / total_social)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null}
@@ -274,10 +305,10 @@ export default function ViewPDF() {
                                                 COGNITIVE
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_cognition !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor*100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
+                                                {total_cognition !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            {Math.round(total_cognition_cor*100 / total_cognition)}%
+                                                            {Math.round(total_cognition_cor * 100 / total_cognition)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null}
@@ -288,10 +319,10 @@ export default function ViewPDF() {
                                                 EMOTIONAL
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_emotional !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor*100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
+                                                {total_emotional !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            {Math.round(total_emotional_cor*100 / total_emotional)}%
+                                                            {Math.round(total_emotional_cor * 100 / total_emotional)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null}
@@ -302,10 +333,10 @@ export default function ViewPDF() {
                                                 SENSORY
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_sensory !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor*100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
+                                                {total_sensory !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            {Math.round(total_sensory_cor*100 / total_sensory)}%
+                                                            {Math.round(total_sensory_cor * 100 / total_sensory)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null}
@@ -316,10 +347,10 @@ export default function ViewPDF() {
                                                 BEHAVIOUR
                                             </Text>
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_behaviour !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor*100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
+                                                {total_behaviour !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
                                                     <div style={{ position: "absolute", right: "0px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "7px" }}>
-                                                            {Math.round(total_behaviour_cor*100 / total_behaviour)}%
+                                                            {Math.round(total_behaviour_cor * 100 / total_behaviour)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null}
@@ -459,22 +490,18 @@ export default function ViewPDF() {
                                     Following are the criteria used to measure the child's development.
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
+                                    {speech_correct?.map((ele) => {
+                                        console.log(ele); return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
+                                    {speech_incorrect?.map((ele) => {
+                                        return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
                                 </div>
                             </div>
                             <div style={{ width: "30%", display: "flex", alignItems: "center", flexDirection: "column" }}>
@@ -545,22 +572,18 @@ export default function ViewPDF() {
                                     Following are the criteria used to measure the child's development.
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
+                                    {motor_correct?.map((ele) => {
+                                        console.log(ele); return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
+                                    {motor_incorrect?.map((ele) => {
+                                        return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
                                 </div>
                             </div>
                             <div style={{ width: "30%", display: "flex", alignItems: "center", flexDirection: "column" }}>
@@ -632,22 +655,18 @@ export default function ViewPDF() {
                                     Following are the criteria used to measure the child's development.
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
+                                    {social_correct?.map((ele) => {
+                                        console.log(ele); return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
+                                    {social_incorrect?.map((ele) => {
+                                        return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
                                 </div>
                             </div>
                             <div style={{ width: "30%", display: "flex", alignItems: "center", flexDirection: "column" }}>
@@ -721,22 +740,18 @@ export default function ViewPDF() {
                                     Following are the criteria used to measure the child's development.
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
+                                    {cognition_correct?.map((ele) => {
+                                        console.log(ele); return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
+                                    {cognition_incorrect?.map((ele) => {
+                                        return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
                                 </div>
                             </div>
                             <div style={{ width: "30%", display: "flex", alignItems: "center", flexDirection: "column" }}>
@@ -808,22 +823,18 @@ export default function ViewPDF() {
                                     Following are the criteria used to measure the child's development.
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
+                                    {emotional_correct?.map((ele) => {
+                                        console.log(ele); return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
+                                    {emotional_incorrect?.map((ele) => {
+                                        return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
                                 </div>
                             </div>
                             <div style={{ width: "30%", display: "flex", alignItems: "center", flexDirection: "column" }}>
@@ -896,22 +907,18 @@ export default function ViewPDF() {
                                     Following are the criteria used to measure the child's development.
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
+                                    {sensory_correct?.map((ele) => {
+                                        console.log(ele); return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
+                                    {sensory_incorrect?.map((ele) => {
+                                        return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
                                 </div>
                             </div>
                             <div style={{ width: "30%", display: "flex", alignItems: "center", flexDirection: "column" }}>
@@ -984,22 +991,18 @@ export default function ViewPDF() {
                                     Following are the criteria used to measure the child's development.
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
-                                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
-                                        <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
-                                        <Text style={{ opacity: "0.6", fontSize: "12px" }}>Speak 15 different words in the right way</Text>
-                                    </div>
+                                    {behaviour_correct?.map((ele) => {
+                                        console.log(ele); return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={tick} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
+                                    {behaviour_incorrect?.map((ele) => {
+                                        return <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: "10px" }}>
+                                            <Image src={cross} style={{ width: "28px", height: "28px", marginRight: "10px" }} />
+                                            <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele["Question"]}</Text>
+                                        </div>
+                                    })}
                                 </div>
                             </div>
                             <div style={{ width: "30%", display: "flex", alignItems: "center", flexDirection: "column" }}>
@@ -1062,7 +1065,7 @@ export default function ViewPDF() {
                         <div style={{ display: "flex", flexDirection: "row" }}>
                             <div style={{ width: "100%", paddingRight: "20px" }}>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
-                                    The total scores obtained by Aaditri on Developmental Screening Checklist is 23, which makes the child fall in the range of<Text style={{ fontSize: "12px", fontWeight: "bold", opacity: "1" }}> Moderate Developmental Delay.</Text>
+                                    {summary}
                                 </Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                     RECOMMENDATIONS

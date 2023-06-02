@@ -1259,7 +1259,12 @@ router.use("/get-report-details", protectParent, async (req, res) => {
         var que_query = "";
         que_query = `select * from parent where student_Id='${req.user}'`;
         const student = await query(que_query);
-        console.log(student)
+        let admin = student[0]["Assigned_Admin"];
+        que_query = `select * from AssessFormMap where student_Id='${req.user}' and FORM_ID='${form_id}'`;
+        let assessmap = await query(que_query);
+        que_query = `select * from default_assessments where admin_Id='${admin}' and stage='${assessmap[0]["stage"]}' and assessment='${assessmap[0]["assessment"]}'`;
+        let scale = await query(que_query);
+
         var birth_year = parseInt((student[0]["c_DOB"]).substring(0, 4));
         var date = new Date();
         date = date.getFullYear();
@@ -1273,35 +1278,76 @@ router.use("/get-report-details", protectParent, async (req, res) => {
         }
         const category = ["speech", "motor", "social", "cognitive", "emotional", "sensory", "behaviour"];
         var obj = {};
+        let total_correct = 0, total_assinged = 0;
         for (let i = 0; i < category.length; i++) {
             que_query = `select count(QUESTION_ID) as num from questions where FORM_ID='${form_id}' and Category='${category[i]}'`;
             let total = await query(que_query);
             total = total[0].num;
+            total_assinged += total;
             que_query = `select count(QUESTION_ID) as num from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Max_Marks=Marks_Obtained and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}')`
             let total_cor = await query(que_query);
             total_cor = total_cor[0].num;
+            total_correct += total_cor;
             obj["total_" + category[i]] = total;
             obj["total_" + category[i] + "_cor"] = total_cor;
         }
+
+        var obj2 = {};
+        for (let i = 0; i < category.length; i++) {
+            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Max_Marks<=Marks_Obtained and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
+            let result = await query(que_query);
+            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID not in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Max_Marks<=Marks_Obtained and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
+            let result2 = await query(que_query);
+            obj2[category[i] + "_correct"] = result;
+            obj2[category[i] + "_incorrect"] = result2;
+        }
+
+        let scale_val = (total_correct * 100) / total_assinged;
+        let summary="";
+        if(scale_val> scale[0]["MildUp"]){
+            summary=scale[0]["message_moderate"];
+        }
+        else if( scale_val> scale[0]["SevereUp"]){
+            summary=scale[0]["message_mild"];
+        }
+        else{
+            summary=scale[0]["message_severe"];
+        }
+
         return res.status(200).json({
             student: student[0],
             details: details,
+            summary:summary,
             lower: lower,
             upper: upper,
-            total_behaviour:obj["total_behaviour"],
-            total_behaviour_cor:obj["total_behaviour_cor"],
-            total_sensory:obj["total_sensory"],
-            total_sensory_cor:obj["total_sensory_cor"],
-            total_emotional:obj["total_emotional"],
-            total_emotional_cor:obj["total_emotional_cor"],
-            total_cognition:obj["total_cognitive"],
-            total_cognition_cor:obj["total_cognitive_cor"],
-            total_social:obj["total_social"],
-            total_social_cor:obj["total_social_cor"],
-            total_motor:obj["total_motor"],
-            total_motor_cor:obj["total_motor_cor"],
-            total_speech:obj["total_speech"],
-            total_speech_cor:obj["total_speech_cor"]
+            total_behaviour: obj["total_behaviour"],
+            total_behaviour_cor: obj["total_behaviour_cor"],
+            total_sensory: obj["total_sensory"],
+            total_sensory_cor: obj["total_sensory_cor"],
+            total_emotional: obj["total_emotional"],
+            total_emotional_cor: obj["total_emotional_cor"],
+            total_cognition: obj["total_cognitive"],
+            total_cognition_cor: obj["total_cognitive_cor"],
+            total_social: obj["total_social"],
+            total_social_cor: obj["total_social_cor"],
+            total_motor: obj["total_motor"],
+            total_motor_cor: obj["total_motor_cor"],
+            total_speech: obj["total_speech"],
+            total_speech_cor: obj["total_speech_cor"],
+            behaviour_correct: obj2["behaviour_correct"],
+            behaviour_incorrect: obj2["behaviour_incorrect"],
+            sensory_correct: obj2["sensory_correct"],
+            sensory_incorrect: obj2["sensory_incorrect"],
+            emotional_correct: obj2["emotional_correct"],
+            emotional_incorrect: obj2["emotional_incorrect"],
+            cognition_correct: obj2["cognitive_correct_correct"],
+            cognition_incorrect: obj2["cognitive_incorrect"],
+            social_correct: obj2["social_correct"],
+            social_incorrect: obj2["social_incorrect"],
+            motor_correct: obj2["motor_correct"],
+            motor_incorrect: obj2["motor_incorrect"],
+            speech_correct: obj2["speech_correct"],
+            speech_incorrect: obj2["speech_incorrect"]
         })
     }
     catch (e) {
