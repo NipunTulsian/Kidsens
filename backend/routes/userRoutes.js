@@ -399,9 +399,9 @@ router.use("/get-stages", async (req, res) => {
 router.use("/create-default-assessment", protectAdmin, async (req, res) => {
     try {
         console.log(req.body)
-        let { id, stage_name, assess_name, sevUp, mildUp, message_severe, message_moderate, message_mild } = req.body
+        let { id, stage_name, assess_name, sevUp, mildUp, message_severe, message_moderate, message_mild,rec_severe,rec_moderate,rec_mild } = req.body
         id = jwt.verify(id, "abc123").id
-        db.query(`Insert into default_assessments values ('${id}','${stage_name}','${assess_name}',${mildUp},${sevUp},'${message_mild}','${message_severe}','${message_moderate}')`, (err, result) => {
+        db.query(`Insert into default_assessments values ('${id}','${stage_name}','${assess_name}',${mildUp},${sevUp},'${message_mild}','${message_severe}','${message_moderate}','${rec_mild}','${rec_moderate}','${rec_severe}')`, (err, result) => {
             res.sendStatus(200);
         })
     }
@@ -1303,21 +1303,25 @@ router.use("/get-report-details", protectParent, async (req, res) => {
         }
 
         let scale_val = (total_correct * 100) / total_assinged;
-        let summary="";
+        let summary="",rec="";
         if(scale_val> scale[0]["MildUp"]){
-            summary=scale[0]["message_moderate"];
+            summary=scale[0]["message_mild"];
+            rec=scale[0]["recommendation_mild"]
         }
         else if( scale_val> scale[0]["SevereUp"]){
-            summary=scale[0]["message_mild"];
+            summary=scale[0]["message_moderate"];
+            rec=scale[0]["recommendation_moderate"]
         }
         else{
             summary=scale[0]["message_severe"];
+            rec=scale[0]["recommendation_severe"]
         }
 
         return res.status(200).json({
             student: student[0],
             details: details,
             summary:summary,
+            rec:rec,
             lower: lower,
             upper: upper,
             total_behaviour: obj["total_behaviour"],

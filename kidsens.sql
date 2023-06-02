@@ -65,6 +65,7 @@ CREATE TABLE `ANSWERS` (
 
 LOCK TABLES `ANSWERS` WRITE;
 /*!40000 ALTER TABLE `ANSWERS` DISABLE KEYS */;
+INSERT INTO `ANSWERS` VALUES ('1685705547517','1685705547514','Option 1',0),('1685705547517','1685705547514','Option 2',1),('1685705547517','1685705547514','Option 3',0);
 /*!40000 ALTER TABLE `ANSWERS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,6 +93,7 @@ CREATE TABLE `AssessFormMap` (
 
 LOCK TABLES `AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `AssessFormMap` DISABLE KEYS */;
+INSERT INTO `AssessFormMap` VALUES ('1685705350813','Stag1','ass1','1685705547514');
 /*!40000 ALTER TABLE `AssessFormMap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,6 +118,7 @@ CREATE TABLE `assessments` (
 
 LOCK TABLES `assessments` WRITE;
 /*!40000 ALTER TABLE `assessments` DISABLE KEYS */;
+INSERT INTO `assessments` VALUES ('1685705350813','Stag1','ass1');
 /*!40000 ALTER TABLE `assessments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,6 +143,7 @@ CREATE TABLE `default_AssessFormMap` (
 
 LOCK TABLES `default_AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `default_AssessFormMap` DISABLE KEYS */;
+INSERT INTO `default_AssessFormMap` VALUES ('abc@gmail.com','Stag1','ass1','1685705547514');
 /*!40000 ALTER TABLE `default_AssessFormMap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +162,10 @@ CREATE TABLE `default_assessments` (
   `SevereUp` int DEFAULT NULL,
   `message_mild` varchar(200) DEFAULT NULL,
   `message_severe` varchar(200) DEFAULT NULL,
-  `message_moderate` varchar(200) DEFAULT NULL
+  `message_moderate` varchar(200) DEFAULT NULL,
+  `recommendation_mild` longtext,
+  `recommendation_moderate` longtext,
+  `recommendation_severe` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -168,6 +175,7 @@ CREATE TABLE `default_assessments` (
 
 LOCK TABLES `default_assessments` WRITE;
 /*!40000 ALTER TABLE `default_assessments` DISABLE KEYS */;
+INSERT INTO `default_assessments` VALUES ('abc@gmail.com','Stag1','ass1',20,10,'mild','sev','mod','a;b;c;d',NULL,NULL);
 /*!40000 ALTER TABLE `default_assessments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,6 +200,7 @@ CREATE TABLE `default_stages` (
 
 LOCK TABLES `default_stages` WRITE;
 /*!40000 ALTER TABLE `default_stages` DISABLE KEYS */;
+INSERT INTO `default_stages` VALUES ('abc@gmail.com','Stag1',1);
 /*!40000 ALTER TABLE `default_stages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,6 +224,7 @@ CREATE TABLE `forms` (
 
 LOCK TABLES `forms` WRITE;
 /*!40000 ALTER TABLE `forms` DISABLE KEYS */;
+INSERT INTO `forms` VALUES ('1685705547514','Testing');
 /*!40000 ALTER TABLE `forms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,6 +250,7 @@ CREATE TABLE `forms_obj` (
 
 LOCK TABLES `forms_obj` WRITE;
 /*!40000 ALTER TABLE `forms_obj` DISABLE KEYS */;
+INSERT INTO `forms_obj` VALUES ('1685705547514','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"Testing\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio q1\",\"inline\":false,\"name\":\"radio-group-1685705529771-0\",\"other\":false,\"Marks\":1,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":true},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]}]','admin','abc@gmail.com');
 /*!40000 ALTER TABLE `forms_obj` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,6 +276,7 @@ CREATE TABLE `Marks` (
 
 LOCK TABLES `Marks` WRITE;
 /*!40000 ALTER TABLE `Marks` DISABLE KEYS */;
+INSERT INTO `Marks` VALUES ('nipun.tulsian.nt@gmail.com','1685705547514','1685705547517',1,1);
 /*!40000 ALTER TABLE `Marks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,6 +318,7 @@ CREATE TABLE `parent` (
 
 LOCK TABLES `parent` WRITE;
 /*!40000 ALTER TABLE `parent` DISABLE KEYS */;
+INSERT INTO `parent` VALUES ('Nipun100','$2a$10$wiW4SJ7ZSGRJM8EVdUS/huvDEHdu2BltzKGHhXomC0f5lefZ2SPnm','Ashish','Tulsian','nipun.tulsian.nt@gmail.com','8780583781','undefined','Nipun','Tulsian',16,'2022-06-13','../uploads/Nipun100/image-1685705463078.kidsens_photo.jpeg','ADHD','../uploads/Nipun100/identification-1685705463081.REPORT-FORMAT (1).pdf','../uploads/Nipun100/reports-1685705463091.REPORT-FORMAT (1).pdf','M','','abc@gmail.com',NULL,'1685705350813');
 /*!40000 ALTER TABLE `parent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -335,6 +348,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
+INSERT INTO `questions` VALUES ('1685705547517','1685705547514','Radio q1','radio-group',1,'speech');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,7 +394,7 @@ CREATE TABLE `screening` (
   `screening_status` varchar(200) DEFAULT 'REGULAR',
   `comments` longtext,
   PRIMARY KEY (`screening_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -389,6 +403,7 @@ CREATE TABLE `screening` (
 
 LOCK TABLES `screening` WRITE;
 /*!40000 ALTER TABLE `screening` DISABLE KEYS */;
+INSERT INTO `screening` VALUES (6,'1685705350813','Stag1','2023-06-02 18:06:17','2023-06-02 18:06:19','ONLINE',3,'REGULAR',NULL);
 /*!40000 ALTER TABLE `screening` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,6 +427,7 @@ CREATE TABLE `student_answers` (
 
 LOCK TABLES `student_answers` WRITE;
 /*!40000 ALTER TABLE `student_answers` DISABLE KEYS */;
+INSERT INTO `student_answers` VALUES ('1685705547517','1685705350813','option-2');
 /*!40000 ALTER TABLE `student_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,6 +451,7 @@ CREATE TABLE `student_responses` (
 
 LOCK TABLES `student_responses` WRITE;
 /*!40000 ALTER TABLE `student_responses` DISABLE KEYS */;
+INSERT INTO `student_responses` VALUES ('nipun.tulsian.nt@gmail.com','1685705547514','[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"Testing\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio q1\",\"inline\":false,\"name\":\"radio-group-1685705529771-0\",\"other\":false,\"Marks\":1,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}],\"userData\":[\"option-2\"]}]');
 /*!40000 ALTER TABLE `student_responses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -482,4 +499,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-01 18:05:32
+-- Dump completed on 2023-06-02 23:51:27

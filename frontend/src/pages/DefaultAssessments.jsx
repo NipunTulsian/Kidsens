@@ -25,6 +25,9 @@ function DefaultAssessments() {
     const [severeMessage,setSevMess] =useState('')
     const [moderateMessage,setModerateMess] =useState('')
     const [mildMessage,setMildMess] =useState('')
+    const [severeRec,setSevRec] =useState('')
+    const [moderateRec,setModerateRec] =useState('')
+    const [mildRec,setMildRec] =useState('')
     const onNewAssessmentValueChange = (e) => {
         setNewAssessmentValue(e.target.value)
     }
@@ -42,6 +45,15 @@ function DefaultAssessments() {
     }
     const MildMess = (e) => {
         setMildMess(e.target.value)
+    }
+    const SevRec = (e) => {
+        setSevRec(e.target.value)
+    }
+    const ModerateRec = (e) => {
+        setModerateRec(e.target.value)
+    }
+    const MildRec = (e) => {
+        setMildRec(e.target.value)
     }
     const getAssess = async () => {
         const serverRes = await fetch("http://localhost:8000/get-default-assessments", {
@@ -71,7 +83,10 @@ function DefaultAssessments() {
             mildUp: MildUp,
             message_severe:severeMessage,
             message_moderate:moderateMessage,
-            message_mild:mildMessage
+            message_mild:mildMessage,
+            rec_severe:severeRec,
+            rec_moderate:moderateRec,
+            rec_mild:mildRec,
         }
         const serverRes = await fetch("http://localhost:8000/create-default-assessment", {
             method: "POST",
@@ -148,16 +163,19 @@ function DefaultAssessments() {
                     </Grid>}
 
                 {newAssessment &&
-                    <Grid item md={4} xl={3} xs={12} sm={6}>
+                    <Grid item md={4} xl={4} xs={12} sm={6}>
                         <Card variant="outlined" style={{ backgroundColor: '#F0F0F0' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '260px' }}>
                                 <CardActions style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-                                    <TextField variant='standard' label='Assessment Name' onChange={onNewAssessmentValueChange} value={newAssessmentValue}></TextField>
-                                    <TextField variant='standard' label='Upper Limit of Severe' onChange={SevereUpChange} value={severeUp}></TextField>
-                                    <TextField variant='standard' label='Upper Limit of Moderate' onChange={MildUpChange} value={MildUp}></TextField>
-                                    <TextField variant='standard' label='Message for Severe' onChange={SevMess} value={severeMessage}></TextField>
-                                    <TextField variant='standard' label='Message for Moderate' onChange={ModerateMess} value={moderateMessage}></TextField>
-                                    <TextField variant='standard' label='Message for Mild' onChange={MildMess} value={mildMessage}></TextField>
+                                    <TextField variant='standard' label='Assessment Name' sx={{width:300}} onChange={onNewAssessmentValueChange} value={newAssessmentValue}></TextField>
+                                    <TextField variant='standard' label='Upper Limit of Severe' sx={{width:300}} onChange={SevereUpChange} value={severeUp}></TextField>
+                                    <TextField variant='standard' label='Upper Limit of Moderate' sx={{width:300}} onChange={MildUpChange} value={MildUp}></TextField>
+                                    <TextField variant='standard' label='Message for Severe' sx={{width:300}} onChange={SevMess} value={severeMessage}></TextField>
+                                    <TextField variant='standard' label='Message for Moderate' sx={{width:300}} onChange={ModerateMess} value={moderateMessage}></TextField>
+                                    <TextField variant='standard' label='Message for Mild' sx={{width:300}}  onChange={MildMess} value={mildMessage}></TextField>
+                                    <TextField variant='standard' label='Severe Recommendations' sx={{width:300}} placeholder='enter ; seperated values' onChange={SevRec} value={severeRec}></TextField>
+                                    <TextField variant='standard' label='Moderate Recommendations' sx={{width:300}} placeholder='enter ; seperated values' onChange={ModerateRec} value={moderateRec}></TextField>
+                                    <TextField variant='standard' label='Mild Recommendations' sx={{width:300}} placeholder='enter ; seperated values' onChange={MildRec} value={mildRec}></TextField>
                                     <Box style={{ display: 'flex', gap: '10px' }}>
                                         <Button variant='contained' onClick={() => createNewAssessment()}>Create</Button>
                                         <Button variant='contained' onClick={() => setNewAssessment(false)}>Cancel</Button>
