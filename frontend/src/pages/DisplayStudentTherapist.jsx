@@ -35,7 +35,7 @@ export default function DisplayStudentTherapist(props) {
                 <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%' }}>
                     <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                         <ListItemText primary={allStudent[index].c_fname + " " + allStudent[index].c_lname} />
-                        <Button variant="outlined" onClick={() => navigate(`/ProfilePage/${allStudent[index].student_Id}`)}>Profile</Button>
+                        <Button style={{marginRight:"10px"}} variant="outlined" onClick={() => navigate(`/ProfilePageStudent/${allStudent[index].student_Id}`)}>Profile</Button>
                         <Button variant="outlined" onClick={() => navigate(`/StagesPage/${allStudent[index].student_Id}`)}>Manage</Button>
                     </Box>
                     <Divider style={{ margin: '5px 0' }} />

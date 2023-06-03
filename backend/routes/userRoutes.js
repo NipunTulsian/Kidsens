@@ -21,6 +21,7 @@ router.use("/student-register", protectAdmin, async (req, res) => {
     let therapist = req.body.therapist
     admin = jwt.verify(admin, "abc123").id
     let password = Date.now()
+    console.log(password)
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password.toString(), salt);
     const query_call = `Select COUNT(p_email) as num from parent where p_email= "${p_email}"`;
@@ -82,6 +83,7 @@ router.use("/therapist-register", protectAdmin, async (req, res) => {
     let { fname, lname, Email, Phone, admin } = req.body
     admin = jwt.verify(admin, "abc123").id
     let password = Date.now()
+    console.log(password)
     const salt = await bcrypt.genSalt(10);
     const query_run = util.promisify(db.query).bind(db);
     const hash = await bcrypt.hash(password.toString(), salt);
@@ -312,7 +314,9 @@ router.use("/delete-therapist", protectAdmin, async (req, res) => {
 
 router.use("/save-form", protectTherapistAdmin, async (req, res) => {
     try {
-        const form_obj1 = req.body.form_obj;
+        let form_obj1 = req.body.form_obj;
+        form_obj1 = form_obj1.replaceAll("'", "''");
+        form_obj1 = form_obj1.replaceAll("\"", "\"");
         const sender_type = req.body.sender_type
         const sender_id = jwt.verify(req.body.sender_id, "abc123").id
         const form_id = Date.now();
@@ -399,7 +403,7 @@ router.use("/get-stages", async (req, res) => {
 router.use("/create-default-assessment", protectAdmin, async (req, res) => {
     try {
         console.log(req.body)
-        let { id, stage_name, assess_name, sevUp, mildUp, message_severe, message_moderate, message_mild,rec_severe,rec_moderate,rec_mild } = req.body
+        let { id, stage_name, assess_name, sevUp, mildUp, message_severe, message_moderate, message_mild, rec_severe, rec_moderate, rec_mild } = req.body
         id = jwt.verify(id, "abc123").id
         db.query(`Insert into default_assessments values ('${id}','${stage_name}','${assess_name}',${mildUp},${sevUp},'${message_mild}','${message_severe}','${message_moderate}','${rec_mild}','${rec_moderate}','${rec_severe}')`, (err, result) => {
             res.sendStatus(200);
@@ -508,6 +512,8 @@ const destructure_form_obj = async (form_obj, form_id) => {
         type = form_obj[i]["type"];
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             name = form_obj[i]["label"];
+            name = name.replaceAll("'", "''");
+            name = name.replaceAll("\"", "\"");
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
             ques_id = Date.now();
@@ -516,6 +522,8 @@ const destructure_form_obj = async (form_obj, form_id) => {
             await query(que_query);
             for (let j = 0; j < options.length; j++) {
                 opt_name = options[j]["label"];
+                opt_name = opt_name.replaceAll("'", "''");
+                opt_name = opt_name.replaceAll("\"", "\"");
                 opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${opt_name}','${options[j]["selected"] ? 1 : 0}')`;
                 await query(opt_query);
             }
@@ -523,16 +531,23 @@ const destructure_form_obj = async (form_obj, form_id) => {
         }
         else if (type === "text") {
             name = form_obj[i]["label"];
+            name = name.replaceAll("'", "''");
+            name = name.replaceAll("\"", "\"");
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
             ques_id = Date.now();
             que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
-            opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${form_obj[i]["value"]}',NULL)`;
+            let value = form_obj[i]["value"];
+            value = value.replaceAll("'", "''");
+            value = value.replaceAll("\"", "\"");
+            opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${value}',NULL)`;
             await query(opt_query);
         }
         else if (type === "file") {
             name = form_obj[i]["label"];
+            name = name.replaceAll("'", "''");
+            name = name.replaceAll("\"", "\"");
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
             ques_id = Date.now();
@@ -541,6 +556,8 @@ const destructure_form_obj = async (form_obj, form_id) => {
         }
         else if (type === "date") {
             name = form_obj[i]["label"];
+            name = name.replaceAll("'", "''");
+            name = name.replaceAll("\"", "\"");
             ques_id = Date.now();
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
@@ -915,6 +932,8 @@ router.use("/store-FormObject", protectParent, async (req, res) => {
     try {
         let { id, form, student } = req.body
         student = jwt.verify(student, "abc123").id;
+        form = form.replaceAll("'", "''");
+        form = form.replaceAll("\"", "\"");
         let query = `INSERT INTO student_responses value('${student}','${id}','${form}')`;
         db.query(query, (err, result0) => {
             destructure_form_obj_answers(JSON.parse(form), id, req.user);
@@ -974,14 +993,20 @@ const destructure_form_obj_answers = async (form_obj, form_id, student_id) => {
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             var options = form_obj[i]["userData"];
             for (let j = 0; j < options.length; j++) {
-                opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${options[j]}')`;
+                let temp = options[j];
+                temp = temp.replaceAll("'", "''");
+                temp = temp.replaceAll("\"", "\"");
+                opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${temp}')`;
                 await query(opt_query);
                 index++;
             }
 
         }
         else if (type === "text") {
-            opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${form_obj[i]["userData"][0]}')`;
+            let temp = form_obj[i]["userData"][0];
+            temp = temp.replaceAll("'", "''");
+            temp = temp.replaceAll("\"", "\"");
+            opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${temp}')`;
             await query(opt_query);
             index++;
         }
@@ -1303,25 +1328,25 @@ router.use("/get-report-details", protectParent, async (req, res) => {
         }
 
         let scale_val = (total_correct * 100) / total_assinged;
-        let summary="",rec="";
-        if(scale_val> scale[0]["MildUp"]){
-            summary=scale[0]["message_mild"];
-            rec=scale[0]["recommendation_mild"]
+        let summary = "", rec = "";
+        if (scale_val > scale[0]["MildUp"]) {
+            summary = scale[0]["message_mild"];
+            rec = scale[0]["recommendation_mild"]
         }
-        else if( scale_val> scale[0]["SevereUp"]){
-            summary=scale[0]["message_moderate"];
-            rec=scale[0]["recommendation_moderate"]
+        else if (scale_val > scale[0]["SevereUp"]) {
+            summary = scale[0]["message_moderate"];
+            rec = scale[0]["recommendation_moderate"]
         }
-        else{
-            summary=scale[0]["message_severe"];
-            rec=scale[0]["recommendation_severe"]
+        else {
+            summary = scale[0]["message_severe"];
+            rec = scale[0]["recommendation_severe"]
         }
 
         return res.status(200).json({
             student: student[0],
             details: details,
-            summary:summary,
-            rec:rec,
+            summary: summary,
+            rec: rec,
             lower: lower,
             upper: upper,
             total_behaviour: obj["total_behaviour"],
