@@ -41,7 +41,7 @@ function Login() {
                 navigate('/StudentRedirect')
                 else
                 {
-                    navigate("/LandStudent")
+                    navigate("/LandStudent/Profile")
                 }
             }
             else {

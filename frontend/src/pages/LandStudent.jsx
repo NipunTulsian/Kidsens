@@ -21,7 +21,7 @@ import Button from "@mui/material/Button";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Grid from '@mui/material/Grid';
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import SchemaIcon from '@mui/icons-material/Schema';
@@ -123,6 +123,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function LandStudent() {
+	const params=useParams();
 	const getPendingForms = async () => {
 		const serverRes = await fetch("http://localhost:8000/get-pending-forms", {
 			method: "POST",
@@ -243,6 +244,7 @@ export default function LandStudent() {
 		getStudent()
 		getPendingForms()
 		getReports()
+		console.log(displayThis)
 	}, [])
 
 	function logout() {
@@ -259,7 +261,7 @@ export default function LandStudent() {
 	};
 
 
-	const [displayThis, setDisplayThis] = React.useState('Profile')
+	const [displayThis, setDisplayThis] = React.useState(params.display)
 	const [Reports, setReports] = React.useState([])
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -305,7 +307,7 @@ export default function LandStudent() {
 				<List>
 					<ListItem disablePadding sx={{ display: "block" }}>
 						<ListItemButton
-							onClick={() => setDisplayThis('Profile')}
+							onClick={() =>{ setDisplayThis("Profile"); navigate('/LandStudent/Profile')}}
 							sx={{
 								minHeight: 48,
 								justifyContent: open ? "initial" : "center",
@@ -342,7 +344,7 @@ export default function LandStudent() {
 							<ListItemText primary='My workflow' sx={{ opacity: open ? 1 : 0 }} />
 						</ListItemButton>
 						<ListItemButton
-							onClick={() => setDisplayThis('View pending forms')}
+							onClick={() => {setDisplayThis("ViewPendingForms");navigate('/LandStudent/ViewPendingForms')}}
 							sx={{
 								minHeight: 48,
 								justifyContent: open ? "initial" : "center",
@@ -361,7 +363,7 @@ export default function LandStudent() {
 							<ListItemText primary='View pending forms' sx={{ opacity: open ? 1 : 0 }} />
 						</ListItemButton>
 						<ListItemButton
-							onClick={() => setDisplayThis('View all reports')}
+							onClick={() => {setDisplayThis("ViewAllReports"); navigate('/LandStudent/ViewAllReports')}}
 							sx={{
 								minHeight: 48,
 								justifyContent: open ? "initial" : "center",
@@ -488,7 +490,7 @@ export default function LandStudent() {
 						</div>
 					</div>}
 
-					{displayThis === 'View pending forms' &&
+					{displayThis === 'ViewPendingForms' &&
 						<Grid spacing={4} container style={{ padding: '0px 50px', marginBottom: '50px' }}>
 							{formsArr?.map((form) => (
 								<Grid item md={4} xl={3} xs={12} sm={6} key={form.FORM_ID}>
@@ -504,7 +506,7 @@ export default function LandStudent() {
 							))}
 						</Grid>
 					}
-					{displayThis === 'View all reports' &&
+					{displayThis === 'ViewAllReports' &&
 						<Grid spacing={4} container style={{ padding: '0px 50px', marginBottom: '50px' }}>
 							{Reports?.map((form) => (
 								<Grid item md={4} xl={3} xs={12} sm={6} key={form.FORM_ID}>

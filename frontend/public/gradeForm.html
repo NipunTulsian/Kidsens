@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,12 +8,30 @@
     <title>Grade Form</title>
     <link rel="stylesheet" href="gradeForm.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&display=swap" rel="stylesheet">
+    <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
 </head>
+
 <body>
-    <div class="forms">
-        
+    <div class="mui-appbar" style="background-color: #1976d2;">
+        <table width="100%">
+            <tr style="vertical-align:middle;">
+                <td class="mui--appbar-height" style="width:50px"> <a href="/" style="cursor: 'pointer' "><img
+                            src="./logo.png" width='150px' /></a>
+                </td>
+                <td class="mui--appbar-height" align="center">
+                    <h4 style="font-size: 30px;">Form Grading</h4>
+                </td>
+                <td class="mui--appbar-height" align="right" style="padding-right: 20px;">
+                    <b>LOGOUT</b>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="forms" style="padding:0px 20px;">
+
         <div class="column">
             <h1 style="margin-bottom: 30px" class="center">Student's Response</h1>
             <form id="fb-render"></form>
@@ -31,8 +50,8 @@
             </div>
             <br>
         </div>
-        
-        
+
+
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -40,4 +59,5 @@
 <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
 <script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
 <script src="gradeForm.js"></script>
+
 </html>

@@ -58,8 +58,8 @@ const router = createBrowserRouter([
     element: <LandTherapy />
   },
   {
-    path: "/LandStudent",
-    element: <LandStudent />
+    path: "/LandStudent/:display",
+    element: <LandStudent/>
   },
   {
     path: "/StagesPage/:id",

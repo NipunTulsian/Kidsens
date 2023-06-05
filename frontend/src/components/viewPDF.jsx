@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     title: {
-        fontSize: 40,
+        fontSize: 35,
         fontFamily: 'Roboto',
         fontWeight: "bold"
     },
@@ -281,7 +281,7 @@ export default function ViewPDF() {
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_motor_cor * 100 / total_motor)}%
                                                         </Text>
                                                     </div>
@@ -295,7 +295,7 @@ export default function ViewPDF() {
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_social_cor * 100 / total_social)}%
                                                         </Text>
                                                     </div>
@@ -309,7 +309,7 @@ export default function ViewPDF() {
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_cognition_cor * 100 / total_cognition)}%
                                                         </Text>
                                                     </div>
@@ -323,7 +323,7 @@ export default function ViewPDF() {
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_emotional_cor * 100 / total_emotional)}%
                                                         </Text>
                                                     </div>
@@ -337,7 +337,7 @@ export default function ViewPDF() {
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_sensory_cor * 100 / total_sensory)}%
                                                         </Text>
                                                     </div>
@@ -351,7 +351,7 @@ export default function ViewPDF() {
                                             <div style={{ width: "80%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                        <Text style={{ color: "white", fontSize: "7px" }}>
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_behaviour_cor * 100 / total_behaviour)}%
                                                         </Text>
                                                     </div>
@@ -435,11 +435,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                 </Page>
 
@@ -463,11 +463,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>SPEECH AND LANGUAGE</Text>
@@ -545,11 +545,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>MOTOR</Text>
@@ -628,11 +628,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>SOCIAL</Text>
@@ -711,11 +711,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>COGNITIVE</Text>
@@ -796,11 +796,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>EMOTIONAL</Text>
@@ -878,11 +878,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>SENSORY</Text>
@@ -962,11 +962,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>BEHAVIOUR</Text>
@@ -1046,11 +1046,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "130px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>SUMMARY AND</Text>

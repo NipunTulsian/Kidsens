@@ -26,7 +26,7 @@ async function fetchForm() {
   if (serverRes.status === 200) {
     const serverResJson = await serverRes.json();
     originalFormData = JSON.parse(serverResJson.form);
-
+    console.log(originalFormData)
     jQuery(function ($) {
       var formData = originalFormData;
       for (idx in formData) {
@@ -43,12 +43,17 @@ async function fetchForm() {
           obj.values.map(val => val.selected = false)
         }
       }
-      formData= JSON.stringify(formData)
-      $(fbRender).formRender({ formData });
+      formData = JSON.stringify(formData)
+      var formRenderOpts = {
+        fbRender,
+        formData,
+        // dataType: 'xml'
+      };
+      $(fbRender).formRender(formRenderOpts);
       getUserDataBtn.addEventListener(
         "click",
         async () => {
-          let response  = $(fbRender).formRender("userData")
+          let response = $(fbRender).formRender("userData")
           const serverRes = await fetch("http://localhost:8000/store-FormObject", {
             method: "POST",
             headers: {
@@ -57,12 +62,12 @@ async function fetchForm() {
             },
             body: JSON.stringify({
               id: id,
-              form:JSON.stringify(response),
-              student:localStorage.getItem("User")
+              form: JSON.stringify(response),
+              student: localStorage.getItem("User")
             })
           })
-          if(serverRes.status==200)
-          {
+          if (serverRes.status == 200) {
+            alert("You have finished your screening successfully, You will be getting the report shortly.")
             history.back()
           }
         },

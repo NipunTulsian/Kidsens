@@ -124,13 +124,13 @@ const options = {
             Category: {
                 label: 'Category',
                 options: {
-                    "speech": "speech",
-                    "motor": "motor",
-                    "social": "social",
-                    "cognitive": "cognitive",
-                    "emotional": "emotional",
-                    "sensory": "sensory",
-                    "behaviour": "behaviour"
+                    "speech": "Speech and Language Development",
+                    "motor": "Motor Development",
+                    "social": "Social Development",
+                    "cognitive": "Cognitive Development",
+                    "emotional": "Emotional Development",
+                    "sensory": "Sensory Development",
+                    "behaviour": "Behaviour Development"
                 },
                 style: 'border: 3px solid red'
             }
@@ -145,13 +145,13 @@ const options = {
             Category: {
                 label: 'Category',
                 options: {
-                    "speech": "speech",
-                    "motor": "motor",
-                    "social": "social",
-                    "cognitive": "cognitive",
-                    "emotional": "emotional",
-                    "sensory": "sensory",
-                    "behaviour": "behaviour"
+                    "speech": "Speech and Language Development",
+                    "motor": "Motor Development",
+                    "social": "Social Development",
+                    "cognitive": "Cognitive Development",
+                    "emotional": "Emotional Development",
+                    "sensory": "Sensory Development",
+                    "behaviour": "Behaviour Development"
                 },
                 style: 'border: 3px solid red'
             }
@@ -166,13 +166,13 @@ const options = {
             Category: {
                 label: 'Category',
                 options: {
-                    "speech": "speech",
-                    "motor": "motor",
-                    "social": "social",
-                    "cognitive": "cognitive",
-                    "emotional": "emotional",
-                    "sensory": "sensory",
-                    "behaviour": "behaviour"
+                    "speech": "Speech and Language Development",
+                    "motor": "Motor Development",
+                    "social": "Social Development",
+                    "cognitive": "Cognitive Development",
+                    "emotional": "Emotional Development",
+                    "sensory": "Sensory Development",
+                    "behaviour": "Behaviour Development"
                 },
                 style: 'border: 3px solid red'
             }
@@ -188,13 +188,13 @@ const options = {
             Category: {
                 label: 'Category',
                 options: {
-                    "speech": "speech",
-                    "motor": "motor",
-                    "social": "social",
-                    "cognitive": "cognitive",
-                    "emotional": "emotional",
-                    "sensory": "sensory",
-                    "behaviour": "behaviour"
+                    "speech": "Speech and Language Development",
+                    "motor": "Motor Development",
+                    "social": "Social Development",
+                    "cognitive": "Cognitive Development",
+                    "emotional": "Emotional Development",
+                    "sensory": "Sensory Development",
+                    "behaviour": "Behaviour Development"
                 },
                 style: 'border: 3px solid red'
             }
@@ -211,13 +211,13 @@ options.typeUserAttrs['checkbox-group'] = {
     Category: {
         label: 'Category',
         options: {
-            "speech": "speech",
-            "motor": "motor",
-            "social": "social",
-            "cognitive": "cognitive",
-            "emotional": "emotional",
-            "sensory": "sensory",
-            "behaviour": "behaviour"
+            "speech": "Speech and Language Development",
+            "motor": "Motor Development",
+            "social": "Social Development",
+            "cognitive": "Cognitive Development",
+            "emotional": "Emotional Development",
+            "sensory": "Sensory Development",
+            "behaviour": "Behaviour Development"
         },
         style: 'border: 3px solid red'
     }
@@ -232,13 +232,13 @@ options.typeUserAttrs['radio-group'] = {
     Category: {
         label: 'Category',
         options: {
-            "speech": "speech",
-            "motor": "motor",
-            "social": "social",
-            "cognitive": "cognitive",
-            "emotional": "emotional",
-            "sensory": "sensory",
-            "behaviour": "behaviour"
+            "speech": "Speech and Language Development",
+            "motor": "Motor Development",
+            "social": "Social Development",
+            "cognitive": "Cognitive Development",
+            "emotional": "Emotional Development",
+            "sensory": "Sensory Development",
+            "behaviour": "Behaviour Development"
         },
         style: 'border: 3px solid red'
     }

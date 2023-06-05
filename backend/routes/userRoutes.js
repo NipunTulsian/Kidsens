@@ -907,7 +907,6 @@ router.use("/get-FormObjectStudent", protectParent, async (req, res) => {
                         minutes = '0' + minutes;
                     }
                     date_curr = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
-                    console.log(date_curr);
                     query = `insert into screening (student_id,stage_name,start_date) values('${req.user}','${result[0]["stage"]}','${date_curr}')`;
                     db.query(query, (err, result3) => {
                         query = `select FORM_OBJ from forms_obj where FORM_ID='${id}'`;
@@ -1319,9 +1318,9 @@ router.use("/get-report-details", protectParent, async (req, res) => {
 
         var obj2 = {};
         for (let i = 0; i < category.length; i++) {
-            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Max_Marks<=Marks_Obtained and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
+            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Marks_Obtained>=Max_Marks and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
             let result = await query(que_query);
-            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID not in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Max_Marks<=Marks_Obtained and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
+            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID not in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Marks_Obtained>=Max_Marks and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
             let result2 = await query(que_query);
             obj2[category[i] + "_correct"] = result;
             obj2[category[i] + "_incorrect"] = result2;
@@ -1369,7 +1368,7 @@ router.use("/get-report-details", protectParent, async (req, res) => {
             sensory_incorrect: obj2["sensory_incorrect"],
             emotional_correct: obj2["emotional_correct"],
             emotional_incorrect: obj2["emotional_incorrect"],
-            cognition_correct: obj2["cognitive_correct_correct"],
+            cognition_correct: obj2["cognitive_correct"],
             cognition_incorrect: obj2["cognitive_incorrect"],
             social_correct: obj2["social_correct"],
             social_incorrect: obj2["social_incorrect"],
