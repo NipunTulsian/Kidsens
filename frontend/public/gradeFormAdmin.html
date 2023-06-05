@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form View Page</title>
-    <link rel="stylesheet" href="formStyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Grade Form</title>
+    <link rel="stylesheet" href="gradeForm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&display=swap" rel="stylesheet">
     <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
     <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>
         jQuery(function ($) {
             var $bodyEl = $('body'),
@@ -49,29 +50,36 @@
     </script>
 </head>
 
-<body id="abc" style="background-color:#eee ;">
+<body style="background-color:#eee ;">
     <div id="sidedrawer" class="mui--no-user-select">
         <div id="sidedrawer-brand" class="mui--appbar-line-height">
-            <span class="mui--text-title">Kidsens</span>
+            <span class="mui--text-title">Admin</span>
         </div>
         <div class="mui-divider"></div>
         <ul>
             <li style="padding-left: 15px">
-                <a href="/LandStudent/Profile" style="display: flex; align-items:center;">
-                    <i class='fa fa-user-circle' style="font-size:20px ;"></i>
+                <a href="/adminPage/RegisterStudent" style="display: flex; align-items:center;">
                     <strong>Profile</strong>
                 </a>
             </li>
             <li style="padding-left: 15px">
-                <a href="/LandStudent/ViewPendingForms" style="display: flex; align-items:center;">
-                    <i class='fa fa-list' style="font-size:20px ;"></i>
-                    <strong>View Pending Forms</strong>
+                <a href="/adminPage/AllStudents" style="display: flex; align-items:center;">
+                    <strong>My Students</strong>
                 </a>
             </li>
             <li style="padding-left: 15px">
-                <a href="/LandStudent/ViewAllReports" style="display: flex; align-items:center;">
-                    <span class="material-icons">summarize</span>
-                    <strong>View All Reports</strong>
+                <a href="/adminPage/RegisterTherapist" style="display: flex; align-items:center;">
+                    <strong>Create a new Form</strong>
+                </a>
+            </li>
+            <li style="padding-left: 15px">
+                <a href="/adminPage/AllTherapists" style="display: flex; align-items:center;">
+                    <strong>View all forms</strong>
+                </a>
+            </li>
+            <li style="padding-left: 15px">
+                <a href="/adminPage/CreateForm" style="display: flex; align-items:center;">
+                    <strong>View all pending forms</strong>
                 </a>
             </li>
         </ul>
@@ -90,7 +98,7 @@
                                 width='150px' /></a>
                     </td>
                     <td>
-                        <h4 style="font-size: 30px;">Form Filling</h4>
+                        <h4 style="font-size: 30px;">Form Grading</h4>
                     </td>
                 </tr>
             </table>
@@ -98,9 +106,25 @@
     </header>
     <div id="content-wrapper">
         <div class="mui--appbar-height"></div>
-        <div class="mui-container-fluid" style="padding-left: 50px">
-            <form id="fb-render"></form>
-            <input type="button" id="get-user-data" value="Submit Form"></input>
+        <div class="forms" style="padding:0px 20px;">
+            <div class="column">
+                <h1 style="margin-bottom: 30px" class="center">Student's Response</h1>
+                <form id="fb-render"></form>
+            </div>
+            <hr>
+            <div class="column">
+                <h1 style="margin-bottom: 30px" class="center">Correct answers</h1>
+                <form id="fb-render2"></form>
+            </div>
+            <hr>
+            <div class="marks">
+                <h1>Grade Form</h1>
+                <div class="grade">
+                    <div class="grade-inner">
+                    </div>
+                </div>
+                <br>
+            </div>
         </div>
         <div style="display: flex;justify-content:center;width:100%">
             <p class="copyright" style="position: absolute; bottom:0; font-size:medium">© alphamu software technologies. All Rights Reserved</p>
@@ -111,6 +135,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src="https://formbuilder.online/assets/js/form-builder.min.js"></script>
 <script src="https://formbuilder.online/assets/js/form-render.min.js"></script>
-<script src="./formSubmit.js"></script>
+<script src="gradeForm.js"></script>
 
 </html>

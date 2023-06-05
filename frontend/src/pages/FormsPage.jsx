@@ -14,13 +14,32 @@ import { useParams } from 'react-router';
 
 function FormsPage() {
     const navigate = useNavigate();
+    const [type,settype]=React.useState("");
     let { id } = useParams()
     React.useEffect(() => {
         if (!localStorage.getItem('User')) {
             navigate('/')
         }
         getForms()
+        getType();
     }, [])
+    const getType=async()=>{
+        const serverRes = await fetch("http://localhost:8000/get-type", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                "authorization": "Bearer".concat(" ", localStorage.getItem("User")),
+            },
+            body: JSON.stringify({
+                token:localStorage.getItem("User")
+            })
+        })
+        if(serverRes.status===200){
+            const serverResJson = await serverRes.json()
+            settype(serverResJson.type);
+            console.log(serverResJson)
+        }
+    }
     const getForms = async () => {
         const serverRes = await fetch("http://localhost:8000/get-forms", {
             method: "POST",
@@ -140,7 +159,8 @@ function FormsPage() {
                                         <Button variant='contained' color='error' onClick={() => { deleteForm(form.FORM_ID) }}>Delete</Button>
                                     </Box>
                                     <Box>
-                                        <Button variant='contained' onClick={() => window.location.href = '/gradeForm.html?id=' + `${form.FORM_ID}&student=${id.split(';')[0]}`}>Score Form</Button>
+                                        {type==="admin"&&<Button variant='contained' onClick={() => window.location.href = '/gradeFormAdmin.html?id=' + `${form.FORM_ID}&student=${id.split(';')[0]}`}>Score Form</Button>}
+                                        {type==="therapist"&&<Button variant='contained' onClick={() => window.location.href = '/gradeFormTherapist.html?id=' + `${form.FORM_ID}&student=${id.split(';')[0]}`}>Score Form</Button>}
                                     </Box>
                                 </Box>
                             </CardContent>

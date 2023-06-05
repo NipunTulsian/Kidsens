@@ -752,7 +752,36 @@ router.use("/get-forms", protectTherapistAdmin, async (req, res) => {
     }
     catch (err) {
 
-        res.sendStatus(500)
+        return res.sendStatus(500)
+    }
+})
+
+router.use("/get-type", protectTherapistAdmin, async (req, res) => {
+    try {
+        const query = util.promisify(db.query).bind(db);
+        let { token } = req.body;
+        const decoded = jwt.verify(token, "abc123");
+        const email = decoded.id
+        var que_query = `select EMP_ID,count(EMP_ID) as num from therapist where Email='${email}'`
+        var result = await query(que_query)
+        if (result[0]["num"] > 0) {
+            return res.status(200).json({
+                type:"therapist"
+            })
+        }
+        else {
+            que_query = `select ADMIN_ID from admin where email='${email}'`
+            result = await query(que_query)
+            if (result[0]) {
+                return res.status(200).json({
+                    type:"admin"
+                })
+            } 
+        }
+    }
+    catch (e) {
+        console.log(e);
+        return res.sendStatus(500)
     }
 })
 router.use("/get-fill", async (req, res) => {

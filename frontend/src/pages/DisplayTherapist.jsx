@@ -67,6 +67,7 @@ export default function DisplayTherapist(props) {
     }
 
     useEffect(() => {
+        console.log(props.arr)
         searchFunctionTherapist();
     }, [props.search]);
 

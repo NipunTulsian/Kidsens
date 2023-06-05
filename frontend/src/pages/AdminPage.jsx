@@ -19,7 +19,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import logo from '../logo.png'
 import BoyIcon from '@mui/icons-material/Boy';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -288,6 +288,9 @@ class FormBuilder extends Component {
 
 export default function AdminPage() {
     const theme = useTheme();
+    const params = useParams();
+    const [displayThis, setDisplayThis] = React.useState(params.display);
+
     const [searchStudent, setsearchStudent] = React.useState("");
     const [searchTherapist, setsearchTherapist] = React.useState("");
     const [open, setOpen] = React.useState(false);
@@ -313,15 +316,7 @@ export default function AdminPage() {
         setOpen(false);
     };
 
-    const [displayThis, setDisplayThis] = React.useState('Register Student')
-
-    // function registerStudent() {
-    //     navigate('/registerStudent')
-    // }
-
-    // function registerTherapist() {
-    //     navigate('/registerTherapist')
-    // }
+    const [loader, setload] = React.useState(false)
 
     const getStudent = async () => {
         const serverRes = await fetch("http://localhost:8000/display-student", {
@@ -338,6 +333,7 @@ export default function AdminPage() {
         if (serverRes.status === 200) {
             const serverResJson = await serverRes.json();
             setallStudents(serverResJson);
+            getTherapist();
         }
     }
 
@@ -356,13 +352,13 @@ export default function AdminPage() {
         if (serverRes.status === 200) {
             const serverResJson = await serverRes.json();
             setallTherapists(serverResJson);
+            setload(true)
         }
     }
 
 
     React.useEffect(() => {
         getStudent();
-        getTherapist()
     }, [])
 
     function changeStudentSearch(event) {
@@ -373,8 +369,10 @@ export default function AdminPage() {
         setsearchTherapist(event.target.value);
     }
 
-    const textAndIcon = [['Register Student', '<BoyIcon />'], ['All Students', '<GroupsIcon />'], ['Register Therapist', '<MedicationIcon />'], ['All Therapists', '<GroupsIcon />'], ['Create a new form', '<BorderColorIcon />']]
+    const textAndIcon = [['Register Student', '<BoyIcon />'], ['All Students', '<GroupsIcon />'], ['Register Therapist', '<MedicationIcon />'], ['All Therapists', '<GroupsIcon />'], ['Create Form', '<BorderColorIcon />']]
+    const text = ['RegisterStudent', 'AllStudents', 'RegisterTherapist', 'AllTherapists', 'CreateForm']
 
+    if (loader) {
     return (
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
@@ -399,7 +397,7 @@ export default function AdminPage() {
                     <Button
                         onClick={logout}
                         color="inherit"
-                        style={{ margin: "auto 0 auto auto", fontWeight: 900 }}
+                        style={{ margin: "auto 0 auto auto", fontWeight: 900,cursor:"pointer" }}
                     >
                         Logout
                     </Button>
@@ -420,7 +418,7 @@ export default function AdminPage() {
                     <ListItem disablePadding sx={{ display: "block" }}>
                         {textAndIcon.map((item, index) => (
                             <ListItemButton key={index}
-                                onClick={() => setDisplayThis(item[0])}
+                                onClick={() => { setDisplayThis(text[index]); navigate(`/adminPage/${text[index]}`) }}
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? "initial" : "center",
@@ -488,13 +486,14 @@ export default function AdminPage() {
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
                 <div>
-                    {displayThis === 'Register Student' && <RegisterStudent />}
-                    {displayThis === 'Register Therapist' && <RegisterTherapist />}
-                    {displayThis === 'All Students' && <DisplayStudents arr={allStudents} search={searchStudent} filter={searchStudent} SearchFunc={changeStudentSearch} />}
-                    {displayThis === 'All Therapists' && <DisplayTherapist arr={allTherapists} search={searchTherapist} filter={searchTherapist} SearchFunc={changeTherapistSearch} />}
-                    {displayThis === 'Create a new form' && <FormBuilder />}
+                    {displayThis === 'RegisterStudent' && <RegisterStudent />}
+                    {displayThis === 'RegisterTherapist' && <RegisterTherapist />}
+                    {displayThis === 'AllStudents' && <DisplayStudents arr={allStudents} search={searchStudent} filter={searchStudent} SearchFunc={changeStudentSearch} />}
+                    {displayThis === 'AllTherapists' && <DisplayTherapist arr={allTherapists} search={searchTherapist} filter={searchTherapist} SearchFunc={changeTherapistSearch} />}
+                    {displayThis === 'CreateForm' && <FormBuilder />}
                 </div>
             </Box>
         </Box>
-    );
+    
+    )};
 }

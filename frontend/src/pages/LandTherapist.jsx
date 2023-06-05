@@ -24,7 +24,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Grid from '@mui/material/Grid';
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import logo from '../logo.png'
@@ -32,6 +32,7 @@ import PendingActionsIcon from '@mui/icons-material/PendingActions';
 
 import $ from "jquery";
 import DisplayStudentTherapist from "./DisplayStudentTherapist";
+import { useState } from "react";
 window.jQuery = $;
 window.$ = $;
 
@@ -376,12 +377,13 @@ export default function LandTherapy() {
 		})
 		if (serverRes.status === 200) {
 			const serverResJson = await serverRes.json();
-			console.log(serverResJson)
 			setPendingForms(serverResJson.answer)
+			setload(true);
 		}
 	}
 
 	const navigate = useNavigate()
+	const [loader, setload] = useState(false);
 	React.useEffect(() => {
 		fetchdata();
 	}, [])
@@ -405,7 +407,6 @@ export default function LandTherapy() {
 	};
 
 
-	const [displayThis, setDisplayThis] = React.useState('Profile')
 	const [formsArr, setFormsArr] = React.useState(['Form 1', 'Form 2', 'Form 3', 'Form 4', 'Form 5', 'Form 6'])
 	const [searchStudent, setsearchStudent] = React.useState("");
 
@@ -413,232 +414,235 @@ export default function LandTherapy() {
 		setsearchStudent(event.target.value);
 	}
 
+	const params = useParams();
+	const [displayThis, setDisplayThis] = React.useState(params.display)
 
-	return (
-		<Box sx={{ display: "flex" }}>
-			<CssBaseline />
-			<AppBar position="fixed" open={open}>
-				<Toolbar>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						onClick={handleDrawerOpen}
-						edge="start"
-						sx={{
-							marginRight: 5,
-							...(open && { display: "none" }),
-						}}
-					>
-						<MenuIcon />
-					</IconButton>
-					<img href="/" alt="Kidsens" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
-					<Typography variant="h6" noWrap component="div">
-						{displayThis}
-					</Typography>
-					<Button
-						color="inherit"
-						style={{ margin: "auto 0 auto auto", fontWeight: 900 }}
-						onClick={logout}
-					>
-						Logout
-					</Button>
-				</Toolbar>
-			</AppBar>
-			<Drawer variant="permanent" open={open}>
-				<DrawerHeader>
-					<IconButton onClick={handleDrawerClose}>
-						{theme.direction === "rtl" ? (
-							<ChevronRightIcon />
-						) : (
-							<ChevronLeftIcon />
-						)}
-					</IconButton>
-				</DrawerHeader>
-				<Divider />
-				<List>
-					<ListItem disablePadding sx={{ display: "block" }}>
-						<ListItemButton
-							onClick={() => setDisplayThis('Profile')}
+	if (loader) {
+		return (
+			<Box sx={{ display: "flex" }}>
+				<CssBaseline />
+				<AppBar position="fixed" open={open}>
+					<Toolbar>
+						<IconButton
+							color="inherit"
+							aria-label="open drawer"
+							onClick={handleDrawerOpen}
+							edge="start"
 							sx={{
-								minHeight: 48,
-								justifyContent: open ? "initial" : "center",
-								px: 2.5,
+								marginRight: 5,
+								...(open && { display: "none" }),
 							}}
 						>
-							<ListItemIcon
-								sx={{
-									minWidth: 0,
-									mr: open ? 3 : "auto",
-									justifyContent: "center",
-								}}
-							>
-								<AccountCircleIcon />
-							</ListItemIcon>
-							<ListItemText primary='Profile' sx={{ opacity: open ? 1 : 0 }} />
-						</ListItemButton>
-						<ListItemButton
-							onClick={() => setDisplayThis('My Students')}
-							sx={{
-								minHeight: 48,
-								justifyContent: open ? "initial" : "center",
-								px: 2.5,
-							}}
+							<MenuIcon />
+						</IconButton>
+						<img href="/" alt="Kidsens" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
+						<Typography variant="h6" noWrap component="div">
+							{displayThis}
+						</Typography>
+						<Button
+							color="inherit"
+							style={{ margin: "auto 0 auto auto", fontWeight: 900 }}
+							onClick={logout}
 						>
-							<ListItemIcon
+							Logout
+						</Button>
+					</Toolbar>
+				</AppBar>
+				<Drawer variant="permanent" open={open}>
+					<DrawerHeader>
+						<IconButton onClick={handleDrawerClose}>
+							{theme.direction === "rtl" ? (
+								<ChevronRightIcon />
+							) : (
+								<ChevronLeftIcon />
+							)}
+						</IconButton>
+					</DrawerHeader>
+					<Divider />
+					<List>
+						<ListItem disablePadding sx={{ display: "block" }}>
+							<ListItemButton
+								onClick={() => { setDisplayThis('Profile'); navigate("/LandTherapy/Profile") }}
 								sx={{
-									minWidth: 0,
-									mr: open ? 3 : "auto",
-									justifyContent: "center",
+									minHeight: 48,
+									justifyContent: open ? "initial" : "center",
+									px: 2.5,
 								}}
 							>
-								<EscalatorWarningIcon />
-							</ListItemIcon>
-							<ListItemText primary='My Students' sx={{ opacity: open ? 1 : 0 }} />
-						</ListItemButton>
-						<ListItemButton
-							onClick={() => setDisplayThis('Create a new form')}
-							sx={{
-								minHeight: 48,
-								justifyContent: open ? "initial" : "center",
-								px: 2.5,
-							}}
-						>
-							<ListItemIcon
+								<ListItemIcon
+									sx={{
+										minWidth: 0,
+										mr: open ? 3 : "auto",
+										justifyContent: "center",
+									}}
+								>
+									<AccountCircleIcon />
+								</ListItemIcon>
+								<ListItemText primary='Profile' sx={{ opacity: open ? 1 : 0 }} />
+							</ListItemButton>
+							<ListItemButton
+								onClick={() => { setDisplayThis('MyStudents'); navigate("/LandTherapy/MyStudents") }}
 								sx={{
-									minWidth: 0,
-									mr: open ? 3 : "auto",
-									justifyContent: "center",
+									minHeight: 48,
+									justifyContent: open ? "initial" : "center",
+									px: 2.5,
 								}}
 							>
-								<BorderColorIcon />
-							</ListItemIcon>
-							<ListItemText primary='Create a new form' sx={{ opacity: open ? 1 : 0 }} />
-						</ListItemButton>
-						<ListItemButton
-							onClick={() => setDisplayThis('View all forms')}
-							sx={{
-								minHeight: 48,
-								justifyContent: open ? "initial" : "center",
-								px: 2.5,
-							}}
-						>
-							<ListItemIcon
+								<ListItemIcon
+									sx={{
+										minWidth: 0,
+										mr: open ? 3 : "auto",
+										justifyContent: "center",
+									}}
+								>
+									<EscalatorWarningIcon />
+								</ListItemIcon>
+								<ListItemText primary='My Students' sx={{ opacity: open ? 1 : 0 }} />
+							</ListItemButton>
+							<ListItemButton
+								onClick={() => { setDisplayThis('CreateForm'); navigate("/LandTherapy/CreateForm") }}
 								sx={{
-									minWidth: 0,
-									mr: open ? 3 : "auto",
-									justifyContent: "center",
+									minHeight: 48,
+									justifyContent: open ? "initial" : "center",
+									px: 2.5,
 								}}
 							>
-								<ViewListIcon />
-							</ListItemIcon>
-							<ListItemText primary='View all forms' sx={{ opacity: open ? 1 : 0 }} />
-						</ListItemButton>
-						<ListItemButton
-							onClick={() => setDisplayThis('View all pending forms')}
-							sx={{
-								minHeight: 48,
-								justifyContent: open ? "initial" : "center",
-								px: 2.5,
-							}}
-						>
-							<ListItemIcon
+								<ListItemIcon
+									sx={{
+										minWidth: 0,
+										mr: open ? 3 : "auto",
+										justifyContent: "center",
+									}}
+								>
+									<BorderColorIcon />
+								</ListItemIcon>
+								<ListItemText primary='Create a new form' sx={{ opacity: open ? 1 : 0 }} />
+							</ListItemButton>
+							<ListItemButton
+								onClick={() => { setDisplayThis('ViewAllForms'); navigate("/LandTherapy/ViewAllForms") }}
 								sx={{
-									minWidth: 0,
-									mr: open ? 3 : "auto",
-									justifyContent: "center",
+									minHeight: 48,
+									justifyContent: open ? "initial" : "center",
+									px: 2.5,
 								}}
 							>
-								<PendingActionsIcon />
-							</ListItemIcon>
-							<ListItemText primary='View all pending forms' sx={{ opacity: open ? 1 : 0 }} />
-						</ListItemButton>
-					</ListItem>
-				</List>
-			</Drawer>
-			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-				<DrawerHeader />
-				<div>
-					{displayThis === 'Profile' && <div>
-						<Typography align='center' margin={3} variant='h3'>Welcome,{therapist ? therapist.fname + " " + therapist.lname : null}</Typography>
+								<ListItemIcon
+									sx={{
+										minWidth: 0,
+										mr: open ? 3 : "auto",
+										justifyContent: "center",
+									}}
+								>
+									<ViewListIcon />
+								</ListItemIcon>
+								<ListItemText primary='View all forms' sx={{ opacity: open ? 1 : 0 }} />
+							</ListItemButton>
+							<ListItemButton
+								onClick={() => { setDisplayThis('ViewAllPendingForms'); navigate("/LandTherapy/ViewAllPendingForms") }}
+								sx={{
+									minHeight: 48,
+									justifyContent: open ? "initial" : "center",
+									px: 2.5,
+								}}
+							>
+								<ListItemIcon
+									sx={{
+										minWidth: 0,
+										mr: open ? 3 : "auto",
+										justifyContent: "center",
+									}}
+								>
+									<PendingActionsIcon />
+								</ListItemIcon>
+								<ListItemText primary='View all pending forms' sx={{ opacity: open ? 1 : 0 }} />
+							</ListItemButton>
+						</ListItem>
+					</List>
+				</Drawer>
+				<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+					<DrawerHeader />
+					<div>
+						{displayThis === 'Profile' && <div>
+							<Typography align='center' margin={3} variant='h3'>Welcome,{therapist ? therapist.fname + " " + therapist.lname : null}</Typography>
 
-						<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-							{therapist ? <img alt="Profile" src={therapist.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
-							<TextField
-								style={{ width: "30%", margin: "10px auto" }}
-								variant="outlined"
-								label="Username"
-								value={therapist.username}
-								InputProps={{
-									readOnly: true,
-								}}
-								InputLabelProps={{
-									style: {
-										fontSize: 18,
-										color: "#2196F3"
-									}
-								}}
-							></TextField>
-							<TextField
-								style={{ width: "30%", margin: "10px auto" }}
-								variant="outlined"
-								label="Speciality"
-								value={therapist.speciality}
-								InputProps={{
-									readOnly: true,
-								}}
-								InputLabelProps={{
-									style: {
-										fontSize: 18,
-										color: "#2196F3"
-									}
-								}}
-							></TextField>
-							<TextField
-								style={{ width: "30%", margin: "10px auto" }}
-								variant="outlined"
-								label="Address"
-								value={therapist.Address}
-								InputProps={{
-									readOnly: true,
-								}}
-								InputLabelProps={{
-									style: {
-										fontSize: 18,
-										color: "#2196F3"
-									}
-								}}
-							></TextField>
-							<TextField
-								style={{ width: "30%", margin: "10px auto" }}
-								variant="outlined"
-								label="id"
-								value={therapist.id}
-								InputProps={{
-									readOnly: true,
-								}}
-								InputLabelProps={{
-									style: {
-										fontSize: 18,
-										color: "#2196F3"
-									}
-								}}
-							></TextField>
-							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3", fontSize: "15px" }}>Identification</Typography>
-							<iframe title={therapist.Identity} src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }} />
-							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Certification</Typography>
-							<iframe title={therapist.Certification} src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }} />
-							<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Resume</Typography>
-							<iframe title={therapist.Resume} src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }} />
-						</div>
-					</div>}
+							<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+								{therapist ? <img alt="Profile" src={therapist.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
+								<TextField
+									style={{ width: "30%", margin: "10px auto" }}
+									variant="outlined"
+									label="Username"
+									value={therapist.username}
+									InputProps={{
+										readOnly: true,
+									}}
+									InputLabelProps={{
+										style: {
+											fontSize: 18,
+											color: "#2196F3"
+										}
+									}}
+								></TextField>
+								<TextField
+									style={{ width: "30%", margin: "10px auto" }}
+									variant="outlined"
+									label="Speciality"
+									value={therapist.speciality}
+									InputProps={{
+										readOnly: true,
+									}}
+									InputLabelProps={{
+										style: {
+											fontSize: 18,
+											color: "#2196F3"
+										}
+									}}
+								></TextField>
+								<TextField
+									style={{ width: "30%", margin: "10px auto" }}
+									variant="outlined"
+									label="Address"
+									value={therapist.Address}
+									InputProps={{
+										readOnly: true,
+									}}
+									InputLabelProps={{
+										style: {
+											fontSize: 18,
+											color: "#2196F3"
+										}
+									}}
+								></TextField>
+								<TextField
+									style={{ width: "30%", margin: "10px auto" }}
+									variant="outlined"
+									label="id"
+									value={therapist.id}
+									InputProps={{
+										readOnly: true,
+									}}
+									InputLabelProps={{
+										style: {
+											fontSize: 18,
+											color: "#2196F3"
+										}
+									}}
+								></TextField>
+								<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3", fontSize: "15px" }}>Identification</Typography>
+								<iframe title={therapist.Identity} src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }} />
+								<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Certification</Typography>
+								<iframe title={therapist.Certification} src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }} />
+								<Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Resume</Typography>
+								<iframe title={therapist.Resume} src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }} />
+							</div>
+						</div>}
 
-					{displayThis === 'My Students' && <DisplayStudentTherapist arr={myStudents} search={searchStudent} filter={searchStudent} SearchFunc={changeStudentSearch} />}
+						{displayThis === 'MyStudents' && <DisplayStudentTherapist arr={myStudents} search={searchStudent} filter={searchStudent} SearchFunc={changeStudentSearch} />}
 
-					{displayThis === 'Create a new form' && <div style={{ padding: '20px' }}>
-						<FormBuilder />
-					</div>}
+						{displayThis === 'CreateForm' && <div style={{ padding: '20px' }}>
+							<FormBuilder />
+						</div>}
 
-					{/* {displayThis === 'View all forms' &&
+						{/* {displayThis === 'View all forms' &&
 						<Grid spacing={2} container>
 							<Grid item md={4}>
 								<Card variant="outlined">
@@ -654,48 +658,49 @@ export default function LandTherapy() {
 							</Grid>
 						</Grid>} */}
 
-					{displayThis === 'View all forms' &&
-						<Grid spacing={4} container style={{ padding: '0px 50px', marginBottom: '50px' }}>
-							{formsArr.map((form) => (
-								<Grid item md={4} xl={3} xs={12} sm={6} key={form.FORM_ID}>
-									<Card variant="outlined" sx={tileAnimation}>
-										<CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '20px' }}>
-											<Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
-											<Box>
-												<Button variant='contained' onClick={() => window.location.href = `/formView.html?id=${form.FORM_ID}`}>View Form</Button>
-											</Box>
-										</CardContent>
-									</Card>
-								</Grid>
-							))}
-						</Grid>
-					}
+						{displayThis === 'ViewAllForms' &&
+							<Grid spacing={4} container style={{ padding: '0px 50px', marginBottom: '50px' }}>
+								{formsArr.map((form) => (
+									<Grid item md={4} xl={3} xs={12} sm={6} key={form.FORM_ID}>
+										<Card variant="outlined" sx={tileAnimation}>
+											<CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '20px' }}>
+												<Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
+												<Box>
+													<Button variant='contained' onClick={() => window.location.href = `/formView.html?id=${form.FORM_ID}`}>View Form</Button>
+												</Box>
+											</CardContent>
+										</Card>
+									</Grid>
+								))}
+							</Grid>
+						}
 
-					{displayThis === 'View all pending forms' &&
-						<Grid spacing={4} container style={{ padding: '0px 50px', marginBottom: '50px' }}>
-							{pendingForms.map((form) => (
-								<Grid item md={4} xl={3} xs={12} sm={6} key={form.formID}>
-									<Card variant="outlined" sx={tileAnimation}>
-										<CardContent style={{ display: 'flex', justifyContent: 'center', height: '150px', flexDirection: 'column', gap: '10px' }}>
-											<Box style={{ display: 'flex', flexDirection: "column", justifyContent: 'center' }}>
-												<Typography variant="outline text" align="center" color='#5A5A5A'>{form.stage} -{'>'} {form.assessment}</Typography>
-												<br></br>
-												<Typography variant="outline text" align="center" color='#5A5A5A'>Student: {form.studentFirstName} {form.studentLastName}</Typography>
-											</Box>
+						{displayThis === 'ViewAllPendingForms' &&
+							<Grid spacing={4} container style={{ padding: '0px 50px', marginBottom: '50px' }}>
+								{pendingForms.map((form) => (
+									<Grid item md={4} xl={3} xs={12} sm={6} key={form.formID}>
+										<Card variant="outlined" sx={tileAnimation}>
+											<CardContent style={{ display: 'flex', justifyContent: 'center', height: '150px', flexDirection: 'column', gap: '10px' }}>
+												<Box style={{ display: 'flex', flexDirection: "column", justifyContent: 'center' }}>
+													<Typography variant="outline text" align="center" color='#5A5A5A'>{form.stage} -{'>'} {form.assessment}</Typography>
+													<br></br>
+													<Typography variant="outline text" align="center" color='#5A5A5A'>Student: {form.studentFirstName} {form.studentLastName}</Typography>
+												</Box>
 
-											<Typography variant='h4' align="center">{form.formName}</Typography>
+												<Typography variant='h4' align="center">{form.formName}</Typography>
 
-											<Box style={{ display: 'flex', justifyContent: 'center' }}>
-												<Button variant='outlined' onClick={() => window.location.href = `/gradeForm.html?id=${form.FORM_ID}&student=${form.student_Id}`}>View Form</Button>
-											</Box>
-										</CardContent>
-									</Card>
-								</Grid>
-							))}
-						</Grid>
-					}
-				</div>
+												<Box style={{ display: 'flex', justifyContent: 'center' }}>
+													<Button variant='outlined' onClick={() => window.location.href = `/gradeFormTherapist.html?id=${form.FORM_ID}&student=${form.student_Id}`}>View Form</Button>
+												</Box>
+											</CardContent>
+										</Card>
+									</Grid>
+								))}
+							</Grid>
+						}
+					</div>
+				</Box>
 			</Box>
-		</Box>
-	);
+		)
+	};
 }

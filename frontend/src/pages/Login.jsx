@@ -33,7 +33,7 @@ function Login() {
             const variable = await response.json()
             if (variable.type === "admin") {
                 localStorage.setItem("User", variable.token);
-                navigate('/adminPage')
+                navigate('/adminPage/RegisterStudent')
             }
             else if (variable.type === "parent") {
                 localStorage.setItem("User", variable.token);
@@ -49,7 +49,7 @@ function Login() {
                 if(!variable.flag)
                 navigate('/TherapistRedirect')
                 else{
-                    navigate("/LandTherapy")
+                    navigate("/LandTherapy/Profile")
                 }
             }
         }

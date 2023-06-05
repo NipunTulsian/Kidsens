@@ -34,7 +34,7 @@ const router = createBrowserRouter([
 		element: <Login />
 	},
   {
-    path: "/adminPage",
+    path: "/adminPage/:display",
     element: <AdminPage />
   },
   {
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
     element: <TherapistRedirect />
   },
   {
-    path: "/LandTherapy",
+    path: "/LandTherapy/:display",
     element: <LandTherapy />
   },
   {

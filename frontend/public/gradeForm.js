@@ -92,7 +92,7 @@ async function gradeForm() {
 
     const marksEl = document.querySelector('.marks')
     if (cntQues != 0 && filled_response) {
-      marksEl.innerHTML += `<input type="button" value="Save" onClick="handleSaveMarks()">`
+      marksEl.innerHTML += `<input  type="button" value="Save" onClick="handleSaveMarks()">`
     }
   }
 }
