@@ -3,6 +3,7 @@ import land from "./landing.png"
 import logo from "./logo.png"
 import tick from "./tick.png"
 import cross from "./cross.png"
+import copyright from "./copyright.png"
 import {
     Document,
     Page,
@@ -68,6 +69,10 @@ const styles = StyleSheet.create({
         paddingTop: 35,
         paddingBottom: 35,
     },
+    footer: {
+        fontFamily: 'Roboto',
+        fontSize: 10
+    }
 });
 
 export default function ViewPDF() {
@@ -435,11 +440,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                 </Page>
 
@@ -463,11 +468,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>SPEECH AND LANGUAGE</Text>
@@ -545,11 +550,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>MOTOR</Text>
@@ -628,11 +633,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>SOCIAL</Text>
@@ -711,11 +716,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>COGNITIVE</Text>
@@ -796,11 +801,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>EMOTIONAL</Text>
@@ -878,11 +883,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>SENSORY</Text>
@@ -962,11 +967,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>BEHAVIOUR</Text>
@@ -1044,13 +1049,17 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
+                    <div style={{ position: "absolute", bottom: "5px", left: "15px", width: "60%",display:"flex",flexDirection:"row" }}>
+                        <Image src={copyright} style={{width:"10px",height:"10px"}}/>
+                        <Text style={styles.footer}>Alphamu Software Techniques, T-Hub ,Inorbit Mall Road, Hyderabad 530018</Text>
+                    </div >
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "170px", height: "100px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
                     <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
                         <Text style={styles.title}>SUMMARY AND</Text>
