@@ -316,7 +316,8 @@ router.use("/save-form", protectTherapistAdmin, async (req, res) => {
     try {
         let form_obj1 = req.body.form_obj;
         form_obj1 = form_obj1.replaceAll("'", "''");
-        form_obj1 = form_obj1.replaceAll("\"", "\"");
+        // form_obj1 = form_obj1.replace("\"", "\"");
+
         const sender_type = req.body.sender_type
         const sender_id = jwt.verify(req.body.sender_id, "abc123").id
         const form_id = Date.now();
@@ -513,7 +514,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             name = form_obj[i]["label"];
             name = name.replaceAll("'", "''");
-            name = name.replaceAll("\"", "\"");
+            name = name.replace(/"/g, '\\"');
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
             ques_id = Date.now();
@@ -523,7 +524,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
             for (let j = 0; j < options.length; j++) {
                 opt_name = options[j]["label"];
                 opt_name = opt_name.replaceAll("'", "''");
-                opt_name = opt_name.replaceAll("\"", "\"");
+                opt_name = opt_name.replace(/"/g, '\\"');
                 opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${opt_name}','${options[j]["selected"] ? 1 : 0}')`;
                 await query(opt_query);
             }
@@ -532,7 +533,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
         else if (type === "text") {
             name = form_obj[i]["label"];
             name = name.replaceAll("'", "''");
-            name = name.replaceAll("\"", "\"");
+            name = name.replace(/"/g, '\\"');
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
             ques_id = Date.now();
@@ -540,14 +541,14 @@ const destructure_form_obj = async (form_obj, form_id) => {
             await query(que_query);
             let value = form_obj[i]["value"];
             value = value.replaceAll("'", "''");
-            value = value.replaceAll("\"", "\"");
+            value = value.replace(/"/g, '\\"');
             opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${value}',NULL)`;
             await query(opt_query);
         }
         else if (type === "file") {
             name = form_obj[i]["label"];
             name = name.replaceAll("'", "''");
-            name = name.replaceAll("\"", "\"");
+            name = name.replaceAll(replace(/"/g, '\\"'));
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
             ques_id = Date.now();
@@ -557,7 +558,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
         else if (type === "date") {
             name = form_obj[i]["label"];
             name = name.replaceAll("'", "''");
-            name = name.replaceAll("\"", "\"");
+            name = name.replaceAll(replace(/"/g, '\\"'));
             ques_id = Date.now();
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
