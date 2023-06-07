@@ -49,7 +49,7 @@ function StagesPage() {
                         {/* <Draggable> */}
                         <Card variant="outlined" style={{ position: 'relative' }}>
                             <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
-                                <Typography variant='h4' align="center">{stage}</Typography>
+                                <Typography variant='h5' align="center">{stage}</Typography>
                                 <IconButton style={{ position: 'absolute', top: '0%', left: '90%' }} onClick={() => navigate(`/AssessmentPage/${id}` + ";" + `${stage}`)}>
                                     <OpenInBrowserIcon />
                                 </IconButton>

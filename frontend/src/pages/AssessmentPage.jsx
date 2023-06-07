@@ -172,7 +172,7 @@ function AssessmentsPage() {
                                 <IconButton style={{ position: 'absolute', top: '0%', left: '80%' }}  onClick={() => navigate(`/formspage/${id}`+";"+`${assessment}`)}>
                                     <OpenInBrowserIcon />
                                 </IconButton>
-                                <Typography variant='h4' align="center">{assessment}</Typography>
+                                <Typography variant='h5' align="center">{assessment}</Typography>
                             </CardContent>
                         </Card>
                     </Grid>

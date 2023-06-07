@@ -663,10 +663,11 @@ export default function LandTherapy() {
 								{formsArr.map((form) => (
 									<Grid item md={4} xl={3} xs={12} sm={6} key={form.FORM_ID}>
 										<Card variant="outlined" sx={tileAnimation}>
-											<CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '20px' }}>
-												<Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
+											<CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '120px', flexDirection: 'column', gap: '20px' }}>
+												<Typography variant='h6' align="center">{form.FORM_NAME}</Typography>
 												<Box>
-													<Button variant='contained' onClick={() => window.location.href = `/formView.html?id=${form.FORM_ID}`}>View Form</Button>
+													<Button variant='contained' onClick={() => window.location.href = `/formView.html?id=${form.FORM_ID}`} style={{marginRight:"10px"}}>View Form</Button>
+													<Button variant='contained' onClick={() => window.location.href = `/EditForm/${form.FORM_ID}`} style={{backgroundColor:"red"}}>Edit</Button>
 												</Box>
 											</CardContent>
 										</Card>
@@ -687,7 +688,7 @@ export default function LandTherapy() {
 													<Typography variant="outline text" align="center" color='#5A5A5A'>Student: {form.studentFirstName} {form.studentLastName}</Typography>
 												</Box>
 
-												<Typography variant='h4' align="center">{form.formName}</Typography>
+												<Typography variant='h6' align="center">{form.formName}</Typography>
 
 												<Box style={{ display: 'flex', justifyContent: 'center' }}>
 													<Button variant='outlined' onClick={() => window.location.href = `/gradeFormTherapist.html?id=${form.FORM_ID}&student=${form.student_Id}`}>View Form</Button>

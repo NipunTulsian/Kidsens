@@ -130,8 +130,8 @@ function DefaultForms() {
                 {formsArr.map((form) => (
                     <Grid item md={4} xl={3} xs={12} sm={6} key={form.FORM_ID}>
                         <Card variant="outlined">
-                            <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '20px' }}>
-                                <Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
+                            <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '10px' }}>
+                                <Typography variant='h5' align="center">{form.FORM_NAME}</Typography>
                                 <IconButton onClick={() => { deleteForm(form.FORM_ID) }}>
                                     <DeleteIcon />
                                 </IconButton>

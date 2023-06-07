@@ -27,6 +27,7 @@ import {
 import LandStudent from './pages/LandStudent';
 import LandTherapy from './pages/LandTherapist';
 import ViewPDF from './components/viewPDF';
+import EditFormTherapist from './pages/EditFormTherapist'
 
 const router = createBrowserRouter([
 	{
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
   {
     path: "/FormsPage/:id",
     element: <FormsPage />
+  },
+  {
+    path:"/EditForm/:id",
+    element:<EditFormTherapist/>
   },
   {
     path: '/AssessmentPage/:id',

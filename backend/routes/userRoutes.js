@@ -40,9 +40,7 @@ router.use("/student-register", protectAdmin, async (req, res) => {
             return res.status(400).send("Already Exists");
         }
         else {
-            let id = Date.now()
             query("INSERT INTO parent SET ?", {
-                student_Id: id,
                 password: hash, p_email: p_email, p_phn: phoneNumber,
                 c_fname: firstName, c_lname: lastName, Assigned_Admin: admin, Assigned_Therapist: therapist
             })
@@ -312,39 +310,6 @@ router.use("/delete-therapist", protectAdmin, async (req, res) => {
     }
 })
 
-router.use("/save-form", protectTherapistAdmin, async (req, res) => {
-    try {
-        let form_obj1 = req.body.form_obj;
-        form_obj1 = form_obj1.replaceAll("'", "''");
-        // form_obj1 = form_obj1.replace("\"", "\"");
-
-        const sender_type = req.body.sender_type
-        const sender_id = jwt.verify(req.body.sender_id, "abc123").id
-        const form_id = Date.now();
-        var query1 = `Insert into forms_obj value('${form_id}','${form_obj1}','${sender_type}','${sender_id}')`;
-        const form_obj = JSON.parse(req.body.form_obj);
-        var form_name = null;
-        if (form_obj[0].type === "header") {
-            form_name = form_obj[0]["label"];
-        }
-        var query2 = `Insert into forms Values ('${form_id}','${form_name}')`;
-
-        db.query(query2, function (err, result) {
-            destructure_form_obj(form_obj, form_id);
-        });
-        db.query(query1, (err, result) => {
-            if (err) {
-
-            }
-
-            return res.status(200).json("Form added")
-        })
-    }
-    catch (err) {
-
-        return res.status(500).json(err);
-    }
-})
 router.use("/create-stage", protectAdmin, async (req, res) => {
     try {
         let { id, stage_name, position } = req.body
@@ -360,24 +325,30 @@ router.use("/create-stage", protectAdmin, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 router.use("/delete-stage", protectAdmin, async (req, res) => {
     try {
         let { id, stage_name } = req.body
         id = jwt.verify(id, "abc123").id
-        db.query(`select position from default_stages where admin_Id='${id}' and stage = '${stage_name}'`, (err, result) => {
-            db.query(`UPDATE default_stages set position = position -1 where position>${result[0]["position"]}`)
-            db.query(`DELETE from default_assessments where admin_Id= '${id}' and stage='${stage_name}'`)
-        })
-        db.query(`DELETE from default_stages where admin_Id= '${id}' and stage = '${stage_name}'`, (err, result) => {
+        const query = util.promisify(db.query).bind(db);
+        let que_query = `select position from default_stages where admin_Id='${id}' and stage = '${stage_name}'`;
+        let result = await query(que_query);
+        que_query = `UPDATE default_stages set position = position -1 where position>${result[0]["position"]} and admin_Id='${id}'`;
+        await query(que_query);
+        que_query = `DELETE from default_assessments where admin_Id= '${id}' and stage='${stage_name}'`;
+        await query(que_query);
+        que_query = `Delete from default_AssessFormMap  where admin_Id='${id}' and stage='${stage_name}'`
+        await query(que_query);
+        que_query = `DELETE from default_stages where admin_Id= '${id}' and stage = '${stage_name}'`;
+        await query(que_query);
 
-            res.sendStatus(200);
-        })
+        res.sendStatus(200);
     }
     catch (err) {
-
         res.sendStatus(500)
     }
 })
+
 router.use("/get-stages", async (req, res) => {
     try {
         const { id } = req.body
@@ -397,10 +368,10 @@ router.use("/get-stages", async (req, res) => {
 
     }
     catch (err) {
-
         res.sendStatus(500)
     }
 })
+
 router.use("/create-default-assessment", protectAdmin, async (req, res) => {
     try {
         console.log(req.body)
@@ -415,20 +386,24 @@ router.use("/create-default-assessment", protectAdmin, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 router.use("/delete-default-assessment", protectAdmin, async (req, res) => {
     try {
         let { id, stage_name, assess_name } = req.body
         id = jwt.verify(id, "abc123").id
-        db.query(`delete from default_assessments where admin_Id = '${id}' and stage = '${stage_name}' and assessment= '${assess_name}'`, (err, result) => {
-
-            res.sendStatus(200);
-        })
+        const query = util.promisify(db.query).bind(db);
+        let que_query = `delete from default_assessments where admin_Id = '${id}' and stage = '${stage_name}' and assessment= '${assess_name}'`;
+        await query(que_query);
+        que_query = `delete from default_AssessFormMap where admin_Id='${id}' and stage = '${stage_name}' and assessment= '${assess_name}'`;
+        await query(que_query);
+        res.sendStatus(200);
     }
     catch (err) {
 
         res.sendStatus(500)
     }
 })
+
 router.use("/get-default-stages", protectAdmin, async (req, res) => {
     try {
         let { id } = req.body
@@ -447,6 +422,7 @@ router.use("/get-default-stages", protectAdmin, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 router.use("/get-default-assessments", protectTherapistAdmin, async (req, res) => {
     try {
         let { id, stage } = req.body
@@ -464,6 +440,7 @@ router.use("/get-default-assessments", protectTherapistAdmin, async (req, res) =
         res.sendStatus(500)
     }
 })
+
 router.use("/get-default-forms", protectTherapistAdmin, async (req, res) => {
     try {
         let { id, stage_name, assess_name } = req.body
@@ -490,6 +467,7 @@ router.use("/get-default-forms", protectTherapistAdmin, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 router.use("/add-default-map", protectTherapistAdmin, async (req, res) => {
     try {
         let { id, stage_name, assess_name, forms } = req.body
@@ -506,6 +484,73 @@ router.use("/add-default-map", protectTherapistAdmin, async (req, res) => {
     }
 })
 
+router.use("/save-form", protectTherapistAdmin, async (req, res) => {
+    try {
+        const query = util.promisify(db.query).bind(db);
+        let form_obj1 = req.body.form_obj;
+        form_obj1 = form_obj1.replaceAll("'", "''");
+        // form_obj1 = form_obj1.replace("\"", "\"");
+
+        const sender_type = req.body.sender_type
+        const sender_id = jwt.verify(req.body.sender_id, "abc123").id
+        const form_obj = JSON.parse(req.body.form_obj);
+        var form_name = null;
+        var form_id = null;
+        if (form_obj[0].type === "header") {
+            form_name = form_obj[0]["label"];
+        }
+        var query2 = `Insert into forms Values (NULL,'${form_name}')`;
+        let result = await query(query2);
+        form_id = result.insertId;
+        destructure_form_obj(form_obj, form_id);
+
+        query2 = `Insert into forms_obj value('${form_id}','${form_obj1}','${sender_type}','${sender_id}')`;
+
+        await query(query2);
+        console.log("cdf")
+        return res.status(200).json("Form added")
+
+    }
+    catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+router.use("/edit-form", protectTherapistAdmin, async (req, res) => {
+    try {
+        const query = util.promisify(db.query).bind(db);
+        let form_obj1 = req.body.form_obj;
+        let form_id = req.body.id;
+        form_obj1 = form_obj1.replaceAll("'", "''");
+        // form_obj1 = form_obj1.replace("\"", "\"");
+
+        const sender_type = req.body.sender_type
+        const sender_id = jwt.verify(req.body.sender_id, "abc123").id
+        const form_obj = JSON.parse(req.body.form_obj);
+        var form_name = null;
+        if (form_obj[0].type === "header") {
+            form_name = form_obj[0]["label"];
+        }
+        var que_query = `delete from Marks where FORM_Id='${form_id}'`;
+        await query(que_query);
+        que_query = `delete from ANSWERS where FORM_Id='${form_id}'`;
+        await query(que_query);
+        que_query = `delete from questions where FORM_ID='${form_id}'`;
+        await query(que_query);
+        que_query = `update forms set FORM_NAME='${form_name}' where FORM_ID='${form_id}'`;
+        await query(que_query);
+
+        destructure_form_obj(form_obj, form_id);
+        que_query = `update forms_obj set FORM_OBJ='${form_obj1}' where FORM_ID='${form_id}'`
+       
+        await query(que_query);
+        return res.status(200).json("Form edited")
+    }
+    catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
 const destructure_form_obj = async (form_obj, form_id) => {
     const query = util.promisify(db.query).bind(db);
     var que_query = "", name = "", type = "", ques_id = 0, opt_name = "", opt_query = "", category = "";
@@ -517,10 +562,10 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = name.replace(/"/g, '\\"');
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            ques_id = Date.now();
             var options = form_obj[i]["values"];
-            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`
-            await query(que_query);
+            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}')`
+            let result = await query(que_query);
+            ques_id = result.insertId;
             for (let j = 0; j < options.length; j++) {
                 opt_name = options[j]["label"];
                 opt_name = opt_name.replaceAll("'", "''");
@@ -536,9 +581,9 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = name.replace(/"/g, '\\"');
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            ques_id = Date.now();
-            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
-            await query(que_query);
+            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
+            let result = await query(que_query);
+            ques_id = result.insertId;
             let value = form_obj[i]["value"];
             value = value.replaceAll("'", "''");
             value = value.replace(/"/g, '\\"');
@@ -551,18 +596,16 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = name.replaceAll(replace(/"/g, '\\"'));
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            ques_id = Date.now();
-            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
+            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
         }
         else if (type === "date") {
             name = form_obj[i]["label"];
             name = name.replaceAll("'", "''");
             name = name.replaceAll(replace(/"/g, '\\"'));
-            ques_id = Date.now();
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            que_query = `Insert into questions Values('${ques_id}','${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
+            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
             await query(que_query);
         }
     }
@@ -571,7 +614,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
 
 router.use("/delete-assessment", protectTherapistAdmin, async (req, res) => {
     try {
-        const { id, stage_name, assess_name } = req.body
+        const { id, stage_name, assess_name } = req.body;
         var query = `delete from assessments where student_Id = '${id}' and stage = '${stage_name}' and assessment= '${assess_name}'`
         db.query(query, (err, result) => {
 
@@ -583,6 +626,7 @@ router.use("/delete-assessment", protectTherapistAdmin, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 async function getPending(arr) {
     const query = util.promisify(db.query).bind(db);
     const students = arr;
@@ -615,6 +659,7 @@ async function getPending(arr) {
     }
     return answer
 }
+
 router.use("/get-fetchPending", protectTherapist, async (req, res) => {
     try {
         const query = util.promisify(db.query).bind(db);
@@ -638,6 +683,7 @@ router.use("/get-fetchPending", protectTherapist, async (req, res) => {
         return res.status(500).json(e);
     }
 })
+
 router.use("/add-assessment", protectTherapistAdmin, async (req, res) => {
     try {
         const db_query = util.promisify(db.query).bind(db);
@@ -653,6 +699,7 @@ router.use("/add-assessment", protectTherapistAdmin, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 router.use("/get-assessments", async (req, res) => {
     try {
         const { id, stage } = req.body
@@ -697,6 +744,7 @@ router.use("/get-default-assessments-therapist", protectTherapistAdmin, async (r
         res.sendStatus(500)
     }
 })
+
 router.use("/add-map", protectTherapistAdmin, async (req, res) => {
     try {
         const { id, stage_name, assess_name, forms } = req.body
@@ -718,6 +766,7 @@ router.use("/add-map", protectTherapistAdmin, async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 router.use("/get-forms", protectTherapistAdmin, async (req, res) => {
     try {
         const { id, stage_name, assess_name } = req.body
@@ -767,7 +816,7 @@ router.use("/get-type", protectTherapistAdmin, async (req, res) => {
         var result = await query(que_query)
         if (result[0]["num"] > 0) {
             return res.status(200).json({
-                type:"therapist"
+                type: "therapist"
             })
         }
         else {
@@ -775,9 +824,9 @@ router.use("/get-type", protectTherapistAdmin, async (req, res) => {
             result = await query(que_query)
             if (result[0]) {
                 return res.status(200).json({
-                    type:"admin"
+                    type: "admin"
                 })
-            } 
+            }
         }
     }
     catch (e) {
@@ -893,7 +942,7 @@ router.use("/get-FormObject", async (req, res) => {
         let query = `select FORM_OBJ from forms_obj where FORM_ID='${id}'`;
         db.query(query, (err, result) => {
             return res.status(200).json({
-                form: result[0]["FORM_OBJ"]
+                form: result[0]?.FORM_OBJ
             });
         })
     }
@@ -1021,7 +1070,7 @@ const destructure_form_obj_answers = async (form_obj, form_id, student_id) => {
         type = form_obj[i]["type"];
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             var options = form_obj[i]["userData"];
-            for (let j = 0; j < options.length; j++) {
+            for (let j = 0; j < options?.length; j++) {
                 let temp = options[j];
                 temp = temp.replaceAll("'", "''");
                 temp = temp.replaceAll("\"", "\"");
@@ -1413,33 +1462,7 @@ router.use("/get-report-details", protectParent, async (req, res) => {
         return res.status(500).json(e);
     }
 })
-router.use("/get-scale", protectParent, async (req, res) => {
-    try {
-        const { stage, assessment, percentage } = req.body
-        console.log(percentage)
-        db.query(`select * from default_assessments where stage='${stage}' and assessment = '${assessment}'`, (err, result) => {
-            console.log(result)
-            if (percentage < result[0]["SevereUp"]) {
-                res.status(200).json({
-                    status: "Severe",
-                    message: result[0]["message_severe"]
-                })
-            }
-            else if (percentage < result[0]["MildUp"]) {
-                res.status(200).json({ status: "Moderate", message: result[0]["message_moderate"] })
-            }
-            else {
-                res.status(200).json({
-                    status: "Mild",
-                    message: result[0]["message_mild"]
-                })
-            }
-        })
-    }
-    catch (e) {
-        return res.status(500).json(e)
-    }
-})
+
 router.use("/get-reportsMain", protectParent, async (req, res) => {
     try {
         const decoded = jwt.verify(req.body.id, "abc123");
@@ -1451,33 +1474,6 @@ router.use("/get-reportsMain", protectParent, async (req, res) => {
     }
     catch (e) {
         console.log(e)
-        return res.status(500).json(e)
-    }
-})
-router.use("/get-questionsReport", protectParent, async (req, res) => {
-    try {
-        const id = req.body.id;
-        const decoded = jwt.verify(req.body.student, "abc123");
-        const email = decoded.id
-        const assessment = req.body.assessment
-        const stage = req.body.stage
-        var query = `select * from Marks where student_Id='${email}' and FORM_ID='${id}'`
-        db.query(query, (err, result_question) => {
-            query = `select sum(Marks_Obtained) as total, sum(Max_Marks) as max from Marks where student_Id='${email}' and FORM_ID='${id}'`
-            db.query(query, (err, result_sum) => {
-                query = `select Question from questions where QUESTION_ID in (select QUESTION_ID from Marks where student_Id='${email}' and FORM_ID='${id}')`;
-                db.query(query, (err, result) => {
-                    return res.status(200).json({
-                        questions: result_question,
-                        sum: result_sum[0].total,
-                        max_sum: result_sum[0].max,
-                        question_desc: result,
-                    })
-                })
-            })
-        })
-    }
-    catch (e) {
         return res.status(500).json(e)
     }
 })

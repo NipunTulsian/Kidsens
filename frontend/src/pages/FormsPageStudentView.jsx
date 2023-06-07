@@ -66,7 +66,7 @@ function FormsPageStudentView() {
                             <Grid item md={4} xl={3} xs={12} sm={6} key={form.FORM_ID}>
                                 <Card variant="outlined" >
                                     <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '20px' }}>
-                                        <Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
+                                        <Typography variant='h6' align="center">{form.FORM_NAME}</Typography>
                                         <Box>
                                             <Button variant='outlined' onClick={() => window.location.href = `/viewPDF?id=${form.FORM_ID}`}>View Report</Button>
                                         </Box>
@@ -90,7 +90,7 @@ function FormsPageStudentView() {
                                 <Card variant="outlined" >
                                     {/* <Typography variant="body2" style={{ textAlign: 'right' }}>Not Marked</Typography> */}
                                     <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '20px' }}>
-                                        <Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
+                                        <Typography variant='h6' align="center">{form.FORM_NAME}</Typography>
                                         <Box>
                                             <Button variant='outlined' disabled>View Report</Button>
                                         </Box>
@@ -115,7 +115,7 @@ function FormsPageStudentView() {
                                 <Card variant="outlined" >
                                     <Typography variant="body2" style={{ textAlign: 'right' }}>Not Attempted</Typography>
                                     <CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', flexDirection: 'column', gap: '20px' }}>
-                                        <Typography variant='h4' align="center">{form.FORM_NAME}</Typography>
+                                        <Typography variant='h6' align="center">{form.FORM_NAME}</Typography>
                                         <Box>
                                             {/* this button */}
                                             <Button variant='outlined' onClick={() => window.location.href = '/formSubmit.html?id=' + `${form.FORM_ID}`}>Fill Form</Button>
