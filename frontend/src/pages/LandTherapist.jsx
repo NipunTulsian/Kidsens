@@ -382,6 +382,23 @@ export default function LandTherapy() {
 		}
 	}
 
+	async function deleteForm(id) {
+		console.log(id);
+		let serverRes = await fetch("http://localhost:8000/delete-form", {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json',
+				"authorization": "Bearer".concat(" ", localStorage.getItem("User")),
+			},
+			body: JSON.stringify({
+				id: id
+			})
+		})
+		if (serverRes.status === 200) {
+			// window.location.reload(false);
+		}
+	}
+
 	const navigate = useNavigate()
 	const [loader, setload] = useState(false);
 	React.useEffect(() => {
@@ -407,7 +424,7 @@ export default function LandTherapy() {
 	};
 
 
-	const [formsArr, setFormsArr] = React.useState(['Form 1', 'Form 2', 'Form 3', 'Form 4', 'Form 5', 'Form 6'])
+	const [formsArr, setFormsArr] = React.useState([])
 	const [searchStudent, setsearchStudent] = React.useState("");
 
 	function changeStudentSearch(event) {
@@ -666,8 +683,23 @@ export default function LandTherapy() {
 											<CardContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '120px', flexDirection: 'column', gap: '20px' }}>
 												<Typography variant='h6' align="center">{form.FORM_NAME}</Typography>
 												<Box>
-													<Button variant='contained' onClick={() => window.location.href = `/formView.html?id=${form.FORM_ID}`} style={{marginRight:"10px"}}>View Form</Button>
-													<Button variant='contained' onClick={() => window.location.href = `/EditForm/${form.FORM_ID}`} style={{backgroundColor:"red"}}>Edit</Button>
+													<Button variant='contained' onClick={() => window.location.href = `/formView.html?id=${form.FORM_ID}`} style={{ marginRight: "10px" }}>View Form</Button>
+													<Button variant='contained' onClick={() => window.location.href = `/EditForm/${form.FORM_ID}`} style={{ backgroundColor: "red", marginRight: "10px" }}>Edit</Button>
+													<Button variant='contained' onClick={async () => {
+														let serverRes = await fetch("http://localhost:8000/delete-form", {
+															method: "POST",
+															headers: {
+																'Content-Type': 'application/json',
+																"authorization": "Bearer".concat(" ", localStorage.getItem("User")),
+															},
+															body: JSON.stringify({
+																id: form.FORM_ID
+															})
+														})
+														if (serverRes.status === 200) {
+															window.location.reload(false);
+														}
+													}} style={{ marginRight: "10px" }}>Delete</Button>
 												</Box>
 											</CardContent>
 										</Card>

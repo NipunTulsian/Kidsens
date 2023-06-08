@@ -11,7 +11,8 @@ router = express.Router()
 const { protectAdmin, protectTherapist, protectParent, protectTherapistAdmin } = require("../middleware/usermiddleware")
 
 const fs = require("fs")
-const path = require("path")
+const path = require("path");
+const { query } = require('express');
 
 
 module.exports = router;
@@ -507,7 +508,6 @@ router.use("/save-form", protectTherapistAdmin, async (req, res) => {
         query2 = `Insert into forms_obj value('${form_id}','${form_obj1}','${sender_type}','${sender_id}')`;
 
         await query(query2);
-        console.log("cdf")
         return res.status(200).json("Form added")
 
     }
@@ -524,8 +524,6 @@ router.use("/edit-form", protectTherapistAdmin, async (req, res) => {
         form_obj1 = form_obj1.replaceAll("'", "''");
         // form_obj1 = form_obj1.replace("\"", "\"");
 
-        const sender_type = req.body.sender_type
-        const sender_id = jwt.verify(req.body.sender_id, "abc123").id
         const form_obj = JSON.parse(req.body.form_obj);
         var form_name = null;
         if (form_obj[0].type === "header") {
@@ -542,12 +540,39 @@ router.use("/edit-form", protectTherapistAdmin, async (req, res) => {
 
         destructure_form_obj(form_obj, form_id);
         que_query = `update forms_obj set FORM_OBJ='${form_obj1}' where FORM_ID='${form_id}'`
-       
+
         await query(que_query);
         return res.status(200).json("Form edited")
     }
     catch (err) {
         return res.status(500).json(err);
+    }
+})
+
+router.use("/delete-form", protectTherapist, async (req, res) => {
+    try {
+        const query = util.promisify(db.query).bind(db);
+        let { id } = req.body;
+        var que_query = `delete from Marks where FORM_Id='${id}'`;
+        await query(que_query);
+        que_query = `delete from ANSWERS where FORM_Id='${id}'`;
+        await query(que_query);
+        que_query = `delete from questions where FORM_ID='${id}'`;
+        await query(que_query);
+        que_query = `delete from default_AssessFormMap where FORM_ID='${id}'`;
+        await query(que_query);
+        que_query = `delete from AssessFormMap where FORM_ID='${id}'`;
+        await query(que_query);
+        que_query = `delete from forms_obj where FORM_ID='${id}'`;
+        await query(que_query);
+        que_query = `delete from forms where FORM_ID='${id}'`;
+        await query(que_query);
+
+        return res.status(200).send("Deleted");
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500);
     }
 })
 
