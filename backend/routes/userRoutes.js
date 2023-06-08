@@ -1398,7 +1398,7 @@ router.use("/get-report-details", protectParent, async (req, res) => {
         date = date.getFullYear();
         var age = date - birth_year;
         que_query = `select * from report_details where lower<='${age}' and upper>='${age}'`;
-        const details = query(que_query);
+        const details = await  query(que_query);
         var lower = 0, upper = 0;
         if (details.length) {
             lower = details[0]["lower"];

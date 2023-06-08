@@ -240,19 +240,19 @@ export default function ViewPDF() {
                         <div style={{ display: "flex", alignItems: "center" }} >
                             <Image src={land} style={{ margin: "0px auto", width: "80%", height: "200px" }}></Image>
                         </div>
-                        <div style={{ marginTop: "40px", paddingLeft: "60px" }}>
-                            <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "15px" }}>
+                        <div style={{ marginTop: "20px", paddingLeft: "60px" }}>
+                            <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "5px" }}>
                                 CHILD DEVELOPMENT ({lower}-{upper} YEARS)
                             </Text>
                             <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "5px" }}></div>
                             <div style={{ display: "flex", flexDirection: "row" }}>
-                                <div style={{ width: "80%", paddingRight: "20px" }}>
-                                    <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>{land_msg}</Text>
-                                    <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
+                                <div style={{ width: "85%", paddingRight: "20px" }}>
+                                    <Text style={{ fontSize: "11px", opacity: "0.6", marginBottom: "15px" }}>{land_msg}</Text>
+                                    <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "5px" }}>
                                         REPORT
                                     </Text>
                                     <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "5px" }}></div>
-                                    <Text style={{ fontSize: "12px", opacity: "0.8", marginBottom: "20px" }}>
+                                    <Text style={{ fontSize: "12px", opacity: "0.8", marginBottom: "5px" }}>
                                         Following are  the criteria used to measure the child's development.
                                     </Text>
                                     <div style={{ display: "flex", flexDirection: "column" }}>
