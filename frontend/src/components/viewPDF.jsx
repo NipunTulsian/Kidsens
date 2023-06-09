@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import land from "./landing.png"
-import logo from "./logo.png"
+import logo from "./logo.jpeg"
 import tick from "./tick.png"
 import cross from "./cross.png"
 import copyright from "./copyright.png"
 import calbrib from "./Calibri/calibrib.ttf"
 import calibri from "./Calibri/Calibri.ttf"
+import "./viewPdf.css"
 import {
     Document,
     Page,
@@ -88,6 +89,7 @@ export default function ViewPDF() {
         roll_num: ""
     })
 
+    const [age, setage] = useState(0);
     const [land_msg, setland_msg] = useState("");
     const [summary, set_summary] = useState("");
     const [rec, set_rec] = useState([]);
@@ -163,6 +165,7 @@ export default function ViewPDF() {
             set_rec((serverResJson.rec)?.split(";"));
             setlower(serverResJson.lower);
             setupper(serverResJson.upper);
+            setage(serverResJson.age);
             set_total_behaviour(serverResJson.total_behaviour);
             set_total_behaviour_cor(serverResJson.total_behaviour_cor);
             set_total_sensory(serverResJson.total_sensory);
@@ -218,7 +221,6 @@ export default function ViewPDF() {
                     setbehaviour_msg(serverResJson.details[i]["message"]);
                 }
             }
-            console.log()
         }
     }
     useEffect(() => {
@@ -246,7 +248,7 @@ export default function ViewPDF() {
                             </Text>
                             <div style={{ width: "20px", height: "3px", backgroundColor: "rgb(0, 180, 219)", marginBottom: "5px" }}></div>
                             <div style={{ display: "flex", flexDirection: "row" }}>
-                                <div style={{ width: "85%", paddingRight: "20px" }}>
+                                <div style={{ width: "75%", paddingRight: "20px" }}>
                                     <Text style={{ fontSize: "11px", opacity: "0.6", marginBottom: "15px" }}>{land_msg}</Text>
                                     <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "5px" }}>
                                         REPORT
@@ -367,8 +369,8 @@ export default function ViewPDF() {
                                         </div>
                                     </div>
                                 </div>
-                                <div style={{ display: "flex", flexDirection: "column" }}>
-                                    <div style={{ backgroundColor: "lightgrey", marginRight: "20px", padding: "20px", display: "flex", flexDirection: "column", borderRadius: "10px", opacity: "0.7" }}>
+                                <div style={{ width: "65%", display: "flex", flexDirection: "column" }}>
+                                    <div style={{ backgroundColor: "lightgrey", marginRight: "20px", width: "96%", padding: "20px", paddingRight: "10px", paddingLeft: "10px", display: "flex", flexDirection: "column", borderRadius: "10px", opacity: "0.7" }}>
                                         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "8px" }}>
                                             <Text style={{ fontWeight: "bold" }}>
                                                 Student's
@@ -386,66 +388,65 @@ export default function ViewPDF() {
                                             </Text>
                                         </div> */}
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
-                                            <div style={{ width: "35%", display: "flex", justifyContent: "flex-start" }}>
+                                            <div style={{ width: "30%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
                                                     Name :
                                                 </Text>
                                             </div>
-                                            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                                            <div style={{ width: "80%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                    {" " + student.c_fname + " " + student.c_lname}
+                                                    {student.c_fname + " " + student.c_lname}
                                                 </Text>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
-                                            <div style={{ width: "35%", display: "flex", justifyContent: "flex-start" }}>
+                                            <div style={{ width: "30%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
-                                                    DOB :
+                                                    Age :
                                                 </Text>
                                             </div>
-                                            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                                            <div style={{ width: "80%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                    {" " + student.c_DOB}
+                                                    {age + " years"}
                                                 </Text>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
-                                            <div style={{ width: "35%", display: "flex", justifyContent: "flex-start" }}>
+                                            <div style={{ width: "30%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
                                                     Gender :
                                                 </Text>
                                             </div>
-                                            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                                            <div style={{ width: "80%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                    {" " + student.gender}
+                                                    {student.gender}
                                                 </Text>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
-                                            <div style={{ width: "35%", display: "flex", justifyContent: "flex-start" }}>
-                                                <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
-                                                    Roll No. :
-                                                </Text>
-                                            </div>
-                                            <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                                                <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                    {" " + student.roll_num}
-                                                </Text>
-                                            </div>
-                                        </div>
-                                        <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
-                                            <div style={{ width: "35%", display: "flex", justifyContent: "flex-start" }}>
+                                            <div style={{ width: "30%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
                                                     Parent :
                                                 </Text>
                                             </div>
-                                            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                                            <div style={{ width: "80%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
-                                                    {" " + student.p_fname + " " + student.p_lname}
+                                                    {student.p_fname + " " + student.p_lname}
                                                 </Text>
                                             </div>
                                         </div>
-
+                                        <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
+                                            <div style={{ width: "30%", display: "flex", justifyContent: "flex-start" }}>
+                                                <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
+                                                    Roll No. :
+                                                </Text>
+                                            </div>
+                                            <div style={{ width: "80%", display: "flex", justifyContent: "flex-start" }}>
+                                                <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
+                                                    {student.roll_num}
+                                                </Text>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -461,11 +462,11 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
                 </Page>
 
@@ -489,13 +490,13 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
-                    <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
+                    <div style={{ padding: "30px 40px" }}>
                         <Text style={styles.title}>SPEECH AND LANGUAGE</Text>
                         <Text style={styles.title}>DEVELOPMENT</Text>
                     </div>
@@ -571,15 +572,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
-                    <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
-                        <Text style={styles.title}>MOTOR</Text>
-                        <Text style={styles.title}>DEVELOPMENT</Text>
+                    <div style={{ padding: "30px 40px" }}>
+                        <Text style={styles.title}>MOTOR DEVELOPMENT</Text>
                     </div>
                     <div style={{ marginLeft: "20%", marginRight: "20px", width: "78%" }}>
                         <div style={{ height: "2px", widht: "100%", backgroundColor: "black" }} />
@@ -654,15 +654,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
-                    <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
-                        <Text style={styles.title}>SOCIAL</Text>
-                        <Text style={styles.title}>DEVELOPMENT</Text>
+                    <div style={{ padding: "30px 40px" }}>
+                        <Text style={styles.title}>SOCIAL DEVELOPMENT</Text>
                     </div>
                     <div style={{ marginLeft: "20%", marginRight: "20px", width: "78%" }}>
                         <div style={{ height: "2px", widht: "100%", backgroundColor: "black" }} />
@@ -737,15 +736,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
-                    <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
-                        <Text style={styles.title}>COGNITIVE</Text>
-                        <Text style={styles.title}>DEVELOPMENT</Text>
+                    <div style={{ padding: "30px 40px" }}>
+                        <Text style={styles.title}>COGNITIVE DEVELOPMENT</Text>
                     </div>
                     <div style={{ marginLeft: "20%", marginRight: "20px", width: "78%" }}>
                         <div style={{ height: "2px", widht: "100%", backgroundColor: "black" }} />
@@ -822,15 +820,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
-                    <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
-                        <Text style={styles.title}>EMOTIONAL</Text>
-                        <Text style={styles.title}>DEVELOPMENT</Text>
+                    <div style={{ padding: "30px 40px" }}>
+                        <Text style={styles.title}>EMOTIONAL DEVELOPMENT</Text>
                     </div>
                     <div style={{ marginLeft: "20%", marginRight: "20px", width: "78%" }}>
                         <div style={{ height: "2px", widht: "100%", backgroundColor: "black" }} />
@@ -904,15 +901,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
-                    <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
-                        <Text style={styles.title}>SENSORY</Text>
-                        <Text style={styles.title}>DEVELOPMENT</Text>
+                    <div style={{ padding: "30px 40px" }}>
+                        <Text style={styles.title}>SENSORY DEVELOPMENT</Text>
                     </div>
                     <div style={{ marginLeft: "20%", marginRight: "20px", width: "78%" }}>
                         <div style={{ height: "2px", widht: "100%", backgroundColor: "black" }} />
@@ -988,15 +984,14 @@ export default function ViewPDF() {
                     </div>
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
-                    <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
-                        <Text style={styles.title}>BEHAVIOUR</Text>
-                        <Text style={styles.title}>DEVELOPMENT</Text>
+                    <div style={{ padding: "30px 40px" }}>
+                        <Text style={styles.title}>BEHAVIOUR DEVELOPMENT</Text>
                     </div>
                     <div style={{ marginLeft: "20%", marginRight: "20px", width: "78%" }}>
                         <div style={{ height: "2px", widht: "100%", backgroundColor: "black" }} />
@@ -1082,7 +1077,7 @@ export default function ViewPDF() {
                         </div>
                         <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
                     </div>
-                    <div style={{ padding: "30px 40px", marginBottom: "20px" }}>
+                    <div style={{ padding: "30px 40px" }}>
                         <Text style={styles.title}>SUMMARY AND</Text>
                         <Text style={styles.title}>RECOMMENDATIONS</Text>
                     </div>
@@ -1139,7 +1134,7 @@ export default function ViewPDF() {
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_motor_cor * 100 / total_motor)}%
                                                         </Text>
@@ -1153,7 +1148,7 @@ export default function ViewPDF() {
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_social_cor * 100 / total_social)}%
                                                         </Text>
@@ -1181,7 +1176,7 @@ export default function ViewPDF() {
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_emotional_cor * 100 / total_emotional)}%
                                                         </Text>
@@ -1195,7 +1190,7 @@ export default function ViewPDF() {
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
                                                 {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_sensory_cor * 100 / total_sensory)}%
                                                         </Text>

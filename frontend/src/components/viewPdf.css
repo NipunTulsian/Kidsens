@@ -1,0 +1,5 @@
+#grad1 {
+    background-color: red;
+    /* For browsers that do not support gradients */
+    background-image: linear-gradient(to right, red, yellow);
+}

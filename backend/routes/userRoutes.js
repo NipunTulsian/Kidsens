@@ -1450,6 +1450,7 @@ router.use("/get-report-details", protectParent, async (req, res) => {
             details: details,
             summary: summary,
             rec: rec,
+            age:age,
             lower: lower,
             upper: upper,
             total_behaviour: obj["total_behaviour"],
