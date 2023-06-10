@@ -139,6 +139,15 @@ export default function ViewPDF() {
     const [lower, setlower] = useState(null);
     const [upper, setupper] = useState(null);
 
+    function getcolour  (per) {
+        console.log(per)
+        if (per >= 80) return "#ff726f";
+        else if (per >= 70) return "blue";
+        else if (per >= 65) return "orange";
+        else if (per >= 60) return "violet";
+        else return "pink";
+    }
+
     const getDetails = async () => {
         const serverRes = await fetch("http://localhost:8000/get-report-details", {
             method: "POST",
@@ -274,8 +283,8 @@ export default function ViewPDF() {
                                                 SPEECH
                                             </Text>
                                             <div style={{ width: "90%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_speech_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_speech_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_speech_cor * 100 / total_speech)}%
                                                         </Text>
@@ -288,8 +297,8 @@ export default function ViewPDF() {
                                                 MOTOR
                                             </Text>
                                             <div style={{ width: "90%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_motor_cor * 100 / total_motor)}%
                                                         </Text>
@@ -302,8 +311,8 @@ export default function ViewPDF() {
                                                 SOCIAL
                                             </Text>
                                             <div style={{ width: "90%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_social_cor * 100 / total_social)}%
                                                         </Text>
@@ -316,8 +325,8 @@ export default function ViewPDF() {
                                                 COGNITIVE
                                             </Text>
                                             <div style={{ width: "90%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_cognition_cor * 100 / total_cognition)}%
                                                         </Text>
@@ -330,8 +339,8 @@ export default function ViewPDF() {
                                                 EMOTIONAL
                                             </Text>
                                             <div style={{ width: "90%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_emotional_cor * 100 / total_emotional)}%
                                                         </Text>
@@ -344,8 +353,8 @@ export default function ViewPDF() {
                                                 SENSORY
                                             </Text>
                                             <div style={{ width: "90%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_sensory_cor * 100 / total_sensory)}%
                                                         </Text>
@@ -358,8 +367,8 @@ export default function ViewPDF() {
                                                 BEHAVIOUR
                                             </Text>
                                             <div style={{ width: "90%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_behaviour_cor * 100 / total_behaviour)}%
                                                         </Text>
@@ -1065,17 +1074,17 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
-                    <div style={{ position: "absolute", bottom: "5px", left: "15px", width: "60%", display: "flex", flexDirection: "row" }}>
+                    {/* <div style={{ position: "absolute", bottom: "5px", left: "15px", width: "60%", display: "flex", flexDirection: "row" }}>
                         <Image src={copyright} style={{ width: "10px", height: "10px" }} />
                         <Text style={styles.footer}>Alphamu Software Techniques, T-Hub ,Inorbit Mall Road, Hyderabad 530018</Text>
-                    </div >
+                    </div > */}
                     <div style={{ position: "absolute", bottom: "15px", right: "30px", display: "flex", flexDirection: "column" }}>
                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px" }}>
+                            <Text style={{ fontSize: "10px", right: "12px", marginBottom: "20px", zIndex: "100" }}>
                                 Powered By
                             </Text>
                         </div>
-                        <Image src={logo} style={{ width: "110px", height: "70px", marginTop: "-30px" }} />
+                        <Image src={logo} style={{ width: "110px", height: "60px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
                     <div style={{ padding: "30px 40px" }}>
                         <Text style={styles.title}>SUMMARY AND</Text>
@@ -1119,8 +1128,8 @@ export default function ViewPDF() {
                                                 SPEECH
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_speech_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_speech_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_speech_cor * 100 / total_speech)}%
                                                         </Text>
@@ -1133,8 +1142,8 @@ export default function ViewPDF() {
                                                 MOTOR
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_motor_cor * 100 / total_motor)}%
                                                         </Text>
@@ -1147,8 +1156,8 @@ export default function ViewPDF() {
                                                 SOCIAL
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_social_cor * 100 / total_social)}%
                                                         </Text>
@@ -1161,8 +1170,8 @@ export default function ViewPDF() {
                                                 COGNITIVE
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_cognition_cor * 100 / total_cognition)}%
                                                         </Text>
@@ -1175,8 +1184,8 @@ export default function ViewPDF() {
                                                 EMOTIONAL
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_emotional_cor * 100 / total_emotional)}%
                                                         </Text>
@@ -1189,8 +1198,8 @@ export default function ViewPDF() {
                                                 SENSORY
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_sensory_cor * 100 / total_sensory)}%
                                                         </Text>
@@ -1203,8 +1212,8 @@ export default function ViewPDF() {
                                                 BEHAVIOUR
                                             </Text>
                                             <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                                {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_behaviour_cor * 100 / total_behaviour)}%
                                                         </Text>
