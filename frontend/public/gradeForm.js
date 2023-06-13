@@ -83,7 +83,7 @@ async function gradeForm() {
             <h3>Q${i + 1}</h3>
             <input  id = "${serverResJson.question[i]["QUESTION_ID"]}" type="text" placeholder="Marks Obtained" value='${marksOfQuestions[i].obtainedMarks}' >
             <h3>/</h3>
-            <input id = "${serverResJson.question[i]["QUESTION_ID"]}_total" type="text" placeholder="Max Marks" value='${marksOfQuestions[i].maxMarks}'>
+            <input id = "${serverResJson.question[i]["QUESTION_ID"]}_total" class="maxMark" type="text" placeholder="Max Marks" value='${marksOfQuestions[i].maxMarks}'>
         </div>
     `
     }

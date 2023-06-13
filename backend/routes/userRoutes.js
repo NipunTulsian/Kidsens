@@ -144,7 +144,7 @@ router.use("/login", async (req, res) => {
     const login_parent = `SELECT * from parent where p_email="${email}"`
     const login_therapist = `SELECT * from therapist where Email="${email}"`
     db.query(login_admin, async function (err, result, fields) {
-        if (result && result.length > 0) {
+        if (result && result?.length > 0) {
             if (result[0].password = password)
                 return res.status(200).json({
                     type: "admin",
@@ -155,7 +155,7 @@ router.use("/login", async (req, res) => {
         }
         else {
             db.query(login_parent, async function (err, result, fields) {
-                if (result && result.length > 0) {
+                if (result && result?.length > 0) {
                     let flag = await bcrypt.compare(password, result[0].password)
                     if (flag)
                         return res.status(200).json({
@@ -167,7 +167,7 @@ router.use("/login", async (req, res) => {
                 }
                 else {
                     db.query(login_therapist, async function (err, result, fields) {
-                        if (result && result.length > 0) {
+                        if (result && result?.length > 0) {
                             let flag = await bcrypt.compare(password, result[0].password)
                             if (flag)
                                 return res.status(200).json({
@@ -314,6 +314,7 @@ router.use("/delete-therapist", protectAdmin, async (req, res) => {
 router.use("/create-stage", protectAdmin, async (req, res) => {
     try {
         let { id, stage_name, position } = req.body
+        stage_name = stage_name.replace(/'/g, "\\'");
         id = jwt.verify(id, "abc123").id
         db.query(`Update default_stages set position= position+1 where position >=${position} and admin_Id = '${id}';`)
         db.query(`Insert into default_stages values ('${id}','${stage_name}',${position})`, (err, result) => {
@@ -332,6 +333,7 @@ router.use("/delete-stage", protectAdmin, async (req, res) => {
         let { id, stage_name } = req.body
         id = jwt.verify(id, "abc123").id
         const query = util.promisify(db.query).bind(db);
+        stage_name = stage_name.replace(/'/g, "\\'");
         let que_query = `select position from default_stages where admin_Id='${id}' and stage = '${stage_name}'`;
         let result = await query(que_query);
         que_query = `UPDATE default_stages set position = position -1 where position>${result[0]["position"]} and admin_Id='${id}'`;
@@ -360,7 +362,7 @@ router.use("/get-stages", async (req, res) => {
             db.query(query, (err, result) => {
 
                 var arr = []
-                for (let i = 0; i < result.length; i++) {
+                for (let i = 0; i < result?.length; i++) {
                     arr.push(result[i]["stage"])
                 }
                 res.status(200).json({ stages: arr });
@@ -375,15 +377,21 @@ router.use("/get-stages", async (req, res) => {
 
 router.use("/create-default-assessment", protectAdmin, async (req, res) => {
     try {
-        console.log(req.body)
         let { id, stage_name, assess_name, sevUp, mildUp, message_severe, message_moderate, message_mild, rec_severe, rec_moderate, rec_mild } = req.body
+        stage_name = stage_name.replace(/'/g, "\\'");
+        messgae_mild = message_mild.replace(/'/g, "\\'");;
+        message_moderate = message_moderate.replace(/'/g, "\\'");;
+        message_severe = message_severe.replace(/'/g, "\\'");;
+        rec_mild = rec_mild.replace(/'/g, "\\'");;
+        rec_moderate = rec_moderate.replace(/'/g, "\\'");;
+        rec_severe = rec_severe.replace(/'/g, "\\'");;
         id = jwt.verify(id, "abc123").id
-        db.query(`Insert into default_assessments values ('${id}','${stage_name}','${assess_name}',${mildUp},${sevUp},'${message_mild}','${message_severe}','${message_moderate}','${rec_mild}','${rec_moderate}','${rec_severe}')`, (err, result) => {
+        db.query(`Insert into default_assessments values ("${id}",'${stage_name}',"${assess_name}",'${mildUp}','${sevUp}',"${message_mild}","${message_severe}","${message_moderate}","${rec_mild}","${rec_moderate}","${rec_severe}")`, (err, result) => {
             res.sendStatus(200);
         })
     }
     catch (err) {
-
+        console.lof(err)
         res.sendStatus(500)
     }
 })
@@ -393,9 +401,11 @@ router.use("/delete-default-assessment", protectAdmin, async (req, res) => {
         let { id, stage_name, assess_name } = req.body
         id = jwt.verify(id, "abc123").id
         const query = util.promisify(db.query).bind(db);
-        let que_query = `delete from default_assessments where admin_Id = '${id}' and stage = '${stage_name}' and assessment= '${assess_name}'`;
+        stage_name = stage_name.replace(/'/g, "\\'");
+        assess_name = assess_name.replace(/'/g, "\\'");
+        let que_query = `delete from default_assessments where admin_Id = '${id}' and stage = "${stage_name}" and assessment= "${assess_name}"`;
         await query(que_query);
-        que_query = `delete from default_AssessFormMap where admin_Id='${id}' and stage = '${stage_name}' and assessment= '${assess_name}'`;
+        que_query = `delete from default_AssessFormMap where admin_Id='${id}' and stage = "${stage_name}" and assessment= "${assess_name}"`;
         await query(que_query);
         res.sendStatus(200);
     }
@@ -412,7 +422,7 @@ router.use("/get-default-stages", protectAdmin, async (req, res) => {
         id = jwt.verify(id, "abc123").id
         db.query(`select stage from default_stages where admin_Id = '${id}' order by position`, (err, result) => {
             arr = []
-            for (let i = 0; i < result.length; i++) {
+            for (let i = 0; i < result?.length; i++) {
                 arr.push(result[i]["stage"])
             }
             res.status(200).json({ stages: arr });
@@ -430,7 +440,7 @@ router.use("/get-default-assessments", protectTherapistAdmin, async (req, res) =
         id = jwt.verify(id, "abc123").id
         db.query(`select assessment from default_assessments where admin_Id = '${id}' and stage= '${stage}' `, (err, result) => {
             arr = []
-            for (let i = 0; i < result.length; i++) {
+            for (let i = 0; i < result?.length; i++) {
                 arr.push(result[i]["assessment"])
             }
             res.status(200).json({ assessment: arr });
@@ -449,11 +459,11 @@ router.use("/get-default-forms", protectTherapistAdmin, async (req, res) => {
         arr_used = []
         arr_unused = []
         db.query(`select * from forms where FORM_ID IN (select FORM_ID from default_AssessFormMap where admin_Id = '${id}' and stage= '${stage_name}' and assessment= '${assess_name}')`, (err, result) => {
-            for (let i = 0; i < result.length; i++) {
+            for (let i = 0; i < result?.length; i++) {
                 arr_used.push(result[i])
             }
             db.query(`select * from forms where FORM_ID NOT IN (select FORM_ID from default_AssessFormMap where admin_Id = '${id}' and stage= '${stage_name}' and assessment= '${assess_name}') `, (err, result) => {
-                for (let i = 0; i < result.length; i++) {
+                for (let i = 0; i < result?.length; i++) {
                     arr_unused.push(result[i])
                 }
                 res.status(200).json({
@@ -595,7 +605,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
                 opt_name = options[j]["label"];
                 opt_name = opt_name.replaceAll("'", "''");
                 opt_name = opt_name.replace(/"/g, '\\"');
-                opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${opt_name}','${options[j]["selected"] ? 1 : 0}')`;
+                opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${opt_name}','${options[j]["selected"] ? 1 : 0}',"${options[j]["value"]}")`;
                 await query(opt_query);
             }
 
@@ -610,9 +620,9 @@ const destructure_form_obj = async (form_obj, form_id) => {
             let result = await query(que_query);
             ques_id = result.insertId;
             let value = form_obj[i]["value"];
-            value = value.replaceAll("'", "''");
-            value = value.replace(/"/g, '\\"');
-            opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${value}',NULL)`;
+            value = value?.replaceAll("'", "''");
+            value = value?.replace(/"/g, '\\"');
+            opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${value}',NULL,NULL)`;
             await query(opt_query);
         }
         else if (type === "file") {
@@ -621,7 +631,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = name.replaceAll(replace(/"/g, '\\"'));
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
+            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}',NULL)`;
             await query(que_query);
         }
         else if (type === "date") {
@@ -731,7 +741,7 @@ router.use("/get-assessments", async (req, res) => {
 
         db.query(`select assessment from assessments where student_Id = '${id}' and stage= '${stage}'`, (err, result) => {
             var arr = []
-            for (let i = 0; i < result.length; i++) {
+            for (let i = 0; i < result?.length; i++) {
                 arr.push(result[i]["assessment"])
             }
             res.status(200).json({ assessment: arr });
@@ -750,12 +760,12 @@ router.use("/get-default-assessments-therapist", protectTherapistAdmin, async (r
             var admin = result[0]["Assigned_Admin"];
             db.query(`select assessment from assessments where student_Id = '${id}' and stage= '${stage}'`, (err, result) => {
                 var assigned_arr = []
-                for (let i = 0; i < result.length; i++) {
+                for (let i = 0; i < result?.length; i++) {
                     assigned_arr.push(result[i]["assessment"])
                 }
                 db.query(`select assessment from default_assessments where admin_Id = '${admin}' and stage= '${stage}'`, (err, result) => {
                     var arr = []
-                    for (let i = 0; i < result.length; i++) {
+                    for (let i = 0; i < result?.length; i++) {
                         arr.push(result[i]["assessment"])
                     }
                     arr = arr.filter((d) => { return !assigned_arr.includes(d) })
@@ -799,14 +809,14 @@ router.use("/get-forms", protectTherapistAdmin, async (req, res) => {
         var arr_unused = []
         var query = `select * from forms where FORM_ID IN (select FORM_ID from AssessFormMap where student_Id = '${id}' and stage= '${stage_name}' and assessment= '${assess_name}')`;
         db.query(query, (err, result) => {
-            for (let i = 0; i < result.length; i++) {
+            for (let i = 0; i < result?.length; i++) {
                 arr_used.push(result[i])
             }
             query = `select Assigned_Admin from parent where student_Id=${id}`;
             db.query(query, (err, result) => {
                 var admin = result[0]["Assigned_Admin"];
                 db.query(`select * from forms where FORM_ID IN (select FORM_ID from default_AssessFormMap where admin_Id = '${admin}' and stage= '${stage_name}' and assessment= '${assess_name}') `, (err, result) => {
-                    for (let i = 0; i < result.length; i++) {
+                    for (let i = 0; i < result?.length; i++) {
                         let flag = 0
                         for (let j = 0; j < arr_used.length; j++) {
                             if (arr_used[j]["FORM_NAME"] == result[i]["FORM_NAME"] && arr_used[j]["FORM_ID"] == result[i]["FORM_ID"]) {
@@ -1039,7 +1049,7 @@ router.use("/store-FormObject", protectParent, async (req, res) => {
         form = form.replaceAll("\"", "\"");
         let query = `INSERT INTO student_responses value('${student}','${id}','${form}')`;
         db.query(query, (err, result0) => {
-            destructure_form_obj_answers(JSON.parse(form), id, req.user);
+            destructure_form_obj_answers(JSON.parse(form), id, req.user, student);
             query = `select stage from AssessFormMap where FORM_ID='${id}' and student_Id='${req.user}'`;
             db.query(query, (err, result) => {
                 let stage = result[0]["stage"];
@@ -1085,25 +1095,35 @@ router.use("/store-FormObject", protectParent, async (req, res) => {
     }
 })
 
-const destructure_form_obj_answers = async (form_obj, form_id, student_id) => {
+const destructure_form_obj_answers = async (form_obj, form_id, student_id, email) => {
     const query = util.promisify(db.query).bind(db);
     var que_query = "", type = "", opt_query = "";
-    que_query = `select QUESTION_ID from questions where FORM_ID='${form_id}'`;
+    que_query = `select QUESTION_ID,max_marks from questions where FORM_ID='${form_id}'`;
     var result = await query(que_query);
     let index = 0;
     for (let i = 0; i < form_obj.length; i++) {
         type = form_obj[i]["type"];
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             var options = form_obj[i]["userData"];
+            que_query = `select value from ANSWERS where QUESTION_ID='${result[index]["QUESTION_ID"]}' and Marks='1' and FORM_ID='${form_id}'`;
+            let answers = await query(que_query);
+            let correct_opts = answers.length
+            let marked = 0;
             for (let j = 0; j < options?.length; j++) {
                 let temp = options[j];
+                for (let k = 0; k < answers.length; k++) {
+                    if (temp.localeCompare(answers[k]["value"]) === 0) marked += 1;
+                }
                 temp = temp.replaceAll("'", "''");
                 temp = temp.replaceAll("\"", "\"");
                 opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${temp}')`;
                 await query(opt_query);
-                index++;
             }
-
+            if (correct_opts > 0) {
+                que_query = `Insert into Marks values ("${email}","${form_id}","${result[index]["QUESTION_ID"]}","${result[index]["max_marks"]}",'${Math.round((marked / correct_opts) * result[index]["max_marks"])}')`;
+                await query(que_query)
+            }
+            index++;
         }
         else if (type === "text") {
             let temp = form_obj[i]["userData"][0];
@@ -1228,7 +1248,6 @@ router.use("/get-student-details", protectParent, async (req, res) => {
         const email = jwt.verify(id, "abc123").id;
         var query = `select * from parent where p_email='${email}'`;
         db.query(query, function (err, result) {
-            console.log(result[0]);
             const obj = {
                 c_fname: result[0]["c_fname"],
                 c_lname: result[0]["c_lname"],
@@ -1260,7 +1279,6 @@ router.use("/get-student-profile", protectTherapistAdmin, async (req, res) => {
         const id = req.body.id;
         var query = `select * from parent where student_Id='${id}'`;
         db.query(query, function (err, result) {
-            console.log(result[0]);
             const obj = {
                 c_fname: result[0]["c_fname"],
                 c_lname: result[0]["c_lname"],
@@ -1292,7 +1310,6 @@ router.use("/get-therapist-profile", protectTherapistAdmin, async (req, res) => 
         const id = req.body.id;
         var query = `select * from therapist where EMP_ID='${id}'`;
         db.query(query, function (err, result) {
-            console.log(result[0]);
             return res.status(200).json(result[0]);
         })
     }
@@ -1313,13 +1330,13 @@ router.use("/save-marks", protectTherapistAdmin, async (req, res) => {
 
         db.query(`select p_email from parent where student_Id='${id}'`, (err, result) => {
             let query = "insert into Marks values "
-            for (let i = 0; i < marks.length; i++) {
+            for (let i = 0; i < marks?.length; i++) {
                 query += ` ('${result[0]["p_email"]}','${form_Id}','${marks[i]["QUESTION_ID"]}',${marks[i]["Max_Marks"]},${marks[i]["Marks_Obtained"]})`
                 if (i !== marks.length - 1) {
                     query += ","
                 }
             }
-            db.query(`delete from Marks where student_Id = '${result[0]["p_email"]}' and FORM_ID = '${form_Id}'`, (err, result) => {
+            db.query(`delete from Marks where student_Id = '${result[0]["p_email"]}' and FORM_ID = '${form_Id}' and type='text'`, (err, result) => {
                 db.query(query, (err, result_done) => {
                     res.sendStatus(200)
                 })
@@ -1338,7 +1355,7 @@ router.use("/get-responses", async (req, res) => {
         db.query(`select p_email from parent where student_Id= '${student}'`, (err, result) => {
             db.query(`select FORM_OBJ from forms_obj where FORM_ID = '${id}'`, (err, result_original) => {
                 db.query(`select Form_response from student_responses where student_Id = '${result[0]["p_email"]}' and FORM_ID = '${id}'`, (err, result_student) => {
-                    db.query(`select * from questions where FORM_ID='${id}'`, (err, result_ques) => {
+                    db.query(`select * from questions where FORM_ID='${id}' and QUESTION_TYPE='text'`, (err, result_ques) => {
                         res.status(200).json({
                             original: result_original[0]["FORM_OBJ"],
                             student: result_student[0] ? result_student[0]["Form_response"] : null,
@@ -1398,9 +1415,9 @@ router.use("/get-report-details", protectParent, async (req, res) => {
         date = date.getFullYear();
         var age = date - birth_year;
         que_query = `select * from report_details where lower<='${age}' and upper>='${age}'`;
-        const details = await  query(que_query);
+        const details = await query(que_query);
         var lower = 0, upper = 0;
-        if (details.length) {
+        if (details?.length) {
             lower = details[0]["lower"];
             upper = details[0]["upper"];
         }
@@ -1412,7 +1429,7 @@ router.use("/get-report-details", protectParent, async (req, res) => {
             let total = await query(que_query);
             total = total[0].num;
             total_assinged += total;
-            que_query = `select count(QUESTION_ID) as num from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Max_Marks=Marks_Obtained and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}')`
+            que_query = `select count(QUESTION_ID) as num from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Marks_obtained>0 and Max_Marks>=Marks_Obtained  and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}')`
             let total_cor = await query(que_query);
             total_cor = total_cor[0].num;
             total_correct += total_cor;
@@ -1450,7 +1467,7 @@ router.use("/get-report-details", protectParent, async (req, res) => {
             details: details,
             summary: summary,
             rec: rec,
-            age:age,
+            age: age,
             lower: lower,
             upper: upper,
             total_behaviour: obj["total_behaviour"],
