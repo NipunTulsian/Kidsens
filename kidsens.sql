@@ -52,6 +52,7 @@ CREATE TABLE `ANSWERS` (
   `FORM_ID` int DEFAULT NULL,
   `ANSWER` varchar(2000) DEFAULT NULL,
   `MARKS` int DEFAULT NULL,
+  `value` varchar(2000) DEFAULT NULL,
   KEY `FORM_ID` (`FORM_ID`),
   KEY `QUESTION_ID` (`QUESTION_ID`),
   CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`FORM_ID`) REFERENCES `forms` (`FORM_ID`),
@@ -65,7 +66,6 @@ CREATE TABLE `ANSWERS` (
 
 LOCK TABLES `ANSWERS` WRITE;
 /*!40000 ALTER TABLE `ANSWERS` DISABLE KEYS */;
-INSERT INTO `ANSWERS` VALUES (3,8,'Option 1\'s',0),(3,8,'Option 2\'s',1),(3,8,'Option 3\'s',0),(4,9,'Option 1',1),(4,9,'Option 2',0),(4,9,'Option 3',0),(5,9,'Option 1',1),(5,9,'Option 2',0),(5,9,'Option 3',0),(6,9,'Option 1',1),(6,9,'Option 2',0),(6,9,'Option 3',0),(7,9,'Option 1',1),(7,9,'Option 2',0),(7,9,'Option 3',0),(8,9,'Option 1',1),(8,9,'Option 2',0),(8,9,'Option 3',0),(9,9,'Option 1',1),(9,9,'Option 2',0),(9,9,'Option 3',0),(10,9,'Option 1',1),(10,9,'Option 2',0),(10,9,'Option 3',0),(11,9,'Option 1',1),(11,9,'Option 2',0),(11,9,'Option 3',0),(12,9,'Option 1',1),(12,9,'Option 2',0),(12,9,'Option 3',0),(13,9,'Option 1',1),(13,9,'Option 2',0),(13,9,'Option 3',0),(14,9,'Option 1',1),(14,9,'Option 2',0),(14,9,'Option 3',0),(15,9,'Option 1',1),(15,9,'Option 2',0),(15,9,'Option 3',0),(20,10,'Option 1',0),(20,10,'Option 2',0),(20,10,'Option 3',0),(21,10,'Option 1',0),(21,10,'Option 2',1),(21,10,'Option 3',0);
 /*!40000 ALTER TABLE `ANSWERS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +94,6 @@ CREATE TABLE `AssessFormMap` (
 
 LOCK TABLES `AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `AssessFormMap` DISABLE KEYS */;
-INSERT INTO `AssessFormMap` VALUES (1,'Screening','asses',8),(1,'Screening','asses',9),(1,'Screening','asses',10);
 /*!40000 ALTER TABLE `AssessFormMap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +145,6 @@ CREATE TABLE `default_AssessFormMap` (
 
 LOCK TABLES `default_AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `default_AssessFormMap` DISABLE KEYS */;
-INSERT INTO `default_AssessFormMap` VALUES ('abc@gmail.com','Screening','asses',8),('abc@gmail.com','Screening','asses',9),('abc@gmail.com','Screening','asses',10);
 /*!40000 ALTER TABLE `default_AssessFormMap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,9 +161,9 @@ CREATE TABLE `default_assessments` (
   `assessment` varchar(100) DEFAULT NULL,
   `MildUp` int DEFAULT NULL,
   `SevereUp` int DEFAULT NULL,
-  `message_mild` varchar(200) DEFAULT NULL,
-  `message_severe` varchar(200) DEFAULT NULL,
-  `message_moderate` varchar(200) DEFAULT NULL,
+  `message_mild` longtext,
+  `message_severe` longtext,
+  `message_moderate` longtext,
   `recommendation_mild` longtext,
   `recommendation_moderate` longtext,
   `recommendation_severe` longtext
@@ -218,7 +216,7 @@ CREATE TABLE `forms` (
   `FORM_ID` int NOT NULL AUTO_INCREMENT,
   `FORM_NAME` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`FORM_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,7 +225,6 @@ CREATE TABLE `forms` (
 
 LOCK TABLES `forms` WRITE;
 /*!40000 ALTER TABLE `forms` DISABLE KEYS */;
-INSERT INTO `forms` VALUES (8,'Header 1'),(9,'Header 2'),(10,'This is a title for a long form for checking overflow from box');
 /*!40000 ALTER TABLE `forms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +251,6 @@ CREATE TABLE `forms_obj` (
 
 LOCK TABLES `forms_obj` WRITE;
 /*!40000 ALTER TABLE `forms_obj` DISABLE KEYS */;
-INSERT INTO `forms_obj` VALUES (8,'[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"Header 1\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group 1\",\"inline\":false,\"name\":\"radio-group-1686124243589-0\",\"other\":false,\"Marks\":3,\"Category\":\"behaviour\",\"values\":[{\"label\":\"Option 1\'s\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\'s\",\"value\":\"option-2\",\"selected\":true},{\"label\":\"Option 3\'s\",\"value\":\"option-3\",\"selected\":false}]}]','admin','abc@gmail.com'),(9,'[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"Header 2\"},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125142896-0\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125204679\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125203252\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125202527\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125201746\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125200691\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125194211\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125194036\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125193833\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125193558\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125192992\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"checkbox-group\",\"required\":false,\"label\":\"Checkbox Group\",\"toggle\":false,\"inline\":false,\"name\":\"checkbox-group-1686125192038\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]}]','admin','abc@gmail.com'),(10,'[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"This is a title for a long form for checking overflow from box\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1686125458742-0\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group abc\",\"inline\":false,\"name\":\"radio-group-1686133658762-0\",\"other\":false,\"Marks\":0,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"option-1\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"option-2\",\"selected\":true},{\"label\":\"Option 3\",\"value\":\"option-3\",\"selected\":false}]}]','admin','abc@gmail.com');
 /*!40000 ALTER TABLE `forms_obj` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +321,7 @@ CREATE TABLE `parent` (
 
 LOCK TABLES `parent` WRITE;
 /*!40000 ALTER TABLE `parent` DISABLE KEYS */;
-INSERT INTO `parent` VALUES ('Nipun1','$2a$10$gUv1KxeCT2xk8/zY1LGk8uaW2hkmA6hKd10GQNBpYy0UcYYOBEoPC','ashish','tulsian','nipun@gmail.com','8780583781','undefined','Nipun','Tulsian',2021101055,'2022-06-13','../uploads/Nipun1/image-1686122671653.kidsens_photo.jpeg','adhd','../uploads/Nipun1/identification-1686122671656.REPORT-FORMAT (1).pdf','../uploads/Nipun1/reports-1686122671669.REPORT-FORMAT (1).pdf','M','','abc@gmail.com',NULL,1);
+INSERT INTO `parent` VALUES ('Nipun1','$2a$10$gUv1KxeCT2xk8/zY1LGk8uaW2hkmA6hKd10GQNBpYy0UcYYOBEoPC','ashish','tulsian','nipun@gmail.com','8780583781','undefined','Nipun','Tulsian',2021101055,'2021-06-13','../uploads/Nipun1/image-1686122671653.kidsens_photo.jpeg','adhd','../uploads/Nipun1/identification-1686122671656.REPORT-FORMAT (1).pdf','../uploads/Nipun1/reports-1686122671669.REPORT-FORMAT (1).pdf','M','','abc@gmail.com',NULL,1);
 /*!40000 ALTER TABLE `parent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,7 +342,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`QUESTION_ID`),
   KEY `FORM_ID` (`FORM_ID`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`FORM_ID`) REFERENCES `forms` (`FORM_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,7 +351,6 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (3,8,'Radio Group 1','radio-group',3,'behaviour'),(4,9,'Checkbox Group','checkbox-group',0,'speech'),(5,9,'Checkbox Group','checkbox-group',0,'speech'),(6,9,'Checkbox Group','checkbox-group',0,'speech'),(7,9,'Checkbox Group','checkbox-group',0,'speech'),(8,9,'Checkbox Group','checkbox-group',0,'speech'),(9,9,'Checkbox Group','checkbox-group',0,'speech'),(10,9,'Checkbox Group','checkbox-group',0,'speech'),(11,9,'Checkbox Group','checkbox-group',0,'speech'),(12,9,'Checkbox Group','checkbox-group',0,'speech'),(13,9,'Checkbox Group','checkbox-group',0,'speech'),(14,9,'Checkbox Group','checkbox-group',0,'speech'),(15,9,'Checkbox Group','checkbox-group',0,'speech'),(20,10,'Radio Group','radio-group',0,'speech'),(21,10,'Radio Group abc','radio-group',0,'speech');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,6 +376,7 @@ CREATE TABLE `report_details` (
 
 LOCK TABLES `report_details` WRITE;
 /*!40000 ALTER TABLE `report_details` DISABLE KEYS */;
+INSERT INTO `report_details` VALUES ('general',2,3,'Development is a broad term that encompasses a great number of progressive achievements and abilities. For a child to develop normally they must attain physical milestones like sitting and walking. They must acquire the expression and the comprehension of language. They must be able to retain old knowledge and use it as the foundation for new knowledge. They must learn to relate effectively to the people and the environment around them. Development is a global process where no domain exists in isolation of another. It is rare to find a task that relies solely on one skill which is why if one area is lagging or dysfunctional, the entire process of development is compromised. When these areas of cognition or function are delayed, a child may be said to be experiencing a developmental delay.  Here’s the detailed report of the child’s developmental.',NULL);
 /*!40000 ALTER TABLE `report_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,7 +398,7 @@ CREATE TABLE `screening` (
   `screening_status` varchar(200) DEFAULT 'REGULAR',
   `comments` longtext,
   PRIMARY KEY (`screening_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -411,6 +407,7 @@ CREATE TABLE `screening` (
 
 LOCK TABLES `screening` WRITE;
 /*!40000 ALTER TABLE `screening` DISABLE KEYS */;
+INSERT INTO `screening` VALUES (7,'1','Screening','2023-06-08 03:48:16','2023-06-13 15:31:59','ONLINE',3,'REGULAR',NULL);
 /*!40000 ALTER TABLE `screening` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -511,4 +508,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-07 16:27:59
+-- Dump completed on 2023-06-14 12:09:46
