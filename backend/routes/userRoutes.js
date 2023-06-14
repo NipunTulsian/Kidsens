@@ -510,12 +510,12 @@ router.use("/save-form", protectTherapistAdmin, async (req, res) => {
         if (form_obj[0].type === "header") {
             form_name = form_obj[0]["label"];
         }
-        var query2 = `Insert into forms Values (NULL,'${form_name}')`;
+        var query2 = `Insert into forms Values (NULL,"${form_name}")`;
         let result = await query(query2);
         form_id = result.insertId;
         destructure_form_obj(form_obj, form_id);
 
-        query2 = `Insert into forms_obj value('${form_id}','${form_obj1}','${sender_type}','${sender_id}')`;
+        query2 = `Insert into forms_obj value("${form_id}","${form_obj1}","${sender_type}",'${sender_id}')`;
 
         await query(query2);
         return res.status(200).json("Form added")
@@ -545,7 +545,7 @@ router.use("/edit-form", protectTherapistAdmin, async (req, res) => {
         await query(que_query);
         que_query = `delete from questions where FORM_ID='${form_id}'`;
         await query(que_query);
-        que_query = `update forms set FORM_NAME='${form_name}' where FORM_ID='${form_id}'`;
+        que_query = `update forms set FORM_NAME="${form_name}" where FORM_ID='${form_id}'`;
         await query(que_query);
 
         destructure_form_obj(form_obj, form_id);
@@ -598,14 +598,14 @@ const destructure_form_obj = async (form_obj, form_id) => {
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
             var options = form_obj[i]["values"];
-            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}')`
+            que_query = `Insert into questions Values(NULL,"${form_id}","${name}","${type}","${Max_Marks}","${category}")`
             let result = await query(que_query);
             ques_id = result.insertId;
             for (let j = 0; j < options.length; j++) {
                 opt_name = options[j]["label"];
                 opt_name = opt_name.replaceAll("'", "''");
                 opt_name = opt_name.replace(/"/g, '\\"');
-                opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${opt_name}','${options[j]["selected"] ? 1 : 0}',"${options[j]["value"]}")`;
+                opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}","${opt_name}","${options[j]["selected"] ? 1 : 0}","${options[j]["value"]}")`;
                 await query(opt_query);
             }
 
@@ -616,13 +616,13 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = name.replace(/"/g, '\\"');
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
+            que_query = `Insert into questions Values(NULL,"${form_id}","${name}","${type}","${Max_Marks}","${category}")`;
             let result = await query(que_query);
             ques_id = result.insertId;
             let value = form_obj[i]["value"];
             value = value?.replaceAll("'", "''");
             value = value?.replace(/"/g, '\\"');
-            opt_query = `Insert into ANSWERS Values('${ques_id}','${form_id}','${value}',NULL,NULL)`;
+            opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}","${value}",NULL,NULL)`;
             await query(opt_query);
         }
         else if (type === "file") {
@@ -1116,11 +1116,11 @@ const destructure_form_obj_answers = async (form_obj, form_id, student_id, email
                 }
                 temp = temp.replaceAll("'", "''");
                 temp = temp.replaceAll("\"", "\"");
-                opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${temp}')`;
+                opt_query = `Insert into student_answers Values("${result[index]["QUESTION_ID"]}","${student_id}","${temp}")`;
                 await query(opt_query);
             }
             if (correct_opts > 0) {
-                que_query = `Insert into Marks values ("${email}","${form_id}","${result[index]["QUESTION_ID"]}","${result[index]["max_marks"]}",'${Math.round((marked / correct_opts) * result[index]["max_marks"])}')`;
+                que_query = `Insert into Marks values ("${email}","${form_id}","${result[index]["QUESTION_ID"]}","${result[index]["max_marks"]}","${Math.round((marked / correct_opts) * result[index]["max_marks"])}")`;
                 await query(que_query)
             }
             index++;
