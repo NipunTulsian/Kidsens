@@ -6,7 +6,6 @@ import cross from "./cross.png"
 import copyright from "./copyright.png"
 import calbrib from "./Calibri/calibrib.ttf"
 import calibri from "./Calibri/Calibri.ttf"
-import "./viewPdf.css"
 import {
     Document,
     Page,
@@ -1164,7 +1163,7 @@ export default function ViewPDF() {
                                         <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
                                             {rec?.map((ele, idx) => {
                                                 return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-                                                    <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text>
+                                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
                                                     <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele}</Text>
                                                 </div>
                                             })}
