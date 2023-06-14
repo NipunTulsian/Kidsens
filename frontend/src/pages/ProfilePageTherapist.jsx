@@ -9,7 +9,6 @@ export default function ProfilePageTherapist() {
     const { id } = useParams();
     const [therapist, setTherapist] = React.useState({
         username: "",
-        password: "",
         speciality: "",
         Address: "",
         id: "",
@@ -21,7 +20,7 @@ export default function ProfilePageTherapist() {
         lname: "",
     })
 
-    const getStudent = async () => {
+    const getTherapist = async () => {
         const serverRes = await fetch("http://localhost:8000/get-therapist-profile", {
             method: "POST",
             headers: {
@@ -42,17 +41,16 @@ export default function ProfilePageTherapist() {
                 username: serverResJson.username ? serverResJson.username : "",
                 speciality: serverResJson.speciality ? serverResJson.speciality : "",
                 Address: serverResJson.Address ? serverResJson.Address : "",
-                phonte: serverResJson.phone ? serverResJson.phone : "",
                 image: serverResJson.image ? "http://localhost:8000" + serverResJson.image.replace("../uploads", "") : null,
                 Identity: serverResJson.Identity ? "http://localhost:8000" + serverResJson.Identity.replace("../uploads", "") : null,
-                Certification: serverResJson.Certificate ? "http://localhost:8000" + serverResJson.Certificate.replace("../uploads", "") : serverResJson.Certificate,
-                Resume: serverResJson.Resume ? "http://localhost:8000" + serverResJson.Resume.replace("../uploads", "") : serverResJson.Resume,
+                Certification: serverResJson.Certificate ? "http://localhost:8000" + serverResJson.Certificate.replace("../uploads", "") : null,
+                Resume: serverResJson.Resume ? "http://localhost:8000" + serverResJson.Resume.replace("../uploads", "") : null,
             })
         }
     }
 
     useEffect(() => {
-        getStudent()
+        getTherapist()
     }, []);
 
     return (

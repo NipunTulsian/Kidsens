@@ -128,6 +128,9 @@ function TherapistRedirect() {
                     value={therapistData.Address}
                     required
                 ></TextField>
+                <Typography align="center">
+                    Photo
+                </Typography>
                 <TextField
                     style={{ width: "30%", margin: "10px auto" }}
                     variant="outlined"
