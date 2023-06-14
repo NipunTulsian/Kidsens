@@ -1429,7 +1429,7 @@ router.use("/get-report-details", protectParent, async (req, res) => {
             let total = await query(que_query);
             total = total[0].num;
             total_assinged += total;
-            que_query = `select count(QUESTION_ID) as num from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Marks_obtained>0 and Max_Marks>=Marks_Obtained  and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}')`
+            que_query = `select count(QUESTION_ID) as num from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and  Max_Marks=Marks_Obtained  and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}')`
             let total_cor = await query(que_query);
             total_cor = total_cor[0].num;
             total_correct += total_cor;
@@ -1439,9 +1439,9 @@ router.use("/get-report-details", protectParent, async (req, res) => {
 
         var obj2 = {};
         for (let i = 0; i < category.length; i++) {
-            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Marks_Obtained>=Max_Marks and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
+            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Marks_Obtained=Max_Marks and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
             let result = await query(que_query);
-            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID not in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Marks_Obtained>=Max_Marks and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
+            que_query = `select * from questions where category='${category[i]}' and FORM_ID='${form_id}' and QUESTION_ID not in (select QUESTION_ID from marks where FORM_ID='${form_id}' and student_Id='${student[0]["p_email"]}' and Marks_Obtained=Max_Marks and QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${form_id}' and Category='${category[i]}'))`;
             let result2 = await query(que_query);
             obj2[category[i] + "_correct"] = result;
             obj2[category[i] + "_incorrect"] = result2;
