@@ -12,8 +12,6 @@ const { protectAdmin, protectTherapist, protectParent, protectTherapistAdmin } =
 
 const fs = require("fs")
 const path = require("path");
-const { query } = require('express');
-
 
 module.exports = router;
 router.use("/student-register", protectAdmin, async (req, res) => {
@@ -499,8 +497,7 @@ router.use("/save-form", protectTherapistAdmin, async (req, res) => {
     try {
         const query = util.promisify(db.query).bind(db);
         let form_obj1 = req.body.form_obj;
-        form_obj1 = form_obj1.replaceAll("'", "''");
-        // form_obj1 = form_obj1.replace("\"", "\"");
+        form_obj1 = db.escape(form_obj1)
 
         const sender_type = req.body.sender_type
         const sender_id = jwt.verify(req.body.sender_id, "abc123").id
@@ -510,18 +507,21 @@ router.use("/save-form", protectTherapistAdmin, async (req, res) => {
         if (form_obj[0].type === "header") {
             form_name = form_obj[0]["label"];
         }
-        var query2 = `Insert into forms Values (NULL,"${form_name}")`;
+        form_name = form_name?.trim();
+        form_name = db.escape(form_name)
+        var query2 = `Insert into forms Values (NULL,${form_name})`;
         let result = await query(query2);
         form_id = result.insertId;
         destructure_form_obj(form_obj, form_id);
 
-        query2 = `Insert into forms_obj value("${form_id}","${form_obj1}","${sender_type}",'${sender_id}')`;
+        query2 = `Insert into forms_obj value('${form_id}',${form_obj1},'${sender_type}','${sender_id}')`;
 
         await query(query2);
         return res.status(200).json("Form added")
 
     }
     catch (err) {
+        console.log(err)
         return res.status(500).json(err);
     }
 })
@@ -531,25 +531,26 @@ router.use("/edit-form", protectTherapistAdmin, async (req, res) => {
         const query = util.promisify(db.query).bind(db);
         let form_obj1 = req.body.form_obj;
         let form_id = req.body.id;
-        form_obj1 = form_obj1.replaceAll("'", "''");
-        // form_obj1 = form_obj1.replace("\"", "\"");
+        form_obj1 = db.escape(form_obj1)
 
         const form_obj = JSON.parse(req.body.form_obj);
         var form_name = null;
         if (form_obj[0].type === "header") {
             form_name = form_obj[0]["label"];
         }
+        form_name = form_name?.trim();
+        form_name = db.escape(form_name)
         var que_query = `delete from Marks where FORM_Id='${form_id}'`;
         await query(que_query);
         que_query = `delete from ANSWERS where FORM_Id='${form_id}'`;
         await query(que_query);
         que_query = `delete from questions where FORM_ID='${form_id}'`;
         await query(que_query);
-        que_query = `update forms set FORM_NAME="${form_name}" where FORM_ID='${form_id}'`;
+        que_query = `update forms set FORM_NAME=${form_name} where FORM_ID='${form_id}'`;
         await query(que_query);
 
         destructure_form_obj(form_obj, form_id);
-        que_query = `update forms_obj set FORM_OBJ='${form_obj1}' where FORM_ID='${form_id}'`
+        que_query = `update forms_obj set FORM_OBJ=${form_obj1} where FORM_ID='${form_id}'`
 
         await query(que_query);
         return res.status(200).json("Form edited")
@@ -593,54 +594,54 @@ const destructure_form_obj = async (form_obj, form_id) => {
         type = form_obj[i]["type"];
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             name = form_obj[i]["label"];
-            name = name.replaceAll("'", "''");
-            name = name.replace(/"/g, '\\"');
+            name= name?.trim()
+            name = db.escape(name);
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
             var options = form_obj[i]["values"];
-            que_query = `Insert into questions Values(NULL,"${form_id}","${name}","${type}","${Max_Marks}","${category}")`
+            que_query = `Insert into questions Values(NULL,"${form_id}",${name},"${type}","${Max_Marks}","${category}")`
             let result = await query(que_query);
             ques_id = result.insertId;
             for (let j = 0; j < options.length; j++) {
                 opt_name = options[j]["label"];
-                opt_name = opt_name.replaceAll("'", "''");
-                opt_name = opt_name.replace(/"/g, '\\"');
-                opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}","${opt_name}","${options[j]["selected"] ? 1 : 0}","${options[j]["value"]}")`;
+                opt_name=opt_name?.trim();
+                opt_name = db.escape(opt_name)
+                opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}",${opt_name},"${options[j]["selected"] ? 1 : 0}","${options[j]["value"]}")`;
                 await query(opt_query);
             }
 
         }
         else if (type === "text") {
             name = form_obj[i]["label"];
-            name = name.replaceAll("'", "''");
-            name = name.replace(/"/g, '\\"');
+            name= name?.trim()
+            name = db.escape(name);
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            que_query = `Insert into questions Values(NULL,"${form_id}","${name}","${type}","${Max_Marks}","${category}")`;
+            que_query = `Insert into questions Values(NULL,"${form_id}",${name},"${type}","${Max_Marks}","${category}")`;
             let result = await query(que_query);
             ques_id = result.insertId;
             let value = form_obj[i]["value"];
-            value = value?.replaceAll("'", "''");
-            value = value?.replace(/"/g, '\\"');
-            opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}","${value}",NULL,NULL)`;
+            value= value?.trim()
+            value = db.escape(value)
+            opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}",${value},NULL,NULL)`;
             await query(opt_query);
         }
         else if (type === "file") {
             name = form_obj[i]["label"];
-            name = name.replaceAll("'", "''");
-            name = name.replaceAll(replace(/"/g, '\\"'));
+            name= name?.trim()
+            name = db.escape(name);
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}',NULL)`;
+            que_query = `Insert into questions Values(NULL,'${form_id}',${name},'${type}',${Max_Marks},'${category}')`;
             await query(que_query);
         }
         else if (type === "date") {
             name = form_obj[i]["label"];
-            name = name.replaceAll("'", "''");
-            name = name.replaceAll(replace(/"/g, '\\"'));
+            name= name?.trim()
+            name = db.escape(name);
             Max_Marks = form_obj[i]["Marks"];
             category = form_obj[i]["Category"];
-            que_query = `Insert into questions Values(NULL,'${form_id}','${name}','${type}',${Max_Marks},'${category}')`;
+            que_query = `Insert into questions Values(NULL,'${form_id}',${name},'${type}',${Max_Marks},'${category}')`;
             await query(que_query);
         }
     }
@@ -682,7 +683,6 @@ async function getPending(arr) {
         que_query = `select * from forms where FORM_ID='${allResponded[i].FORM_ID}'`;
         var result_name = await query(que_query)
         for (let j = 0; j < result?.length; j++) {
-            var temp = result[j];
             result[j].FORM_NAME = result_name[0].FORM_NAME
             answer.push(result[j]);
         }
@@ -1045,9 +1045,8 @@ router.use("/store-FormObject", protectParent, async (req, res) => {
     try {
         let { id, form, student } = req.body
         student = jwt.verify(student, "abc123").id;
-        form = form.replaceAll("'", "''");
-        form = form.replaceAll("\"", "\"");
-        let query = `INSERT INTO student_responses value('${student}','${id}','${form}')`;
+        let form_obj = db.escape(form);
+        let query = `INSERT INTO student_responses value('${student}','${id}',${form_obj})`;
         db.query(query, (err, result0) => {
             destructure_form_obj_answers(JSON.parse(form), id, req.user, student);
             query = `select stage from AssessFormMap where FORM_ID='${id}' and student_Id='${req.user}'`;
@@ -1114,9 +1113,8 @@ const destructure_form_obj_answers = async (form_obj, form_id, student_id, email
                 for (let k = 0; k < answers.length; k++) {
                     if (temp.localeCompare(answers[k]["value"]) === 0) marked += 1;
                 }
-                temp = temp.replaceAll("'", "''");
-                temp = temp.replaceAll("\"", "\"");
-                opt_query = `Insert into student_answers Values("${result[index]["QUESTION_ID"]}","${student_id}","${temp}")`;
+                temp = db.escape(temp)
+                opt_query = `Insert into student_answers Values("${result[index]["QUESTION_ID"]}","${student_id}",${temp})`;
                 await query(opt_query);
             }
             if (correct_opts > 0) {
@@ -1127,9 +1125,8 @@ const destructure_form_obj_answers = async (form_obj, form_id, student_id, email
         }
         else if (type === "text") {
             let temp = form_obj[i]["userData"][0];
-            temp = temp.replaceAll("'", "''");
-            temp = temp.replaceAll("\"", "\"");
-            opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}','${temp}')`;
+            temp = db.escape(temp)
+            opt_query = `Insert into student_answers Values('${result[index]["QUESTION_ID"]}','${student_id}',${temp})`;
             await query(opt_query);
             index++;
         }
