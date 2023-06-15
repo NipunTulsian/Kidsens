@@ -568,6 +568,8 @@ router.use("/delete-form", protectTherapist, async (req, res) => {
         await query(que_query);
         que_query = `delete from ANSWERS where FORM_Id='${id}'`;
         await query(que_query);
+        que_query=`delete from student_answers where QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${id}')`;
+        await query(que_query);
         que_query = `delete from questions where FORM_ID='${id}'`;
         await query(que_query);
         que_query = `delete from default_AssessFormMap where FORM_ID='${id}'`;
@@ -575,6 +577,8 @@ router.use("/delete-form", protectTherapist, async (req, res) => {
         que_query = `delete from AssessFormMap where FORM_ID='${id}'`;
         await query(que_query);
         que_query = `delete from forms_obj where FORM_ID='${id}'`;
+        await query(que_query);
+        que_query = `delete from student_responses where FORM_ID='${id}'`;
         await query(que_query);
         que_query = `delete from forms where FORM_ID='${id}'`;
         await query(que_query);
