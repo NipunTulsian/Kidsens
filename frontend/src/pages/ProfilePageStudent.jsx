@@ -5,8 +5,6 @@ import { useParams } from 'react-router-dom'
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import { get } from 'jquery';
-
 export default function ProfilePageStudent() {
     const { id } = useParams();
     const [student, setStudent] = useState({
@@ -28,7 +26,7 @@ export default function ProfilePageStudent() {
     });
 
     const getStudent = async () => {
-        const serverRes = await fetch("http://localhost:8000/user/get-student-profile", {
+        const serverRes = await fetch("http://localhost:8000/parent/StudentProfile", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +44,7 @@ export default function ProfilePageStudent() {
                 student_Id: serverResJson.student_Id,
                 c_fname: serverResJson.c_fname,
                 c_lname: serverResJson.c_lname,
-                image: serverResJson.c_img ? "http://localhost:8000/user" + serverResJson.c_img.replace("../uploads", "") : null,
+                image: serverResJson.c_img ? "http://localhost:8000" + serverResJson.c_img.replace("../uploads", "") : null,
                 username: serverResJson.username ? serverResJson.username : "",
                 p_fname: serverResJson.p_fname ? serverResJson.p_fname : "",
                 p_lname: serverResJson.p_lname ? serverResJson.p_lname : "",
@@ -54,8 +52,8 @@ export default function ProfilePageStudent() {
                 c_DOB: serverResJson.c_DOB ? serverResJson.c_DOB : "",
                 c_gender: serverResJson.c_gender ? serverResJson.c_gender : "",
                 Diagnosis: serverResJson.Diagnosis ? serverResJson.Diagnosis : "",
-                identification: serverResJson.identification ? "http://localhost:8000/user" + serverResJson.identification.replace("../uploads", "") : null,
-                reports: serverResJson.reports ? "http://localhost:8000/user" + serverResJson.reports.replace("../uploads", "") : null,
+                identification: serverResJson.identification ? "http://localhost:8000" + serverResJson.identification.replace("../uploads", "") : null,
+                reports: serverResJson.reports ? "http://localhost:8000" + serverResJson.reports.replace("../uploads", "") : null,
             })
         }
     }

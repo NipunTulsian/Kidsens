@@ -15,7 +15,7 @@ function StagesPage() {
         getStages();
     }, [])
     const getStages = async () => {
-        const serverRes = await fetch("http://localhost:8000/user/get-stages", {
+        const serverRes = await fetch("http://localhost:8000/workflow/Stages", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

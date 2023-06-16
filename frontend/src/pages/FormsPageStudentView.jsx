@@ -14,7 +14,7 @@ function FormsPageStudentView() {
         getForms()
     }, [])
     const getForms = async () => {
-        const serverRes = await fetch("http://localhost:8000/user/get-fill", {
+        const serverRes = await fetch("http://localhost:8000/parent/getForms", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

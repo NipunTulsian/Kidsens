@@ -323,7 +323,7 @@ export default function LandTherapy() {
 	const [pendingForms, setPendingForms] = React.useState([])
 
 	async function fetchdata() {
-		let serverRes = await fetch("http://localhost:8000/user/get-students", {
+		let serverRes = await fetch("http://localhost:8000/therapist/getStudents", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -338,7 +338,7 @@ export default function LandTherapy() {
 			setFormsArr(serverResJson.forms)
 			setallStudents(serverResJson.students)
 		}
-		serverRes = await fetch("http://localhost:8000/user/get-therapist", {
+		serverRes = await fetch("http://localhost:8000/therapist/getTherapist", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -358,14 +358,14 @@ export default function LandTherapy() {
 				speciality: serverResJson.speciality,
 				Address: serverResJson.Address,
 				phonte: serverResJson.phone,
-				image: "http://localhost:8000/user" + serverResJson.image.replace("../uploads", ""),
-				Identity: "http://localhost:8000/user" + serverResJson.Identity.replace("../uploads", ""),
-				Certification: "http://localhost:8000/user" + serverResJson.Certificate.replace("../uploads", ""),
-				Resume: "http://localhost:8000/user" + serverResJson.Resume.replace("../uploads", ""),
+				image: "http://localhost:8000" + serverResJson.image.replace("../uploads", ""),
+				Identity: "http://localhost:8000" + serverResJson.Identity.replace("../uploads", ""),
+				Certification: "http://localhost:8000" + serverResJson.Certificate.replace("../uploads", ""),
+				Resume: "http://localhost:8000" + serverResJson.Resume.replace("../uploads", ""),
 			})
 		}
 
-		serverRes = await fetch("http://localhost:8000/user/get-fetchPending", {
+		serverRes = await fetch("http://localhost:8000/therapist/getPendingforms", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -641,22 +641,6 @@ export default function LandTherapy() {
 						{displayThis === 'CreateForm' && <div style={{ padding: '20px' }}>
 							<FormBuilder />
 						</div>}
-
-						{/* {displayThis === 'View all forms' &&
-						<Grid spacing={2} container>
-							<Grid item md={4}>
-								<Card variant="outlined">
-									<CardContent>
-										<Typography variant="h5" align="center">Title of Form</Typography>
-										<Typography style={{ color: '#747577', fontSize: '14px', marginTop: '10px' }} align="center">Last edited on: 12/12/2021</Typography>
-									</CardContent>
-									<CardActions style={{ display: 'flex', justifyContent: 'center' }}>
-										<Button>View and Edit form</Button>
-										<Button>Delete Form</Button>
-									</CardActions>
-								</Card>
-							</Grid>
-						</Grid>} */}
 
 						{displayThis === 'ViewAllForms' &&
 							<Grid spacing={4} container style={{ padding: '0px 50px', marginBottom: '50px' }}>

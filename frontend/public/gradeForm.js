@@ -14,7 +14,7 @@ const handleSaveMarks = async () => {
       Max_Marks: parseInt(document.getElementById(`${window.questions[i]["QUESTION_ID"]}_total`).value)
     })
   }
-  const serverRes = await fetch("http://localhost:8000/user/save-marks", {
+  const serverRes = await fetch("http://localhost:8000/report/saveMarks", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const handleSaveMarks = async () => {
   }
 }
 async function gradeForm() {
-  const serverRes = await fetch("http://localhost:8000/user/get-responses", {
+  const serverRes = await fetch("http://localhost:8000/report/getResponses", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

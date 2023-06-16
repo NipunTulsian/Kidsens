@@ -310,7 +310,7 @@ export default function EditFormTherapist() {
     const [open, setOpen] = React.useState(false);
 
     async function fetchdata() {
-        let serverRes = await fetch("http://localhost:8000/user/get-FormObject", {
+        let serverRes = await fetch("http://localhost:8000/form/getFormObject", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

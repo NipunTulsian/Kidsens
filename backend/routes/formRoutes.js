@@ -74,6 +74,22 @@ router.use("/editForm", protectTherapistAdmin, async (req, res) => {
     }
 })
 
+router.use("/getFormObject", async (req, res) => {
+    try {
+        const { id } = req.body
+        let query = `select FORM_OBJ from forms_obj where FORM_ID='${id}'`;
+        db.query(query, (err, result) => {
+            return res.status(200).json({
+                form: result[0]?.FORM_OBJ
+            });
+        })
+    }
+    catch (err) {
+
+        res.sendStatus(500)
+    }
+})
+
 router.use("/deleteForm", protectTherapist, async (req, res) => {
     try {
         const query = util.promisify(db.query).bind(db);

@@ -73,7 +73,7 @@ function AssessmentsPage() {
     };
 
     const getAssess = async () => {
-        const serverRes = await fetch("http://localhost:8000/user/get-assessments", {
+        const serverRes = await fetch("http://localhost:8000/workflow/getAssessment", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ function AssessmentsPage() {
     }
 
     const getDefaultAssess = async () => {
-        const serverRes = await fetch("http://localhost:8000/user/get-default-assessments-therapist", {
+        const serverRes = await fetch("http://localhost:8000/workflow/getDefaultAssessments", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ function AssessmentsPage() {
             stage_name: id.split(";")[1],
             assess_name: checked
         }
-        const serverRes = await fetch("http://localhost:8000/user/add-assessment", {
+        const serverRes = await fetch("http://localhost:8000/workflow/addAssessment", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ function AssessmentsPage() {
             stage_name: id.split(";")[1],
             assess_name: assessment
         }
-        const serverRes = await fetch("http://localhost:8000/user/delete-assessment", {
+        const serverRes = await fetch("http://localhost:8000/workflow/deleteAssessment", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
