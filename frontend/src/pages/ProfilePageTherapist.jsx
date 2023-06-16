@@ -58,7 +58,7 @@ export default function ProfilePageTherapist() {
             <Navbar pageTitle="Therapist Profile" />
             <Typography align='center' margin={3} variant='h3'>Details Of,{therapist ? " " + therapist.fname + " " + therapist.lname + " " : null}</Typography>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                {therapist.image ? <img src={therapist.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
+                {therapist.image ? <img src={therapist.image} alt="profile" style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
                 <TextField
                     style={{ width: "30%", margin: "10px auto" }}
                     variant="outlined"
@@ -120,13 +120,13 @@ export default function ProfilePageTherapist() {
                     }}
                 ></TextField>
                 <Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3", fontSize: "15px" }}>Identification</Typography>
-                {therapist.Identity ? <iframe src={therapist.Identity} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
+                {therapist.Identity ? <iframe src={therapist.Identity} title="identity" width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
                 </iframe> : null}
                 <Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Certification</Typography>
-                {therapist.Certification ? <iframe src={therapist.Certification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
+                {therapist.Certification ? <iframe src={therapist.Certification} title="certi" width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
                 </iframe> : null}
                 <Typography align='center' style={{ marginTop: "15px", marginBottom: "5px", color: "#2196F3" }}>Resume</Typography>
-                {therapist.Resume ? <iframe src={therapist.Resume} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
+                {therapist.Resume ? <iframe src={therapist.Resume} title="resume" width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
                 </iframe> : null}
             </div>
 

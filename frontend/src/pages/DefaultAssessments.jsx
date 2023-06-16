@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 function DefaultAssessments() {
     const navigate = useNavigate();
     const { stage } = useParams()
-    let id =1
+    
     React.useEffect(() => {
         if (!localStorage.getItem('User')) {
             navigate('/')

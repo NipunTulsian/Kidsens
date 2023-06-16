@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Navbar from './CommonNavbar'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router'
@@ -15,17 +15,17 @@ export default function AssessmentPageStudentView() {
         getAssess()
     }, [])
 
-    const [newAssessment, setNewAssessment] = React.useState(false)
-    const [unAssignedAssessments, setUnAssignedAssessments] = React.useState([])
+    // const [newAssessment, setNewAssessment] = React.useState(false)
+    // const [unAssignedAssessments, setUnAssignedAssessments] = React.useState([])
     const [assessmentsArr, setAssessmentsArr] = React.useState([])
-    const [open, setOpen] = React.useState(false);
-    const [checked, setChecked] = React.useState([]);
+    // const [open, setOpen] = React.useState(false);
+    // const [checked, setChecked] = React.useState([]);
 
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-        setOpen(false)
-        setNewAssessment(false)
-    }
+    // const handleOpen = () => setOpen(true);
+    // const handleClose = () => {
+    //     setOpen(false)
+    //     setNewAssessment(false)
+    // }
     const getAssess = async () => {
         const serverRes = await fetch("http://localhost:8000/workflow/getAssessment", {
             method: "POST",

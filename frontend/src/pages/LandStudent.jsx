@@ -280,7 +280,7 @@ export default function LandStudent() {
 					>
 						<MenuIcon />
 					</IconButton>
-					<img href="/" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
+					<img href="/" alt="logo" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
 					<Typography variant="h6" noWrap component="div">
 						{displayThis}
 					</Typography>
@@ -390,7 +390,7 @@ export default function LandStudent() {
 					{displayThis === 'Profile' && <div>
 						<Typography align='center' margin={3} variant='h3'>Welcome,{student ? " " + student.c_fname + " " + student.c_lname + " " : null}</Typography>
 						<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-							{student ? <img src={student.image} style={{ display:"block",marginLeft:"auto",marginRight:"auto",borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
+							{student ? <img src={student.image} alt="profile" style={{ display:"block",marginLeft:"auto",marginRight:"auto",borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
 							<TextField
 								style={{ width: "30%", margin: "10px auto" }}
 								variant="outlined"
@@ -482,10 +482,10 @@ export default function LandStudent() {
 								}}
 							></TextField>
 							<Typography align='center' style={{marginTop:"15px",marginBottom:"5px",color:"#2196F3",fontSize:"15px"}}>Identification</Typography>
-							<iframe src={student.identification} width="800" height="500" style={{marginLeft:"auto",marginRight:"auto",marginBottom:"30px"}}>
+							<iframe src={student.identification} title="identification" width="800" height="500" style={{marginLeft:"auto",marginRight:"auto",marginBottom:"30px"}}>
 							</iframe>
 							<Typography align='center' style={{marginTop:"15px",marginBottom:"5px",color:"#2196F3"}}>Reports</Typography>
-							<iframe src={student.reports} width="800" height="500" style={{marginLeft:"auto",marginRight:"auto"}}>
+							<iframe src={student.reports} title="reports" width="800" height="500" style={{marginLeft:"auto",marginRight:"auto"}}>
 							</iframe>
 						</div>
 					</div>}

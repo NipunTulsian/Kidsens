@@ -54,7 +54,7 @@ function StagesPage() {
                 obj.children.push(obj_stage)
                 for(let j=0;j<assess.length;j++)
                 {
-                    if(assess[j]["stage"]==stages[i]["stage"])
+                    if(assess[j]["stage"]===stages[i]["stage"])
                     {
                         let obj_assess={
                             name:assess[j]["assessment"],
@@ -63,12 +63,12 @@ function StagesPage() {
                         obj_stage.children.push(obj_assess)
                         for(let k=0;k<maps.length;k++)
                         {
-                            if(maps[k]["stage"]==stages[i]["stage"]&& maps[k]["assessment"]==assess[j]["assessment"])
+                            if(maps[k]["stage"]===stages[i]["stage"]&& maps[k]["assessment"]===assess[j]["assessment"])
                             {
                                 for(let l=0;l<forms.length;l++)
                                 {
                                     console.log(forms)
-                                    if(forms[l]["FORM_ID"]== maps[k]["FORM_ID"])
+                                    if(forms[l]["FORM_ID"]=== maps[k]["FORM_ID"])
                                     {
                                         obj_assess.children.push({
                                             name:forms[l]["FORM_NAME"]

@@ -390,7 +390,7 @@ export default function AdminPage() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <img href="/" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
+                    <img href="/" alt="logo" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
                     <Typography variant="h6" noWrap component="div">
                         {displayThis}
                     </Typography>

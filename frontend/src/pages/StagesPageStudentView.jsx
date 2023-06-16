@@ -35,11 +35,11 @@ export default function StagesPageStudentView() {
     }
 
     const [stagesArr, setStagesArr] = React.useState([]) // stages array always contains the default stages --> do the backend for this
-    const [newStageValue, setNewStageValue] = React.useState({ stageName: '', stagePosition: '' })
+    // const [newStageValue, setNewStageValue] = React.useState({ stageName: '', stagePosition: '' })
 
-    const onNewStageValueChange = (e) => {
-        setNewStageValue({ ...newStageValue, [e.target.id]: e.target.value })
-    }
+    // const onNewStageValueChange = (e) => {
+    //     setNewStageValue({ ...newStageValue, [e.target.id]: e.target.value })
+    // }
 
     return (
         <div>

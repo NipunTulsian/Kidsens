@@ -29,7 +29,6 @@ function FormsPageStudentView() {
 
         if (serverRes.status === 200) {
             const serverResJson = await serverRes.json()
-            console.log(hi)
             console.log(serverResJson.checked)
             setChecked(serverResJson.checked)
             setUnfilled(serverResJson.unfilled)
@@ -38,9 +37,6 @@ function FormsPageStudentView() {
     }
 
     // fetch forms which have been scored by therapist
-
-    const [hi, setHi] = React.useState("hello")
-
     const [checked, setChecked] = React.useState([
     ]);
 

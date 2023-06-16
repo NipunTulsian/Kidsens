@@ -67,7 +67,7 @@ export default function ProfilePageStudent() {
             <Navbar pageTitle="Student Profile" />
             <Typography align='center' margin={3} variant='h3'>Details Of,{student ? " " + student.c_fname + " " + student.c_lname + " " : null}</Typography>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                {student.image ? <img src={student.image} style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
+                {student.image ? <img src={student.image} alt="profile" style={{ display: "block", marginLeft: "auto", marginRight: "auto", borderRadius: "50%", width: "125px", height: "125px" }} /> : null}
                 <TextField
                     style={{ width: "30%", margin: "10px auto" }}
                     variant="outlined"
@@ -159,10 +159,10 @@ export default function ProfilePageStudent() {
                     }}
                 ></TextField>
                 <Typography align='center' style={{ marginTop: "15px", color: "black", fontSize: "15px" }}>Identification</Typography>
-                {student.identification ? <iframe src={student.identification} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
+                {student.identification ? <iframe src={student.identification} title="identification" width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto", marginBottom: "30px" }}>
                 </iframe> : null}
                 <Typography align='center' style={{ marginTop: "15px", color: "black" }}>Reports</Typography>
-                {student.reports ? <iframe src={student.reports} width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
+                {student.reports ? <iframe src={student.reports} title="reports" width="800" height="500" style={{ marginLeft: "auto", marginRight: "auto" }}>
                 </iframe> : null}
             </div>
         </div>

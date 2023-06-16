@@ -3,7 +3,7 @@ import land from "./landing.png"
 import logo from "./logo.jpeg"
 import tick from "./tick.png"
 import cross from "./cross.png"
-import copyright from "./copyright.png"
+// import copyright from "./copyright.png"
 import calbrib from "./Calibri/calibrib.ttf"
 import calibri from "./Calibri/Calibri.ttf"
 import {

@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import TextField from "@mui/material/TextField"
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
@@ -23,15 +22,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
 import ViewListIcon from '@mui/icons-material/ViewList';
-import Grid from '@mui/material/Grid';
-import { json, useNavigate, useParams } from 'react-router'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import { useNavigate, useParams } from 'react-router'
 import logo from '../logo.png'
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 
 import $ from "jquery";
-import DisplayStudentTherapist from "./DisplayStudentTherapist";
 import { useState } from "react";
 window.jQuery = $;
 window.$ = $;
