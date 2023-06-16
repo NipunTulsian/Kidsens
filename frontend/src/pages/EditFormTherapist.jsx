@@ -264,7 +264,7 @@ options.typeUserAttrs['radio-group'] = {
     }
 }
 const SaveForm = async (a) => {
-    const serverRes = await fetch("http://localhost:8000/edit-form", {
+    const serverRes = await fetch("http://localhost:8000/form/editForm", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -310,7 +310,7 @@ export default function EditFormTherapist() {
     const [open, setOpen] = React.useState(false);
 
     async function fetchdata() {
-        let serverRes = await fetch("http://localhost:8000/get-FormObject", {
+        let serverRes = await fetch("http://localhost:8000/user/get-FormObject", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

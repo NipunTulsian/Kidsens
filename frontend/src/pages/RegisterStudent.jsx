@@ -36,7 +36,7 @@ function RegisterStudent() {
                 else str+=","+allTherapists[i].Email
             }
         }
-        const serverRes = await fetch("http://localhost:8000/student-register", {
+        const serverRes = await fetch("http://localhost:8000/auth/studentRegister", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function RegisterStudent() {
         }
     }
     const getTherapist = async () => {
-        const serverRes = await fetch("http://localhost:8000/display-therapist", {
+        const serverRes = await fetch("http://localhost:8000/user/display-therapist", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

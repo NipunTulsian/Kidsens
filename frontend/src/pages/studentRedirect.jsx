@@ -51,7 +51,7 @@ function StudentRedirect() {
         data.append("c_ROLL_NUMBER", studentData.c_ROLL_NUMBER);
         data.append("p_email", studentData.p_email);
 
-        const serverRes = await fetch("http://localhost:8000/fill-student", {
+        const serverRes = await fetch("http://localhost:8000/auth/fillStudent", {
             method: "POST",
             body: data,
         })

@@ -10,7 +10,7 @@ const id = urlParams.get("id");
 const fbRender = document.getElementById("fb-render");
 let originalFormData = [];
 async function fetchForm() {
-  const serverRes = await fetch("http://localhost:8000/get-Scores", {
+  const serverRes = await fetch("http://localhost:8000/user/get-Scores", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

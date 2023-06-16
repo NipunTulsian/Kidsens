@@ -9,7 +9,7 @@ const id = urlParams.get("id");
 // console.log(id, userName);
 const fbRender = document.getElementById("fb-render");
 async function fetchForm() {
-  const serverRes = await fetch("http://localhost:8000/get-FormObject", {
+  const serverRes = await fetch("http://localhost:8000/user/get-FormObject", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

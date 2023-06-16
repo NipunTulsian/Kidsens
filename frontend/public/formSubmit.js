@@ -12,7 +12,7 @@ const fbRender = document.getElementById("fb-render");
 var originalFormData = null;
 
 async function fetchForm() {
-  const serverRes = await fetch("http://localhost:8000/get-FormObjectStudent", {
+  const serverRes = await fetch("http://localhost:8000/studentForm/getFormObjectStudent", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ async function fetchForm() {
         "click",
         async () => {
           let response = $(fbRender).formRender("userData")
-          const serverRes = await fetch("http://localhost:8000/store-FormObject", {
+          const serverRes = await fetch("http://localhost:8000/studentForm/storeFormObject", {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',

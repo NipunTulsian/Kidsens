@@ -15,7 +15,7 @@ function DefaultStages() {
         getStages()
     }, [])
     const getStages = async () => {
-        const serverRes = await fetch("http://localhost:8000/get-default-stages", {
+        const serverRes = await fetch("http://localhost:8000/user/get-default-stages", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ function DefaultStages() {
             stage_name: newStageValue.stageName,
             position: newStageValue.stagePosition
         }
-        const serverRes = await fetch("http://localhost:8000/create-stage", {
+        const serverRes = await fetch("http://localhost:8000/user/create-stage", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ function DefaultStages() {
             id: localStorage.getItem("User"),
             stage_name: stage
         }
-        const serverRes = await fetch("http://localhost:8000/delete-stage", {
+        const serverRes = await fetch("http://localhost:8000/user/delete-stage", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

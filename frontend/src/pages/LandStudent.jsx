@@ -125,7 +125,7 @@ const Drawer = styled(MuiDrawer, {
 export default function LandStudent() {
 	const params=useParams();
 	const getPendingForms = async () => {
-		const serverRes = await fetch("http://localhost:8000/get-pending-forms", {
+		const serverRes = await fetch("http://localhost:8000/user/get-pending-forms", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ export default function LandStudent() {
 	const [formsArr, setFormsArr] = React.useState([])
 	async function getNames(form_ids) {
 		console.log(form_ids)
-		const serverRes = await fetch("http://localhost:8000/get-pending-formsName", {
+		const serverRes = await fetch("http://localhost:8000/user/get-pending-formsName", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ export default function LandStudent() {
 	}
 
 	const getReports = async () => {
-		const serverRes = await fetch("http://localhost:8000/get-reportsMain", {
+		const serverRes = await fetch("http://localhost:8000/user/get-reportsMain", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -200,7 +200,7 @@ export default function LandStudent() {
 
 
 	const getStudent = async () => {
-		const serverRes = await fetch("http://localhost:8000/get-student-details", {
+		const serverRes = await fetch("http://localhost:8000/user/get-student-details", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -217,7 +217,7 @@ export default function LandStudent() {
 				student_Id: serverResJson.student_Id,
 				c_fname: serverResJson.c_fname,
 				c_lname: serverResJson.c_lname,
-				image: "http://localhost:8000" + serverResJson.c_img.replace("../uploads", ""),
+				image: "http://localhost:8000/user" + serverResJson.c_img.replace("../uploads", ""),
 				username: serverResJson.username,
 				p_fname: serverResJson.p_fname,
 				p_lname: serverResJson.p_lname,
@@ -225,8 +225,8 @@ export default function LandStudent() {
 				c_DOB: serverResJson.c_DOB,
 				c_gender: serverResJson.c_gender,
 				Diagnosis: serverResJson.Diagnosis,
-				identification: "http://localhost:8000" + serverResJson.identification.replace("../uploads", ""),
-				reports: "http://localhost:8000" + serverResJson.reports.replace("../uploads", ""),
+				identification: "http://localhost:8000/user" + serverResJson.identification.replace("../uploads", ""),
+				reports: "http://localhost:8000/user" + serverResJson.reports.replace("../uploads", ""),
 			})
 		}
 	}

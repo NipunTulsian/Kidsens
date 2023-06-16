@@ -17,7 +17,7 @@ export default function StagesPageStudentView() {
 
     //fetch stages of student
     const getStages = async () => {
-        const serverRes = await fetch("http://localhost:8000/get-stages", {
+        const serverRes = await fetch("http://localhost:8000/user/get-stages", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

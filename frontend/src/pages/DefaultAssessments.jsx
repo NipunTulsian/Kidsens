@@ -56,7 +56,7 @@ function DefaultAssessments() {
         setMildRec(e.target.value)
     }
     const getAssess = async () => {
-        const serverRes = await fetch("http://localhost:8000/get-default-assessments", {
+        const serverRes = await fetch("http://localhost:8000/user/get-default-assessments", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function DefaultAssessments() {
             rec_moderate:moderateRec,
             rec_mild:mildRec,
         }
-        const serverRes = await fetch("http://localhost:8000/create-default-assessment", {
+        const serverRes = await fetch("http://localhost:8000/user/create-default-assessment", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ function DefaultAssessments() {
             stage_name: stage,
             assess_name: assessment
         }
-        const serverRes = await fetch("http://localhost:8000/delete-default-assessment", {
+        const serverRes = await fetch("http://localhost:8000/user/delete-default-assessment", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

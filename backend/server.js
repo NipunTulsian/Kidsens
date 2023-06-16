@@ -9,6 +9,10 @@ app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("../uploads"));
-app.use("/",require("./routes/userRoutes.js"));
+app.use("/user",require("./routes/userRoutes.js"));
+app.use("/auth",require("./routes/authRoutes.js"));
+app.use("/form",require("./routes/formRoutes.js"));
+app.use("/studentForm",require("./routes/studentformRoutes.js"));
+app.use("/defaultWorkflow",require("./routes/workflow.js"))
 const PORT = 8000
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}`))

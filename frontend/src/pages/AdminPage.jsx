@@ -245,7 +245,7 @@ options.typeUserAttrs['radio-group'] = {
 }
 const SaveForm = async (a) => {
     console.log(a)
-    const serverRes = await fetch("http://localhost:8000/save-form", {
+    const serverRes = await fetch("http://localhost:8000/form/saveForm", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -319,7 +319,7 @@ export default function AdminPage() {
     const [loader, setload] = React.useState(false)
 
     const getStudent = async () => {
-        const serverRes = await fetch("http://localhost:8000/display-student", {
+        const serverRes = await fetch("http://localhost:8000/user/display-student", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -338,7 +338,7 @@ export default function AdminPage() {
     }
 
     const getTherapist = async () => {
-        const serverRes = await fetch("http://localhost:8000/display-therapist", {
+        const serverRes = await fetch("http://localhost:8000/user/display-therapist", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

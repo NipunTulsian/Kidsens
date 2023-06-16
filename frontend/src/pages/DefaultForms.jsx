@@ -23,7 +23,7 @@ function DefaultForms() {
         getForms()
     }, [])
     const getForms = async () => {
-        const serverRes = await fetch("http://localhost:8000/get-default-forms", {
+        const serverRes = await fetch("http://localhost:8000/user/get-default-forms", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ function DefaultForms() {
     const [unAssignedForms, setUnAssignedForms] = React.useState(['form1'])
 
     const deleteForm = async (form) => {
-        const serverRes = await fetch("http://localhost:8000/delete-default-map", {
+        const serverRes = await fetch("http://localhost:8000/user/delete-default-map", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ function DefaultForms() {
         }
     }
     const assignForm = async () => {
-        const serverRes = await fetch("http://localhost:8000/add-default-map", {
+        const serverRes = await fetch("http://localhost:8000/user/add-default-map", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

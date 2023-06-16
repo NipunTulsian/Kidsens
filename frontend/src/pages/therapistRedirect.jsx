@@ -43,7 +43,7 @@ function TherapistRedirect() {
         form.append("Resume", document.getElementById("res").files[0])
         form.append("Email", therapistData.Email)
         // navigate('/adminPage')
-        const serverRes = await fetch("http://localhost:8000/fill-therapist", {
+        const serverRes = await fetch("http://localhost:8000/auth/fillTherapist", {
             method: "POST",
             body: form,
         })

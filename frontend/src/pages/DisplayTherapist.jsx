@@ -31,7 +31,7 @@ export default function DisplayTherapist(props) {
         let data = {
             email: email
         }
-        const serverRes = await fetch("http://localhost:8000/delete-therapist", {
+        const serverRes = await fetch("http://localhost:8000/user/delete-therapist", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
