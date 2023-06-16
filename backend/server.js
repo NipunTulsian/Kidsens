@@ -9,7 +9,6 @@ app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("../uploads"));
-app.use("/user",require("./routes/userRoutes.js"));
 app.use("/auth",require("./routes/authRoutes.js"));
 app.use("/form",require("./routes/formRoutes.js"));
 app.use("/studentForm",require("./routes/studentformRoutes.js"));

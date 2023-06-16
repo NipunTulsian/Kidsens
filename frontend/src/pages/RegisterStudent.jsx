@@ -61,7 +61,7 @@ function RegisterStudent() {
         }
     }
     const getTherapist = async () => {
-        const serverRes = await fetch("http://localhost:8000/user/display-therapist", {
+        const serverRes = await fetch("http://localhost:8000/admin/displayTherapist", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
