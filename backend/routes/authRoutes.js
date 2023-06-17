@@ -140,49 +140,46 @@ router.use("/login", async (req, res) => {
     const { email, password } = req.body;
     const login_admin = `SELECT * from admin where email="${email}"`
     const login_parent = `SELECT * from parent where p_email="${email}"`
-    const login_therapist = `SELECT * from therapist where Email="${email}"`
-    db.query(login_admin, async function (err, result, fields) {
-        if (result && result?.length > 0) {
-            if (result[0].password = password)
-                return res.status(200).json({
-                    type: "admin",
-                    token: generateToken(email),
-                    flag: null
-                });
-            else res.status(400).send("wrongPass")
+    const login_therapist = `SELECT * from therapist where Email="${email}"`;
+    const query_run = util.promisify(db.query).bind(db);
+    let result= await query_run(login_admin);
+    if(result && result?.length>0){
+        if(password.localeCompare(result[0].password)==0){
+            return res.status(200).json({
+                type: "admin",
+                token: generateToken(email),
+                flag: null
+            });
         }
-        else {
-            db.query(login_parent, async function (err, result, fields) {
-                if (result && result?.length > 0) {
-                    let flag = await bcrypt.compare(password, result[0].password)
-                    if (flag)
-                        return res.status(200).json({
-                            type: "parent",
-                            token: generateToken(email),
-                            flag: result[0].username
-                        });
-                    else res.status(400).send("wrongPass")
-                }
-                else {
-                    db.query(login_therapist, async function (err, result, fields) {
-                        if (result && result?.length > 0) {
-                            let flag = await bcrypt.compare(password, result[0].password)
-                            if (flag)
-                                return res.status(200).json({
-                                    type: "therapist",
-                                    token: generateToken(email),
-                                    flag: result[0].username
-                                });
-                            else res.status(400).send("wrongPass")
-                        }
-                        else {
-                            res.sendStatus(400)
-                        }
-                    })
-                }
-            })
-        }
-    })
+        else{ return res.status(400).send("wrongPass")}
+    }
+    result =await query_run(login_parent);
+    if (result && result?.length > 0) {
+        let flag = await bcrypt.compare(password, result[0].password)
+        if (flag)
+            return res.status(200).json({
+                type: "parent",
+                token: generateToken(email),
+                flag: result[0].username
+            });
+        else res.status(400).send("wrongPass")
+    }
+
+    result = await query_run(login_therapist);
+
+    if (result && result?.length > 0) {
+        let flag = await bcrypt.compare(password, result[0].password)
+        if (flag)
+            return res.status(200).json({
+                type: "therapist",
+                token: generateToken(email),
+                flag: result[0].username
+            });
+        else res.status(400).send("wrongPass")
+    }
+    else {
+        res.sendStatus(400)
+    }
 })
 
 const sendmail = (email, text) => {
