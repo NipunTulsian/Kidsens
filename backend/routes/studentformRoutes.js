@@ -17,7 +17,7 @@ const destructure_form_obj_answers = async (form_obj, form_id, student_id, email
         type = form_obj[i]["type"];
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             var options = form_obj[i]["userData"];
-            que_query = `select value from ANSWERS where QUESTION_ID='${result[index]["QUESTION_ID"]}' and Marks='1' and FORM_ID='${form_id}'`;
+            que_query = `select value from ANSWERS where QUESTION_ID='${result[index]["QUESTION_ID"]}' and MARKS='1' and FORM_ID='${form_id}'`;
             let answers = await query(que_query);
             let correct_opts = answers.length
             let marked = 0;
