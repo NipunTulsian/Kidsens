@@ -15,7 +15,7 @@ function DefaultStages() {
         getStages()
     }, [])
     const getStages = async () => {
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/getStages", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/getStages`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ function DefaultStages() {
             stage_name: newStageValue.stageName,
             position: newStageValue.stagePosition
         }
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/createStage", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/createStage`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ function DefaultStages() {
             id: localStorage.getItem("User"),
             stage_name: stage
         }
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/deleteStage", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/deleteStage`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

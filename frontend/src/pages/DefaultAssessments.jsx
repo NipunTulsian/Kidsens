@@ -56,7 +56,7 @@ function DefaultAssessments() {
         setMildRec(e.target.value)
     }
     const getAssess = async () => {
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/getAssessments", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/getAssessments`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function DefaultAssessments() {
             rec_moderate:moderateRec,
             rec_mild:mildRec,
         }
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/createAssessment", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/createAssessment`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ function DefaultAssessments() {
             stage_name: stage,
             assess_name: assessment
         }
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/deleteAssessment", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/deleteAssessment`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

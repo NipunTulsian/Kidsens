@@ -73,7 +73,7 @@ function AssessmentsPage() {
     };
 
     const getAssess = async () => {
-        const serverRes = await fetch("http://localhost:8000/workflow/getAssessment", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/getAssessment`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ function AssessmentsPage() {
     }
 
     const getDefaultAssess = async () => {
-        const serverRes = await fetch("http://localhost:8000/workflow/getDefaultAssessments", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/getDefaultAssessments`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ function AssessmentsPage() {
             stage_name: id.split(";")[1],
             assess_name: checked
         }
-        const serverRes = await fetch("http://localhost:8000/workflow/addAssessment", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/addAssessment`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ function AssessmentsPage() {
             stage_name: id.split(";")[1],
             assess_name: assessment
         }
-        const serverRes = await fetch("http://localhost:8000/workflow/deleteAssessment", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/deleteAssessment`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

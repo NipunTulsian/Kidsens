@@ -25,7 +25,7 @@ function RegisterTherapist() {
     async function handleSubmit(event) {
         event.preventDefault()
         // navigate('/adminPage')
-        const serverRes = await fetch("http://localhost:8000/auth/therapistRegister", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/auth/therapistRegister`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

@@ -43,7 +43,7 @@ function TherapistRedirect() {
         form.append("Resume", document.getElementById("res").files[0])
         form.append("Email", therapistData.Email)
         // navigate('/adminPage')
-        const serverRes = await fetch("http://localhost:8000/auth/fillTherapist", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/auth/fillTherapist`, {
             method: "POST",
             body: form,
         })
@@ -71,15 +71,14 @@ function TherapistRedirect() {
     }
 
     React.useEffect(() => {
-        if(!localStorage.getItem("User"))
-        {
+        if (!localStorage.getItem("User")) {
             navigate("/")
         }
     }, [])
     return (
         <>
             <Navbar />
-            <div style={{  display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <Typography align="center" style={{ width: "50%", margin: "10px auto" }} variant="h2" component="h1">
                     Register Therapist
                 </Typography>

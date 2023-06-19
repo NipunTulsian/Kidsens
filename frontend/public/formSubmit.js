@@ -1,18 +1,18 @@
-/*
-This has been updated to use the new userData method available in formRender
-*/
 
 // http://localhost:3001/formSubmit.html?id=1234&userName=arjun+dosajh -> id = 1234 and name = arjun dosajh
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 console.log(id)
+const env = {
+  API_URL: 'http://localhost:8000',
+};
 
 const getUserDataBtn = document.getElementById("get-user-data");
 const fbRender = document.getElementById("fb-render");
 var originalFormData = null;
 
 async function fetchForm() {
-  const serverRes = await fetch("http://localhost:8000/studentForm/getFormObjectStudent", {
+  const serverRes = await fetch(`${env.API_URL}/studentForm/getFormObjectStudent`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ async function fetchForm() {
         "click",
         async () => {
           let response = $(fbRender).formRender("userData")
-          const serverRes = await fetch("http://localhost:8000/studentForm/storeFormObject", {
+          const serverRes = await fetch(`${env.API_URL}/studentForm/storeFormObject`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',

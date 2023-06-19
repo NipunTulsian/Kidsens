@@ -24,7 +24,7 @@ function FormsPage() {
         getType();
     }, [])
     const getType=async()=>{
-        const serverRes = await fetch("http://localhost:8000/workflow/getType", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/getType`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ function FormsPage() {
         }
     }
     const getForms = async () => {
-        const serverRes = await fetch("http://localhost:8000/workflow/getForms", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/getForms`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ function FormsPage() {
     const [unAssignedForms, setUnAssignedForms] = React.useState([])
 
     const assignForm = async () => {
-        const serverRes = await fetch("http://localhost:8000/workflow/addFormMap", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/addFormMap`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ function FormsPage() {
     }
 
     const deleteForm = async (form) => {
-        const serverRes = await fetch("http://localhost:8000/workflow/deleteFormMap", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/deleteFormMap`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

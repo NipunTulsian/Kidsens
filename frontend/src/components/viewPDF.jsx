@@ -148,7 +148,7 @@ export default function ViewPDF() {
     }
 
     const getDetails = async () => {
-        const serverRes = await fetch("http://localhost:8000/report/ReportDetails", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/report/ReportDetails`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

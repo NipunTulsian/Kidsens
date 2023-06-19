@@ -36,7 +36,7 @@ function RegisterStudent() {
                 else str+=","+allTherapists[i].Email
             }
         }
-        const serverRes = await fetch("http://localhost:8000/auth/studentRegister", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/auth/studentRegister`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function RegisterStudent() {
         }
     }
     const getTherapist = async () => {
-        const serverRes = await fetch("http://localhost:8000/admin/displayTherapist", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/admin/displayTherapist`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

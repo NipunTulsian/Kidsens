@@ -263,7 +263,7 @@ options.typeUserAttrs['radio-group'] = {
 	}
 }
 const SaveForm = async (a) => {
-	const serverRes = await fetch("http://localhost:8000/form/saveForm", {
+	const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/form/saveForm`, {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json',
@@ -323,7 +323,7 @@ export default function LandTherapy() {
 	const [pendingForms, setPendingForms] = React.useState([])
 
 	async function fetchdata() {
-		let serverRes = await fetch("http://localhost:8000/therapist/getStudents", {
+		let serverRes = await fetch(`${process.env.REACT_APP_API_URL}/therapist/getStudents`, {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -338,7 +338,7 @@ export default function LandTherapy() {
 			setFormsArr(serverResJson.forms)
 			setallStudents(serverResJson.students)
 		}
-		serverRes = await fetch("http://localhost:8000/therapist/getTherapist", {
+		serverRes = await fetch(`${process.env.REACT_APP_API_URL}/therapist/getTherapist`, {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -358,14 +358,14 @@ export default function LandTherapy() {
 				speciality: serverResJson.speciality,
 				Address: serverResJson.Address,
 				phonte: serverResJson.phone,
-				image: "http://localhost:8000" + serverResJson.image.replace("../uploads", ""),
-				Identity: "http://localhost:8000" + serverResJson.Identity.replace("../uploads", ""),
-				Certification: "http://localhost:8000" + serverResJson.Certificate.replace("../uploads", ""),
-				Resume: "http://localhost:8000" + serverResJson.Resume.replace("../uploads", ""),
+				image: process.env.REACT_APP_API_URL + serverResJson.image.replace("../uploads", ""),
+				Identity: process.env.REACT_APP_API_URL + serverResJson.Identity.replace("../uploads", ""),
+				Certification: process.env.REACT_APP_API_URL + serverResJson.Certificate.replace("../uploads", ""),
+				Resume: process.env.REACT_APP_API_URL + serverResJson.Resume.replace("../uploads", ""),
 			})
 		}
 
-		serverRes = await fetch("http://localhost:8000/therapist/getPendingforms", {
+		serverRes = await fetch(`${process.env.REACT_APP_API_URL}/therapist/getPendingforms`, {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -653,7 +653,7 @@ export default function LandTherapy() {
 													<Button variant='contained' onClick={() => window.location.href = `/formView.html?id=${form.FORM_ID}`} style={{ marginRight: "10px" }}>View Form</Button>
 													<Button variant='contained' onClick={() => window.location.href = `/EditForm/${form.FORM_ID}`} style={{ backgroundColor: "red", marginRight: "10px" }}>Edit</Button>
 													<Button variant='contained' onClick={async () => {
-														let serverRes = await fetch("http://localhost:8000/form/deleteForm", {
+														let serverRes = await fetch(`${process.env.REACT_APP_API_URL}/form/deleteForm`, {
 															method: "POST",
 															headers: {
 																'Content-Type': 'application/json',

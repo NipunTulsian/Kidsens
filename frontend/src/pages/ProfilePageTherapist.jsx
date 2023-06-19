@@ -21,7 +21,7 @@ export default function ProfilePageTherapist() {
     })
 
     const getTherapist = async () => {
-        const serverRes = await fetch("http://localhost:8000/therapist/TherapistProfile", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/therapist/TherapistProfile`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -41,10 +41,10 @@ export default function ProfilePageTherapist() {
                 username: serverResJson.username ? serverResJson.username : "",
                 speciality: serverResJson.speciality ? serverResJson.speciality : "",
                 Address: serverResJson.Address ? serverResJson.Address : "",
-                image: serverResJson.image ? "http://localhost:8000" + serverResJson.image.replace("../uploads", "") : null,
-                Identity: serverResJson.Identity ? "http://localhost:8000" + serverResJson.Identity.replace("../uploads", "") : null,
-                Certification: serverResJson.Certificate ? "http://localhost:8000" + serverResJson.Certificate.replace("../uploads", "") : null,
-                Resume: serverResJson.Resume ? "http://localhost:8000" + serverResJson.Resume.replace("../uploads", "") : null,
+                image: serverResJson.image ? process.env.REACT_APP_API_URL + serverResJson.image.replace("../uploads", "") : null,
+                Identity: serverResJson.Identity ? process.env.REACT_APP_API_URL + serverResJson.Identity.replace("../uploads", "") : null,
+                Certification: serverResJson.Certificate ? process.env.REACT_APP_API_URL + serverResJson.Certificate.replace("../uploads", "") : null,
+                Resume: serverResJson.Resume ? process.env.REACT_APP_API_URL + serverResJson.Resume.replace("../uploads", "") : null,
             })
         }
     }

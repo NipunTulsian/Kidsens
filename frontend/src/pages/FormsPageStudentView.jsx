@@ -14,7 +14,7 @@ function FormsPageStudentView() {
         getForms()
     }, [])
     const getForms = async () => {
-        const serverRes = await fetch("http://localhost:8000/parent/getForms", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/parent/getForms`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

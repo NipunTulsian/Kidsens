@@ -32,7 +32,7 @@ export default function DisplayStudents(props) {
         let data = {
             p_email: email
         }
-        const serverRes = await fetch("http://localhost:8000/admin/deleteStudent", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/admin/deleteStudent`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

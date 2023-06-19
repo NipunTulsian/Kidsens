@@ -26,7 +26,7 @@ export default function ProfilePageStudent() {
     });
 
     const getStudent = async () => {
-        const serverRes = await fetch("http://localhost:8000/parent/StudentProfile", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/parent/StudentProfile`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export default function ProfilePageStudent() {
                 student_Id: serverResJson.student_Id,
                 c_fname: serverResJson.c_fname,
                 c_lname: serverResJson.c_lname,
-                image: serverResJson.c_img ? "http://localhost:8000" + serverResJson.c_img.replace("../uploads", "") : null,
+                image: serverResJson.c_img ? process.env.REACT_APP_API_URL + serverResJson.c_img.replace("../uploads", "") : null,
                 username: serverResJson.username ? serverResJson.username : "",
                 p_fname: serverResJson.p_fname ? serverResJson.p_fname : "",
                 p_lname: serverResJson.p_lname ? serverResJson.p_lname : "",
@@ -52,8 +52,8 @@ export default function ProfilePageStudent() {
                 c_DOB: serverResJson.c_DOB ? serverResJson.c_DOB : "",
                 c_gender: serverResJson.c_gender ? serverResJson.c_gender : "",
                 Diagnosis: serverResJson.Diagnosis ? serverResJson.Diagnosis : "",
-                identification: serverResJson.identification ? "http://localhost:8000" + serverResJson.identification.replace("../uploads", "") : null,
-                reports: serverResJson.reports ? "http://localhost:8000" + serverResJson.reports.replace("../uploads", "") : null,
+                identification: serverResJson.identification ? process.env.REACT_APP_API_URL + serverResJson.identification.replace("../uploads", "") : null,
+                reports: serverResJson.reports ? process.env.REACT_APP_API_URL + serverResJson.reports.replace("../uploads", "") : null,
             })
         }
     }

@@ -27,7 +27,7 @@ export default function AssessmentPageStudentView() {
     //     setNewAssessment(false)
     // }
     const getAssess = async () => {
-        const serverRes = await fetch("http://localhost:8000/workflow/getAssessment", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/workflow/getAssessment`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

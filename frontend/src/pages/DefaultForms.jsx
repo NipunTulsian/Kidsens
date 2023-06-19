@@ -23,7 +23,7 @@ function DefaultForms() {
         getForms()
     }, [])
     const getForms = async () => {
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/DefaultForms", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/DefaultForms`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ function DefaultForms() {
     const [unAssignedForms, setUnAssignedForms] = React.useState(['form1'])
 
     const deleteForm = async (form) => {
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/deleteDefaultForms", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/deleteDefaultForms`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ function DefaultForms() {
         }
     }
     const assignForm = async () => {
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/addDefaultForms", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/addDefaultForms`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

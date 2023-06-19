@@ -31,7 +31,7 @@ export default function DisplayTherapist(props) {
         let data = {
             email: email
         }
-        const serverRes = await fetch("http://localhost:8000/admin/deleteTherapist", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/admin/deleteTherapist`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

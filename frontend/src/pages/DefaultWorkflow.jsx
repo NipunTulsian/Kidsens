@@ -24,7 +24,7 @@ function StagesPage() {
         }
       };
     const getData = async () => {
-        const serverRes = await fetch("http://localhost:8000/defaultWorkflow/getTree", {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/defaultWorkflow/getTree`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

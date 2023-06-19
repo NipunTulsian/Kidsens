@@ -4,6 +4,9 @@ const fbRender1 = document.getElementById("fb-render");
 const fbRender2 = document.getElementById("fb-render2");
 var originalFormData = null, filled_response = null;
 const studentId = urlParams.get("student")
+const env = {
+  API_URL: 'http://localhost:8000',
+};
 
 const handleSaveMarks = async () => {
   marks = []
@@ -14,7 +17,7 @@ const handleSaveMarks = async () => {
       Max_Marks: parseInt(document.getElementById(`${window.questions[i]["QUESTION_ID"]}_total`).value)
     })
   }
-  const serverRes = await fetch("http://localhost:8000/report/saveMarks", {
+  const serverRes = await fetch(`${env.API_URL}/report/saveMarks`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +35,7 @@ const handleSaveMarks = async () => {
   }
 }
 async function gradeForm() {
-  const serverRes = await fetch("http://localhost:8000/report/getResponses", {
+  const serverRes = await fetch(`${env.API_URL}/report/getResponses`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
