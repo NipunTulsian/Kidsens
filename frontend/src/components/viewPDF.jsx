@@ -277,7 +277,7 @@ export default function ViewPDF() {
                                                 ADVANCED
                                             </Text>
                                         </div>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: "15px" }}>
+                                        {total_speech ? <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: "15px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", width: "25%" }}>
                                                 SPEECH
                                             </Text>
@@ -297,8 +297,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
+                                        </div> : null}
+                                        {total_motor ? <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", width: "25%" }}>
                                                 MOTOR
                                             </Text>
@@ -318,8 +318,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
+                                        </div> : null}
+                                        {total_social ? <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", width: "25%" }}>
                                                 SOCIAL
                                             </Text>
@@ -339,8 +339,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
+                                        </div> : null}
+                                        {total_cognition ? <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", width: "25%" }}>
                                                 COGNITIVE
                                             </Text>
@@ -360,8 +360,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
+                                        </div> : null}
+                                        {total_emotional ? <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", width: "25%" }}>
                                                 EMOTIONAL
                                             </Text>
@@ -381,8 +381,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
+                                        </div> : null}
+                                        {total_sensory ? <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", width: "25%" }}>
                                                 SENSORY
                                             </Text>
@@ -402,8 +402,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
+                                        </div> : null}
+                                        {total_behaviour ? <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "15px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", width: "25%" }}>
                                                 BEHAVIOUR
                                             </Text>
@@ -423,7 +423,7 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
+                                        </div> : null}
                                     </div>
                                 </div>
                                 <div style={{ width: "65%", display: "flex", flexDirection: "column" }}>
@@ -528,7 +528,7 @@ export default function ViewPDF() {
                 </Page>
 
 
-                <Page size="A4" style={styles.body}>
+                {total_speech > 0 ? <Page size="A4" style={styles.body}>
                     <div style={{ position: "absolute", top: "10px", right: "15px", width: "60%" }}>
                         <div style={{ display: "flex", flexDirection: "row", width: "100%", backgroundColor: "#ddd", height: "15px" }}>
                             <div style={{ width: "60%", backgroundColor: "#004B49", height: "100%" }}>
@@ -608,9 +608,9 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
-                </Page>
+                </Page> : null}
 
-                <Page size="A4" style={styles.body}>
+                {total_motor ? <Page size="A4" style={styles.body}>
                     <div style={{ position: "absolute", top: "10px", right: "15px", width: "60%" }}>
                         <div style={{ display: "flex", flexDirection: "row", width: "100%", backgroundColor: "#ddd", height: "15px" }}>
                             <div style={{ width: "60%", backgroundColor: "#004B49", height: "100%" }}>
@@ -689,10 +689,10 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
-                </Page>
+                </Page> : null}
 
 
-                <Page size="A4" style={styles.body}>
+                {total_social ? <Page size="A4" style={styles.body}>
                     <div style={{ position: "absolute", top: "10px", right: "15px", width: "60%" }}>
                         <div style={{ display: "flex", flexDirection: "row", width: "100%", backgroundColor: "#ddd", height: "15px" }}>
                             <div style={{ width: "60%", backgroundColor: "#004B49", height: "100%" }}>
@@ -771,10 +771,10 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
-                </Page>
+                </Page> : null}
 
 
-                <Page size="A4" style={styles.body}>
+                {total_cognition ? <Page size="A4" style={styles.body}>
                     <div style={{ position: "absolute", top: "10px", right: "15px", width: "60%" }}>
                         <div style={{ display: "flex", flexDirection: "row", width: "100%", backgroundColor: "#ddd", height: "15px" }}>
                             <div style={{ width: "60%", backgroundColor: "#004B49", height: "100%" }}>
@@ -855,10 +855,10 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
-                </Page>
+                </Page> : null}
 
 
-                <Page size="A4" style={styles.body}>
+                {total_emotional ? <Page size="A4" style={styles.body}>
                     <div style={{ position: "absolute", top: "10px", right: "15px", width: "60%" }}>
                         <div style={{ display: "flex", flexDirection: "row", width: "100%", backgroundColor: "#ddd", height: "15px" }}>
                             <div style={{ width: "60%", backgroundColor: "#004B49", height: "100%" }}>
@@ -937,9 +937,9 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
-                </Page>
+                </Page> : null}
 
-                <Page size="A4" style={styles.body}>
+                {total_sensory ? <Page size="A4" style={styles.body}>
                     <div style={{ position: "absolute", top: "10px", right: "15px", width: "60%" }}>
                         <div style={{ display: "flex", flexDirection: "row", width: "100%", backgroundColor: "#ddd", height: "15px" }}>
                             <div style={{ width: "60%", backgroundColor: "#004B49", height: "100%" }}>
@@ -1020,9 +1020,9 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
-                </Page>
+                </Page> : null}
 
-                <Page size="A4" style={styles.body}>
+                {total_behaviour ? <Page size="A4" style={styles.body}>
                     <div style={{ position: "absolute", top: "10px", right: "15px", width: "60%" }}>
                         <div style={{ display: "flex", flexDirection: "row", width: "100%", backgroundColor: "#ddd", height: "15px" }}>
                             <div style={{ width: "60%", backgroundColor: "#004B49", height: "100%" }}>
@@ -1103,7 +1103,7 @@ export default function ViewPDF() {
                             </div>
                         </div>
                     </div>
-                </Page>
+                </Page> : null}
 
                 <Page size="A4" style={styles.body}>
                     <div style={{ position: "absolute", top: "10px", right: "15px", width: "60%" }}>
@@ -1171,7 +1171,7 @@ export default function ViewPDF() {
                                     </div>
                                     <div style={{ display: "flex", flexDirection: "column", width: "40%", marginRight: "20px", marginLeft: "10px" }}>
 
-                                        <div style={{ marginBottom: "10px", marginTop: "50px" }}>
+                                        {total_speech ? <div style={{ marginBottom: "10px", marginTop: "50px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
                                                 SPEECH
                                             </Text>
@@ -1191,8 +1191,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ marginBottom: "10px" }}>
+                                        </div> : null}
+                                        {total_motor ? <div style={{ marginBottom: "10px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
                                                 MOTOR
                                             </Text>
@@ -1212,8 +1212,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ marginBottom: "10px" }}>
+                                        </div> : null}
+                                        {total_social ? <div style={{ marginBottom: "10px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
                                                 SOCIAL
                                             </Text>
@@ -1233,8 +1233,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ marginBottom: "10px" }}>
+                                        </div> : null}
+                                        {total_cognition ? <div style={{ marginBottom: "10px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
                                                 COGNITIVE
                                             </Text>
@@ -1254,8 +1254,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ marginBottom: "10px" }}>
+                                        </div> : null}
+                                        {total_emotional ? <div style={{ marginBottom: "10px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
                                                 EMOTIONAL
                                             </Text>
@@ -1275,8 +1275,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ marginBottom: "10px" }}>
+                                        </div> : null}
+                                        {total_sensory ? <div style={{ marginBottom: "10px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
                                                 SENSORY
                                             </Text>
@@ -1296,8 +1296,8 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
-                                        <div style={{ marginBottom: "10px" }}>
+                                        </div> : null}
+                                        {total_behaviour ? <div style={{ marginBottom: "10px" }}>
                                             <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
                                                 BEHAVIOUR
                                             </Text>
@@ -1317,7 +1317,7 @@ export default function ViewPDF() {
                                                     </div>
                                                 </div> : null}
                                             </div>
-                                        </div>
+                                        </div> : null}
                                         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "5px" }}>
                                             <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
                                                 DELAYED

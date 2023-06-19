@@ -140,7 +140,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
                 opt_name = options[j]["label"];
                 opt_name = opt_name?.trim();
                 opt_name = db.escape(opt_name)
-                opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}",${opt_name},"${options[j]["selected"] ? 1 : 0}","${options[j]["value"]}")`;
+                opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}",${opt_name},"${options[j]["value"]}")`;
                 await query(opt_query);
             }
 
@@ -157,7 +157,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
             let value = form_obj[i]["value"];
             value = value?.trim()
             value = db.escape(value)
-            opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}",${value},NULL,NULL)`;
+            opt_query = `Insert into ANSWERS Values("${ques_id}","${form_id}",${value},NULL)`;
             await query(opt_query);
         }
         else if (type === "file") {

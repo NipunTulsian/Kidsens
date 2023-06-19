@@ -113,6 +113,12 @@ const options = {
     disableFields: ['autocomplete', 'button', 'hidden', 'number', 'textarea'],
     disabledAttrs: ['access', 'className', 'name'],
     editOnAdd: true,
+    onAddOption: (optionTemplate, optionIndex) => {
+        optionTemplate.label = `Option ${optionIndex.index + 1}`
+        optionTemplate.value = 0
+       console.log(optionTemplate)
+        return optionTemplate
+    },
     typeUserAttrs: {
         text: {
             Marks: {
@@ -243,6 +249,7 @@ options.typeUserAttrs['radio-group'] = {
         style: 'border: 3px solid red'
     }
 }
+
 const SaveForm = async (a) => {
     console.log(a)
     const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/form/saveForm`, {
@@ -373,52 +380,77 @@ export default function AdminPage() {
     const text = ['RegisterStudent', 'AllStudents', 'RegisterTherapist', 'AllTherapists', 'CreateForm']
 
     if (loader) {
-    return (
-        <Box sx={{ display: "flex" }}>
-            <CssBaseline />
-            <AppBar position="fixed" open={open}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: 5,
-                            ...(open && { display: "none" }),
-                        }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <img href="/" alt="logo" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
-                    <Typography variant="h6" noWrap component="div">
-                        {displayThis}
-                    </Typography>
-                    <Button
-                        onClick={logout}
-                        color="inherit"
-                        style={{ margin: "auto 0 auto auto", fontWeight: 900,cursor:"pointer" }}
-                    >
-                        Logout
-                    </Button>
-                </Toolbar>
-            </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === "rtl" ? (
-                            <ChevronRightIcon />
-                        ) : (
-                            <ChevronLeftIcon />
-                        )}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
-                    <ListItem disablePadding sx={{ display: "block" }}>
-                        {textAndIcon.map((item, index) => (
-                            <ListItemButton key={index}
-                                onClick={() => { setDisplayThis(text[index]); navigate(`/adminPage/${text[index]}`) }}
+        return (
+            <Box sx={{ display: "flex" }}>
+                <CssBaseline />
+                <AppBar position="fixed" open={open}>
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                marginRight: 5,
+                                ...(open && { display: "none" }),
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <img href="/" alt="logo" src={logo} style={{ width: '120px', marginRight: '20px', cursor: 'pointer' }} />
+                        <Typography variant="h6" noWrap component="div">
+                            {displayThis}
+                        </Typography>
+                        <Button
+                            onClick={logout}
+                            color="inherit"
+                            style={{ margin: "auto 0 auto auto", fontWeight: 900, cursor: "pointer" }}
+                        >
+                            Logout
+                        </Button>
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" open={open}>
+                    <DrawerHeader>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === "rtl" ? (
+                                <ChevronRightIcon />
+                            ) : (
+                                <ChevronLeftIcon />
+                            )}
+                        </IconButton>
+                    </DrawerHeader>
+                    <Divider />
+                    <List>
+                        <ListItem disablePadding sx={{ display: "block" }}>
+                            {textAndIcon.map((item, index) => (
+                                <ListItemButton key={index}
+                                    onClick={() => { setDisplayThis(text[index]); navigate(`/adminPage/${text[index]}`) }}
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? "initial" : "center",
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : "auto",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        {index === 0 && <BoyIcon />}
+                                        {index === 1 && <GroupsIcon />}
+                                        {index === 2 && <MedicationIcon />}
+                                        {index === 3 && <GroupsIcon />}
+                                        {index === 4 && <BorderColorIcon />}
+                                        {index === 5 && <AccountTreeIcon />}
+                                    </ListItemIcon>
+                                    <ListItemText primary={item[0]} sx={{ opacity: open ? 1 : 0 }} />
+                                </ListItemButton>
+                            ))}
+                            <ListItemButton
+                                onClick={() => navigate('/defaultstages')}
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? "initial" : "center",
@@ -432,68 +464,44 @@ export default function AdminPage() {
                                         justifyContent: "center",
                                     }}
                                 >
-                                    {index === 0 && <BoyIcon />}
-                                    {index === 1 && <GroupsIcon />}
-                                    {index === 2 && <MedicationIcon />}
-                                    {index === 3 && <GroupsIcon />}
-                                    {index === 4 && <BorderColorIcon />}
-                                    {index === 5 && <AccountTreeIcon />}
+                                    <AccountTreeIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={item[0]} sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary='Create Default Mapping' sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
-                        ))}
-                        <ListItemButton
-                            onClick={() => navigate('/defaultstages')}
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? "initial" : "center",
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
+                            <ListItemButton
+                                onClick={() => navigate('/defaultWorkflow')}
                                 sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : "auto",
-                                    justifyContent: "center",
+                                    minHeight: 48,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
                                 }}
                             >
-                                <AccountTreeIcon />
-                            </ListItemIcon>
-                            <ListItemText primary='Create Default Mapping' sx={{ opacity: open ? 1 : 0 }} />
-                        </ListItemButton>
-                        <ListItemButton
-                            onClick={() => navigate('/defaultWorkflow')}
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? "initial" : "center",
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : "auto",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                <SchemaIcon />
-                            </ListItemIcon>
-                            <ListItemText primary='View Default Mapping' sx={{ opacity: open ? 1 : 0 }} />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <DrawerHeader />
-                <div>
-                    {displayThis === 'RegisterStudent' && <RegisterStudent />}
-                    {displayThis === 'RegisterTherapist' && <RegisterTherapist />}
-                    {displayThis === 'AllStudents' && <DisplayStudents arr={allStudents} search={searchStudent} filter={searchStudent} SearchFunc={changeStudentSearch} />}
-                    {displayThis === 'AllTherapists' && <DisplayTherapist arr={allTherapists} search={searchTherapist} filter={searchTherapist} SearchFunc={changeTherapistSearch} />}
-                    {displayThis === 'CreateForm' && <FormBuilder />}
-                </div>
+                                <ListItemIcon
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <SchemaIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='View Default Mapping' sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                </Drawer>
+                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <DrawerHeader />
+                    <div>
+                        {displayThis === 'RegisterStudent' && <RegisterStudent />}
+                        {displayThis === 'RegisterTherapist' && <RegisterTherapist />}
+                        {displayThis === 'AllStudents' && <DisplayStudents arr={allStudents} search={searchStudent} filter={searchStudent} SearchFunc={changeStudentSearch} />}
+                        {displayThis === 'AllTherapists' && <DisplayTherapist arr={allTherapists} search={searchTherapist} filter={searchTherapist} SearchFunc={changeTherapistSearch} />}
+                        {displayThis === 'CreateForm' && <FormBuilder />}
+                    </div>
+                </Box>
             </Box>
-        </Box>
-    
-    )};
+
+        )
+    };
 }

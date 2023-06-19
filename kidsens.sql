@@ -41,17 +41,16 @@ INSERT INTO `admin` VALUES (1,'abc@gmail.com','abc');
 UNLOCK TABLES;
 
 --
--- Table structure for table `ANSWERS`
+-- Table structure for table `answers`
 --
 
-DROP TABLE IF EXISTS `ANSWERS`;
+DROP TABLE IF EXISTS `answers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ANSWERS` (
+CREATE TABLE `answers` (
   `QUESTION_ID` int DEFAULT NULL,
   `FORM_ID` int DEFAULT NULL,
   `ANSWER` varchar(2000) DEFAULT NULL,
-  `MARKS` int DEFAULT NULL,
   `value` varchar(2000) DEFAULT NULL,
   KEY `FORM_ID` (`FORM_ID`),
   KEY `QUESTION_ID` (`QUESTION_ID`),
@@ -61,12 +60,12 @@ CREATE TABLE `ANSWERS` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ANSWERS`
+-- Dumping data for table `answers`
 --
 
-LOCK TABLES `ANSWERS` WRITE;
-/*!40000 ALTER TABLE `ANSWERS` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ANSWERS` ENABLE KEYS */;
+LOCK TABLES `answers` WRITE;
+/*!40000 ALTER TABLE `answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -216,7 +215,7 @@ CREATE TABLE `forms` (
   `FORM_ID` int NOT NULL AUTO_INCREMENT,
   `FORM_NAME` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`FORM_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +341,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`QUESTION_ID`),
   KEY `FORM_ID` (`FORM_ID`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`FORM_ID`) REFERENCES `forms` (`FORM_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -407,7 +406,7 @@ CREATE TABLE `screening` (
 
 LOCK TABLES `screening` WRITE;
 /*!40000 ALTER TABLE `screening` DISABLE KEYS */;
-INSERT INTO `screening` VALUES (7,'1','Screening','2023-06-08 03:48:16','2023-06-13 15:31:59','ONLINE',3,'REGULAR',NULL);
+INSERT INTO `screening` VALUES (7,'1','Screening','2023-06-08 03:48:16','2023-06-20 01:23:27','ONLINE',3,'REGULAR',NULL);
 /*!40000 ALTER TABLE `screening` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -508,4 +507,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-14 12:09:46
+-- Dump completed on 2023-06-20  0:23:13

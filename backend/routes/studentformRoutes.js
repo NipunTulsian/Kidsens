@@ -8,6 +8,7 @@ const { protectAdmin, protectTherapist, protectParent, protectTherapistAdmin } =
 module.exports = router;
 
 const destructure_form_obj_answers = async (form_obj, form_id, student_id, email) => {
+    console.log(form_obj)
     const query = util.promisify(db.query).bind(db);
     var que_query = "", type = "", opt_query = "";
     que_query = `select QUESTION_ID,max_marks from questions where FORM_ID='${form_id}'`;
@@ -15,25 +16,22 @@ const destructure_form_obj_answers = async (form_obj, form_id, student_id, email
     let index = 0;
     for (let i = 0; i < form_obj.length; i++) {
         type = form_obj[i]["type"];
+        console.log(form_obj[i])
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             var options = form_obj[i]["userData"];
-            que_query = `select value from ANSWERS where QUESTION_ID='${result[index]["QUESTION_ID"]}' and MARKS='1' and FORM_ID='${form_id}'`;
-            let answers = await query(que_query);
-            let correct_opts = answers.length
-            let marked = 0;
+            let marks = 0;
             for (let j = 0; j < options?.length; j++) {
                 let temp = options[j];
-                for (let k = 0; k < answers.length; k++) {
-                    if (temp.localeCompare(answers[k]["value"]) === 0) marked += 1;
-                }
-                temp = db.escape(temp)
+                marks += parseInt(temp);
+                let ans_query=`select ANSWER from answers where QUESTION_ID='${result[index]["QUESTION_ID"]}' and FORM_ID='${form_id}' and value='${temp}'`;
+                let ans= await query(ans_query);
+                temp=ans[0]["ANSWER"];
+                temp=db.escape(temp)
                 opt_query = `Insert into student_answers Values("${result[index]["QUESTION_ID"]}","${student_id}",${temp})`;
                 await query(opt_query);
             }
-            if (correct_opts > 0) {
-                que_query = `Insert into Marks values ("${email}","${form_id}","${result[index]["QUESTION_ID"]}","${result[index]["max_marks"]}","${Math.round((marked / correct_opts) * result[index]["max_marks"])}")`;
-                await query(que_query)
-            }
+            que_query = `Insert into Marks values ("${email}","${form_id}","${result[index]["QUESTION_ID"]}","${result[index]["max_marks"]}","${marks}")`;
+            await query(que_query)
             index++;
         }
         else if (type === "text") {
