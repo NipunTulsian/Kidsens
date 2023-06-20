@@ -91,7 +91,7 @@ export default function ViewPDF() {
     const [age, setage] = useState(0);
     const [land_msg, setland_msg] = useState("");
     const [summary, set_summary] = useState("");
-    const [rec, set_rec] = useState([]);
+    const [rec, set_rec] = useState("");
 
     const [speech_msg, setspeech_msg] = useState("");
     const [total_speech, set_total_speech] = useState(0);
@@ -170,7 +170,7 @@ export default function ViewPDF() {
                 p_lname: serverResJson.student.p_lname,
                 roll_num: serverResJson.student.c_ROLL_NUMBER
             });
-            set_rec((serverResJson.rec)?.split(";"));
+            set_rec(serverResJson.rec);
             setlower(serverResJson.lower);
             setupper(serverResJson.upper);
             setage(serverResJson.age);
@@ -1198,12 +1198,12 @@ export default function ViewPDF() {
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
-                                    Following are the criteria used to measure the child's development.
+                                    {rec}
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "row" }}>
                                     <div style={{ width: "55%", marginRight: "30px" }}>
                                         <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                            {rec?.map((ele, idx) => {
+                                            {1>0?null:rec?.map((ele, idx) => {
                                                 return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
                                                     {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
                                                     <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele}</Text>

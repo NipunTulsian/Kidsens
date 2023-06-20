@@ -8,7 +8,6 @@ const { protectAdmin, protectTherapist, protectParent, protectTherapistAdmin } =
 module.exports = router;
 
 const destructure_form_obj_answers = async (form_obj, form_id, student_id, email) => {
-    console.log(form_obj)
     const query = util.promisify(db.query).bind(db);
     var que_query = "", type = "", opt_query = "";
     que_query = `select QUESTION_ID,max_marks from questions where FORM_ID='${form_id}'`;
@@ -16,7 +15,6 @@ const destructure_form_obj_answers = async (form_obj, form_id, student_id, email
     let index = 0;
     for (let i = 0; i < form_obj.length; i++) {
         type = form_obj[i]["type"];
-        console.log(form_obj[i])
         if (type === "checkbox-group" || type === "radio-group" || type === "select") {
             var options = form_obj[i]["userData"];
             let marks = 0;
