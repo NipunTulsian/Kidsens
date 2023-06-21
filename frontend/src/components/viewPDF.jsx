@@ -98,24 +98,28 @@ export default function ViewPDF() {
     const [total_speech_cor, set_total_speech_cor] = useState(0);
     const [speech_correct, set_speech_correct] = useState([]);
     const [speech_incorrect, set_speech_incorrect] = useState([]);
+    const [act_speech, set_act_speech] = useState([]);
 
     const [motor_msg, setmotor_msg] = useState("");
     const [total_motor, set_total_motor] = useState(0);
     const [total_motor_cor, set_total_motor_cor] = useState(0);
     const [motor_correct, set_motor_correct] = useState([]);
     const [motor_incorrect, set_motor_incorrect] = useState([]);
+    const [act_motor, set_act_motor] = useState([]);
 
     const [social_msg, setsocial_msg] = useState("");
     const [total_social, set_total_social] = useState(0);
     const [total_social_cor, set_total_social_cor] = useState(0);
     const [social_correct, set_social_correct] = useState([]);
     const [social_incorrect, set_social_incorrect] = useState([]);
+    const [act_social, set_act_social] = useState([]);
 
     const [cognition_msg, setcognition_msg] = useState("");
     const [total_cognition, set_total_cognition] = useState(0);
     const [total_cognition_cor, set_total_cognition_cor] = useState(0);
     const [cognition_correct, set_cognition_correct] = useState([]);
     const [cognition_incorrect, set_cognition_incorrect] = useState([]);
+    const [act_cognitive, set_act_cognitive] = useState([]);
 
     const [emotional_msg, setemotional_msg] = useState("");
     const [total_emotional, set_total_emotional] = useState(0);
@@ -128,6 +132,7 @@ export default function ViewPDF() {
     const [total_sensory_cor, set_total_sensory_cor] = useState(0);
     const [sensory_correct, set_sensory_correct] = useState([]);
     const [sensory_incorrect, set_sensory_incorrect] = useState([]);
+    const [act_sensory, set_act_sensory] = useState([]);
 
     const [behavior_msg, setbehaviour_msg] = useState("");
     const [total_behaviour, set_total_behaviour] = useState(0);
@@ -147,6 +152,26 @@ export default function ViewPDF() {
         else return "pink";
     }
 
+    const getActivities = async () => {
+        const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/report/Activity`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                "authorization": "Bearer".concat(" ", localStorage.getItem("User")),
+            },
+            body: JSON.stringify({
+                id: form_id,
+            })
+        })
+        if (serverRes.status === 200) {
+            const serverResJson = await serverRes.json();
+            set_act_speech(serverResJson.act_speech);
+            set_act_cognitive(serverResJson.act_cognitive);
+            set_act_motor(serverResJson.act_motor);
+            set_act_sensory(serverResJson.set_act_sensory);
+            set_act_social(serverResJson.set_act_social)
+        }
+    }
     const getDetails = async () => {
         const serverRes = await fetch(`${process.env.REACT_APP_API_URL}/report/ReportDetails`, {
             method: "POST",
@@ -233,6 +258,7 @@ export default function ViewPDF() {
     }
     useEffect(() => {
         getDetails();
+        getActivities();
     }, [])
     return (
         <PDFViewer style={styles.viewer}>
@@ -1194,7 +1220,7 @@ export default function ViewPDF() {
                                     {summary}
                                 </Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    RECOMMENDATIONS
+                                    Recommendation Developmental Activities
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -1203,7 +1229,46 @@ export default function ViewPDF() {
                                 <div style={{ display: "flex", flexDirection: "row" }}>
                                     <div style={{ width: "55%", marginRight: "30px" }}>
                                         <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
-                                            {1>0?null:rec?.map((ele, idx) => {
+                                            <Text style={{ fontSize: "12px", fontWeight: "bold", marginBottom: "10px" }}>
+                                                Speech and Language Development Activities
+                                            </Text>
+                                            {act_speech?.map((ele, idx) => {
+                                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                                    <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele}</Text>
+                                                </div>
+                                            })}
+                                            <Text style={{ fontSize: "12px", fontWeight: "bold", marginBottom: "10px" }}>
+                                                Motor Development Activities
+                                            </Text>
+                                            {act_motor?.map((ele, idx) => {
+                                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                                    <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele}</Text>
+                                                </div>
+                                            })}
+                                            <Text style={{ fontSize: "12px", fontWeight: "bold", marginBottom: "10px" }}>
+                                                Social Emotional Development Activities
+                                            </Text>
+                                            {act_social?.map((ele, idx) => {
+                                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                                    <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele}</Text>
+                                                </div>
+                                            })}
+                                            <Text style={{ fontSize: "12px", fontWeight: "bold", marginBottom: "10px" }}>
+                                                Cognitive Development Activities
+                                            </Text>
+                                            {act_cognitive?.map((ele, idx) => {
+                                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                                    <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele}</Text>
+                                                </div>
+                                            })}
+                                            <Text style={{ fontSize: "12px", fontWeight: "bold", marginBottom: "10px" }}>
+                                                Sensory Development Activities
+                                            </Text>
+                                            {act_sensory?.map((ele, idx) => {
                                                 return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
                                                     {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
                                                     <Text style={{ opacity: "0.6", fontSize: "12px" }}>{ele}</Text>

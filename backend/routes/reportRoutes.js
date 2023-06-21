@@ -57,6 +57,49 @@ router.use("/getResponses", protectTherapistAdmin, async (req, res) => {
     }
 })
 
+router.use("/Activity", protectParent, async (req, res) => {
+    try {
+        const query = util.promisify(db.query).bind(db);
+        var que_query = "";
+        que_query = `select * from parent where student_Id='${req.user}'`;
+        const student = await query(que_query);
+        var birth_year = parseInt((student[0]["c_DOB"]).substring(0, 4));
+        var date = new Date();
+        date = date.getFullYear();
+        var age = date - birth_year;
+        que_query = `select * from Activity where lower<='${age}' and upper>='${age}'`;
+        let activity = await query(que_query);
+        let act_speech = [], act_motor = [], act_social = [], act_cognitive = [], act_sensory = [];
+        for (let i = 0; i < activity.length; i++) {
+            if (activity[i].type === "speech") {
+                act_speech.push(activity[i].activity);
+            }
+            else if (activity[i].type === "motor") {
+                act_motor.push(activity[i].activity);
+            }
+            else if (activity[i].type === "social") {
+                act_social.push(activity[i].activity);
+            }
+            else if (activity[i].type === "cognitive") {
+                act_cognitive.push(activity[i].activity);
+            }
+            else if (activity[i].type === "sensory") {
+                act_sensory.push(activity[i].activity);
+            }
+        }
+        return res.status(200).json({
+            act_speech: act_speech,
+            act_motor: act_motor,
+            act_social: act_social,
+            act_cognitive: act_cognitive,
+            act_sensory: act_sensory
+        })
+    }
+    catch (e) {
+        return res.status(500).send(e);
+    }
+})
+
 router.use("/ReportDetails", protectParent, async (req, res) => {
     try {
         const query = util.promisify(db.query).bind(db);
