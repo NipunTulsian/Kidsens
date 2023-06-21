@@ -16,6 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Activity`
+--
+
+DROP TABLE IF EXISTS `Activity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Activity` (
+  `type` varchar(100) DEFAULT NULL,
+  `lower` int DEFAULT NULL,
+  `upper` int DEFAULT NULL,
+  `activity` longtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Activity`
+--
+
+LOCK TABLES `Activity` WRITE;
+/*!40000 ALTER TABLE `Activity` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Activity` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `admin`
 --
 
@@ -65,6 +89,7 @@ CREATE TABLE `answers` (
 
 LOCK TABLES `answers` WRITE;
 /*!40000 ALTER TABLE `answers` DISABLE KEYS */;
+INSERT INTO `answers` VALUES (115,70,'Option 1','3'),(115,70,'Option 2','1'),(115,70,'Option 3','0');
 /*!40000 ALTER TABLE `answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,6 +118,7 @@ CREATE TABLE `AssessFormMap` (
 
 LOCK TABLES `AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `AssessFormMap` DISABLE KEYS */;
+INSERT INTO `AssessFormMap` VALUES (1,'Screening','asses',70);
 /*!40000 ALTER TABLE `AssessFormMap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,6 +170,7 @@ CREATE TABLE `default_AssessFormMap` (
 
 LOCK TABLES `default_AssessFormMap` WRITE;
 /*!40000 ALTER TABLE `default_AssessFormMap` DISABLE KEYS */;
+INSERT INTO `default_AssessFormMap` VALUES ('abc@gmail.com','Screening','asses',70);
 /*!40000 ALTER TABLE `default_AssessFormMap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,7 +242,7 @@ CREATE TABLE `forms` (
   `FORM_ID` int NOT NULL AUTO_INCREMENT,
   `FORM_NAME` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`FORM_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,6 +251,7 @@ CREATE TABLE `forms` (
 
 LOCK TABLES `forms` WRITE;
 /*!40000 ALTER TABLE `forms` DISABLE KEYS */;
+INSERT INTO `forms` VALUES (70,'Header');
 /*!40000 ALTER TABLE `forms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,6 +278,7 @@ CREATE TABLE `forms_obj` (
 
 LOCK TABLES `forms_obj` WRITE;
 /*!40000 ALTER TABLE `forms_obj` DISABLE KEYS */;
+INSERT INTO `forms_obj` VALUES (70,'[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"Header\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1687234735930-0\",\"other\":false,\"Marks\":3,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"3\",\"selected\":true},{\"label\":\"Option 2\",\"value\":\"1\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"0\",\"selected\":false}]}]','admin','abc@gmail.com');
 /*!40000 ALTER TABLE `forms_obj` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,6 +308,7 @@ CREATE TABLE `Marks` (
 
 LOCK TABLES `Marks` WRITE;
 /*!40000 ALTER TABLE `Marks` DISABLE KEYS */;
+INSERT INTO `Marks` VALUES ('nipun@gmail.com',70,115,3,0);
 /*!40000 ALTER TABLE `Marks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,7 +371,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`QUESTION_ID`),
   KEY `FORM_ID` (`FORM_ID`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`FORM_ID`) REFERENCES `forms` (`FORM_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,6 +380,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
+INSERT INTO `questions` VALUES (115,70,'Radio Group','radio-group',3,'speech');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,7 +437,7 @@ CREATE TABLE `screening` (
 
 LOCK TABLES `screening` WRITE;
 /*!40000 ALTER TABLE `screening` DISABLE KEYS */;
-INSERT INTO `screening` VALUES (7,'1','Screening','2023-06-08 03:48:16','2023-06-20 01:23:27','ONLINE',3,'REGULAR',NULL);
+INSERT INTO `screening` VALUES (7,'1','Screening','2023-06-08 03:48:16','2023-06-20 10:50:39','ONLINE',3,'REGULAR',NULL);
 /*!40000 ALTER TABLE `screening` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -434,6 +465,7 @@ CREATE TABLE `student_answers` (
 
 LOCK TABLES `student_answers` WRITE;
 /*!40000 ALTER TABLE `student_answers` DISABLE KEYS */;
+INSERT INTO `student_answers` VALUES (115,1,'Option 3');
 /*!40000 ALTER TABLE `student_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,6 +491,7 @@ CREATE TABLE `student_responses` (
 
 LOCK TABLES `student_responses` WRITE;
 /*!40000 ALTER TABLE `student_responses` DISABLE KEYS */;
+INSERT INTO `student_responses` VALUES ('nipun@gmail.com',70,'[{\"type\":\"header\",\"subtype\":\"h1\",\"label\":\"Header\"},{\"type\":\"radio-group\",\"required\":false,\"label\":\"Radio Group\",\"inline\":false,\"name\":\"radio-group-1687234735930-0\",\"other\":false,\"Marks\":3,\"Category\":\"speech\",\"values\":[{\"label\":\"Option 1\",\"value\":\"3\",\"selected\":false},{\"label\":\"Option 2\",\"value\":\"1\",\"selected\":false},{\"label\":\"Option 3\",\"value\":\"0\",\"selected\":false}],\"userData\":[\"0\"]}]');
 /*!40000 ALTER TABLE `student_responses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,4 +540,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-20  0:23:13
+-- Dump completed on 2023-06-21 16:21:46
