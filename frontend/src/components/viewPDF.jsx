@@ -168,8 +168,8 @@ export default function ViewPDF() {
             set_act_speech(serverResJson.act_speech);
             set_act_cognitive(serverResJson.act_cognitive);
             set_act_motor(serverResJson.act_motor);
-            set_act_sensory(serverResJson.set_act_sensory);
-            set_act_social(serverResJson.set_act_social)
+            set_act_sensory(serverResJson.act_sensory);
+            set_act_social(serverResJson.act_social)
         }
     }
     const getDetails = async () => {

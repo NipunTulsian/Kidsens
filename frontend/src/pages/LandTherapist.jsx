@@ -132,6 +132,11 @@ const options = {
 	disableFields: ['autocomplete', 'button', 'hidden', 'number', 'textarea'],
 	disabledAttrs: ['access', 'className', 'name'],
 	editOnAdd: true,
+	onAddOption: (optionTemplate, optionIndex) => {
+		optionTemplate.label = `Option ${optionIndex.index + 1}`
+		optionTemplate.value = 0
+		return optionTemplate
+	},
 	typeUserAttrs: {
 		text: {
 			Marks: {
