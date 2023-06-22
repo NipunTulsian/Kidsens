@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const form_id = urlParams.get("id");
 const fbRender1 = document.getElementById("fb-render");
 const fbRender2 = document.getElementById("fb-render2");
-var originalFormData = null, filled_response = null;
+var originalFormData = null, filled_response = null, questions = null, marks_auto = null;
 const studentId = urlParams.get("student")
 const env = {
   API_URL: 'http://localhost:8000',
@@ -49,9 +49,12 @@ async function gradeForm() {
 
   if (serverRes.status === 200) {
     const serverResJson = await serverRes.json()
+    console.log(serverResJson.marks)
     originalFormData = serverResJson.original
     filled_response = serverResJson.student
-    window.questions = serverResJson.question
+    questions = serverResJson.question
+    marks_auto = serverResJson.marks
+
     jQuery(function ($) {
       var formData = originalFormData
       $(fbRender2).formRender({ formData });
@@ -60,9 +63,16 @@ async function gradeForm() {
         $(fbRender1).formRender({ formData });
       }
       else {
-        $(fbRender1).formRender({  });
+        $(fbRender1).formRender({});
       }
     });
+
+    function getMarks(que_id){
+      for(let i=0;i<marks_auto.length;i++){
+        if(que_id===marks_auto[i].QUESTION_ID) return marks_auto[i].Marks_Obtained
+      }
+      return 0;
+    }
 
     const grade = document.querySelector(".grade")
     let cntQues = serverResJson.question.length
@@ -70,27 +80,25 @@ async function gradeForm() {
     let marksOfQuestions = []
     for (let i = 0; i < cntQues; i++) {
       marksOfQuestions.push({
-        maxMarks: serverResJson.question[i].max_marks,
-        obtainedMarks: 0
+        maxMarks: questions[i].max_marks,
+        obtainedMarks: getMarks(questions[i].QUESTION_ID),
+        QUESTION_ID: questions[i].QUESTION_ID
       })
     }
     let gradeHTMLstr = ''
-    let marksObt = 0, totalMarks = 0
     for (let i = 0; i < cntQues; i++) {
-      totalMarks += marksOfQuestions[i].maxMarks
-      marksObt += marksOfQuestions[i].obtainedMarks
-      if(filled_response)
-      gradeHTMLstr +=
-        `
+      if (filled_response)
+        gradeHTMLstr +=
+          `
         <div class="grade-inner">
             <h3>Q${i + 1}</h3>
-            <input  id = "${serverResJson.question[i]["QUESTION_ID"]}" type="text" placeholder="Marks Obtained" value='${marksOfQuestions[i].obtainedMarks}' >
+            <input  id = "${marksOfQuestions[i]["QUESTION_ID"]}" type="text" placeholder="Marks Obtained" value='${marksOfQuestions[i].obtainedMarks}' >
             <h3>/</h3>
-            <input id = "${serverResJson.question[i]["QUESTION_ID"]}_total" class="maxMark" type="text" placeholder="Max Marks" value='${marksOfQuestions[i].maxMarks}'>
+            <input id = "${marksOfQuestions[i]["QUESTION_ID"]}_total" class="maxMark" type="text" placeholder="Max Marks" value='${marksOfQuestions[i].maxMarks}'>
         </div>
     `
     }
-    if(!filled_response) gradeHTMLstr+="<h1>FORM NOT FILLED YET</h1>"
+    if (!filled_response) gradeHTMLstr += "<h1>FORM NOT FILLED YET</h1>"
     grade.innerHTML = gradeHTMLstr
 
     const marksEl = document.querySelector('.marks')

@@ -19,7 +19,7 @@ router.use("/saveMarks", protectTherapistAdmin, async (req, res) => {
                     query += ","
                 }
             }
-            db.query(`delete from Marks where student_Id = '${result[0]["p_email"]}' and FORM_ID = '${form_Id}' and type='text'`, (err, result) => {
+            db.query(`delete from Marks where student_Id = '${result[0]["p_email"]}' and FORM_ID = '${form_Id}'`, (err, result) => {
                 db.query(query, (err, result_done) => {
                     res.sendStatus(200)
                 })
@@ -39,11 +39,14 @@ router.use("/getResponses", protectTherapistAdmin, async (req, res) => {
         db.query(`select p_email from parent where student_Id= '${student}'`, (err, result) => {
             db.query(`select FORM_OBJ from forms_obj where FORM_ID = '${id}'`, (err, result_original) => {
                 db.query(`select Form_response from student_responses where student_Id = '${result[0]["p_email"]}' and FORM_ID = '${id}'`, (err, result_student) => {
-                    db.query(`select * from questions where FORM_ID='${id}' and QUESTION_TYPE='text'`, (err, result_ques) => {
-                        res.status(200).json({
-                            original: result_original[0]["FORM_OBJ"],
-                            student: result_student[0] ? result_student[0]["Form_response"] : null,
-                            question: result_ques
+                    db.query(`select * from questions where FORM_ID='${id}'`, (err, result_ques) => {
+                        db.query(`select * from Marks where QUESTION_ID in (select QUESTION_ID from questions where FORM_ID='${id}')`, (err, result_marks) => {
+                            return res.status(200).json({
+                                original: result_original[0]["FORM_OBJ"],
+                                student: result_student[0] ? result_student[0]["Form_response"] : null,
+                                question: result_ques,
+                                marks: result_marks,
+                            })
                         })
                     })
                 })
