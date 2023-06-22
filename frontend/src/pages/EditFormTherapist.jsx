@@ -34,24 +34,6 @@ window.$ = $;
 require("jquery-ui-sortable");
 require("formBuilder");
 
-const tileAnimation = {
-    cursor: 'pointer',
-    backgroundColor: "#FFFFFF",
-    color: "black",
-    padding: "10px",
-    borderRadius: "5px",
-    transition: "all 0.3s ease",
-    "&:hover": {
-        backgroundColor: "#EEEEEE",
-        color: "black",
-        transform: "scale(1.1)",
-    },
-    "&:active": {
-        backgroundColor: "#DBDBDB",
-        transform: "scale(0.9)",
-    }
-}
-
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -128,12 +110,17 @@ const options = {
     disableFields: ['autocomplete', 'button', 'hidden', 'number', 'textarea'],
     disabledAttrs: ['access', 'className', 'name'],
     editOnAdd: true,
+    onAddOption: (optionTemplate, optionIndex) => {
+        optionTemplate.label = `Option ${optionIndex.index + 1}`
+        optionTemplate.value = parseInt(optionTemplate.value)
+        return optionTemplate
+    },
     typeUserAttrs: {
         text: {
             Marks: {
                 label: 'Marks',
                 type: 'number',
-                value: '0',
+                value: 0,
                 style: 'border: 3px solid red'
             },
             Category: {
@@ -154,7 +141,7 @@ const options = {
             Marks: {
                 label: 'Marks',
                 type: 'number',
-                value: '0',
+                value: 0,
                 style: 'border: 3px solid red'
             },
             Category: {
@@ -175,7 +162,7 @@ const options = {
             Marks: {
                 label: 'Marks',
                 type: 'number',
-                value: '0',
+                value: 0,
                 style: 'border: 3px solid red'
             },
             Category: {
@@ -197,7 +184,7 @@ const options = {
             Marks: {
                 label: 'Marks',
                 type: 'number',
-                value: '0',
+                value: 0,
                 style: 'border: 3px solid red'
             },
             Category: {
@@ -220,7 +207,7 @@ options.typeUserAttrs['checkbox-group'] = {
     Marks: {
         label: 'Marks',
         type: 'number',
-        value: '0',
+        value: 0,
         style: 'border: 3px solid red'
     },
     Category: {
@@ -241,7 +228,7 @@ options.typeUserAttrs['radio-group'] = {
     Marks: {
         label: 'Marks',
         type: 'number',
-        value: '0',
+        value: 0,
         style: 'border: 3px solid red'
     },
     Category: {
@@ -317,7 +304,7 @@ export default function EditFormTherapist() {
         })
         if (serverRes.status === 200) {
             const serverResJson = await serverRes.json();
-            formData = serverResJson.form;
+            formData = JSON.parse(serverResJson.form);
             setload(true);
         }
     }
