@@ -116,14 +116,14 @@ const options = {
     onAddOption: (optionTemplate, optionIndex) => {
         optionTemplate.label = `Option ${optionIndex.index + 1}`
         optionTemplate.value = 0
-       console.log(optionTemplate)
+        console.log(optionTemplate)
         return optionTemplate
     },
     typeUserAttrs: {
         text: {
             Marks: {
                 label: 'Marks',
-                type: 'number',
+                // type: 'number',
                 value: '0',
                 style: 'border: 3px solid red'
             },
@@ -144,7 +144,7 @@ const options = {
         date: {
             Marks: {
                 label: 'Marks',
-                type: 'number',
+                // type: 'number',
                 value: '0',
                 style: 'border: 3px solid red'
             },
@@ -165,7 +165,7 @@ const options = {
         file: {
             Marks: {
                 label: 'Marks',
-                type: 'number',
+                // type: 'number',
                 value: '0',
                 style: 'border: 3px solid red'
             },
@@ -187,7 +187,7 @@ const options = {
         select: {
             Marks: {
                 label: 'Marks',
-                type: 'number',
+                // type: 'number',
                 value: '0',
                 style: 'border: 3px solid red'
             },
@@ -210,7 +210,7 @@ const options = {
 options.typeUserAttrs['checkbox-group'] = {
     Marks: {
         label: 'Marks',
-        type: 'number',
+        // type: 'number',
         value: '0',
         style: 'border: 3px solid red'
     },
@@ -231,7 +231,7 @@ options.typeUserAttrs['checkbox-group'] = {
 options.typeUserAttrs['radio-group'] = {
     Marks: {
         label: 'Marks',
-        type: 'number',
+        // type: 'number',
         value: '0',
         style: 'border: 3px solid red'
     },

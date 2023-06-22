@@ -112,15 +112,15 @@ const options = {
     editOnAdd: true,
     onAddOption: (optionTemplate, optionIndex) => {
         optionTemplate.label = `Option ${optionIndex.index + 1}`
-        optionTemplate.value = parseInt(optionTemplate.value)
+        optionTemplate.value = parseInt(optionTemplate.value) ? parseInt(optionTemplate.value) : 0
         return optionTemplate
     },
     typeUserAttrs: {
         text: {
             Marks: {
                 label: 'Marks',
-                type: 'number',
-                value: 0,
+                // type: 'number',
+                value: '0',
                 style: 'border: 3px solid red'
             },
             Category: {
@@ -140,8 +140,8 @@ const options = {
         date: {
             Marks: {
                 label: 'Marks',
-                type: 'number',
-                value: 0,
+                // type: 'number',
+                value: '0',
                 style: 'border: 3px solid red'
             },
             Category: {
@@ -161,8 +161,8 @@ const options = {
         file: {
             Marks: {
                 label: 'Marks',
-                type: 'number',
-                value: 0,
+                // type: 'number',
+                value: '0',
                 style: 'border: 3px solid red'
             },
             Category: {
@@ -179,12 +179,11 @@ const options = {
                 style: 'border: 3px solid red'
             }
         },
-
         select: {
             Marks: {
                 label: 'Marks',
-                type: 'number',
-                value: 0,
+                // type: 'number',
+                value: '0',
                 style: 'border: 3px solid red'
             },
             Category: {
@@ -206,8 +205,8 @@ const options = {
 options.typeUserAttrs['checkbox-group'] = {
     Marks: {
         label: 'Marks',
-        type: 'number',
-        value: 0,
+        // type: 'number',
+        value: '0',
         style: 'border: 3px solid red'
     },
     Category: {
@@ -227,8 +226,8 @@ options.typeUserAttrs['checkbox-group'] = {
 options.typeUserAttrs['radio-group'] = {
     Marks: {
         label: 'Marks',
-        type: 'number',
-        value: 0,
+        // type: 'number',
+        value: '0',
         style: 'border: 3px solid red'
     },
     Category: {
@@ -304,6 +303,7 @@ export default function EditFormTherapist() {
         })
         if (serverRes.status === 200) {
             const serverResJson = await serverRes.json();
+            console.log(serverResJson.form)
             formData = JSON.parse(serverResJson.form);
             setload(true);
         }
