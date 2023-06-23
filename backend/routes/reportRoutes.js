@@ -111,6 +111,9 @@ router.use("/ReportDetails", protectParent, async (req, res) => {
         que_query = `select * from parent where student_Id='${req.user}'`;
         const student = await query(que_query);
         let admin = student[0]["Assigned_Admin"];
+        let therapist = student[0]["Assigned_Therapist"].split(",")[0];
+        que_query = `select * from therapist where Email='${therapist}'`;
+        therapist = await query(que_query);
         que_query = `select * from AssessFormMap where student_Id='${req.user}' and FORM_ID='${form_id}'`;
         let assessmap = await query(que_query);
         que_query = `select * from default_assessments where admin_Id='${admin}' and stage='${assessmap[0]["stage"]}' and assessment='${assessmap[0]["assessment"]}'`;
@@ -176,6 +179,8 @@ router.use("/ReportDetails", protectParent, async (req, res) => {
             age: age,
             lower: lower,
             upper: upper,
+            branch: therapist["branch"],
+            school: therapist["school"],
             total_behaviour: obj["total_behaviour"],
             total_behaviour_cor: obj["total_behaviour_cor"],
             total_sensory: obj["total_sensory"],

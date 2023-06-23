@@ -46,7 +46,6 @@ router.use("/getTherapist", protectTherapist, async (req, res) => {
 
 router.use("/getPendingforms", protectTherapist, async (req, res) => {
     try {
-        const query = util.promisify(db.query).bind(db);
         const decoded = jwt.verify(req.body.therapist, "abc123").id
         var que_query = `SELECT * FROM parent`;
         let arr = []

@@ -116,11 +116,11 @@ router.use("/therapistRegister", protectAdmin, async (req, res) => {
 })
 
 router.use("/fillTherapist", therapistUpload, async (req, res) => {
-    const { username, password, speciality, Email, Address, id } = req.body
+    const { username, password, speciality, Email, Address, id, school, branch } = req.body
     const salt = await bcrypt.genSalt(10);
     const decoded = jwt.verify(Email, "abc123")
     const hash = await bcrypt.hash(password, salt);
-    const query2 = `UPDATE therapist SET username="${username}", password="${hash}",Address= "${Address}", image= "${req.files?.image[0].path}", 
+    const query2 = `UPDATE therapist SET username="${username}", password="${hash}",Address= "${Address}", branch="${branch}", school="${school}",image= "${req.files?.image[0].path}", 
     speciality="${speciality}", Identity= "${req.files?.Identity[0].path}",Certificate= "${req.files?.Certification[0].path}", 
     Resume= "${req.files?.Resume[0].path}", EMP_ID="${id}" WHERE
     Email="${decoded.id}"`;
@@ -142,18 +142,18 @@ router.use("/login", async (req, res) => {
     const login_parent = `SELECT * from parent where p_email="${email}"`
     const login_therapist = `SELECT * from therapist where Email="${email}"`;
     const query_run = util.promisify(db.query).bind(db);
-    let result= await query_run(login_admin);
-    if(result && result?.length>0){
-        if(password.localeCompare(result[0].password)==0){
+    let result = await query_run(login_admin);
+    if (result && result?.length > 0) {
+        if (password.localeCompare(result[0].password) == 0) {
             return res.status(200).json({
                 type: "admin",
                 token: generateToken(email),
                 flag: null
             });
         }
-        else{ return res.status(400).send("wrongPass")}
+        else { return res.status(400).send("wrongPass") }
     }
-    result =await query_run(login_parent);
+    result = await query_run(login_parent);
     if (result && result?.length > 0) {
         let flag = await bcrypt.compare(password, result[0].password)
         if (flag)

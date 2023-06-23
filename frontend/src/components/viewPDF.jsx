@@ -92,6 +92,8 @@ export default function ViewPDF() {
     const [land_msg, setland_msg] = useState("");
     const [summary, set_summary] = useState("");
     const [rec, set_rec] = useState("");
+    const [branch, set_branch] = useState("");
+    const [school, set_school] = useState("");
 
     const [speech_msg, setspeech_msg] = useState("");
     const [total_speech, set_total_speech] = useState(0);
@@ -195,6 +197,8 @@ export default function ViewPDF() {
                 p_lname: serverResJson.student.p_lname,
                 roll_num: serverResJson.student.c_ROLL_NUMBER
             });
+            set_branch(serverResJson.branch);
+            set_school(serverResJson.school);
             set_rec(serverResJson.rec);
             setlower(serverResJson.lower);
             setupper(serverResJson.upper);
@@ -569,6 +573,30 @@ export default function ViewPDF() {
                                             <div style={{ width: "80%", display: "flex", justifyContent: "flex-start" }}>
                                                 <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
                                                     {student.roll_num}
+                                                </Text>
+                                            </div>
+                                        </div>
+                                        <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
+                                            <div style={{ width: "30%", display: "flex", justifyContent: "flex-start" }}>
+                                                <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
+                                                    Branch :
+                                                </Text>
+                                            </div>
+                                            <div style={{ width: "80%", display: "flex", justifyContent: "flex-start" }}>
+                                                <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
+                                                    {branch}
+                                                </Text>
+                                            </div>
+                                        </div>
+                                        <div style={{ display: "flex", flexDirection: "row", marginBottom: "8px" }}>
+                                            <div style={{ width: "30%", display: "flex", justifyContent: "flex-start" }}>
+                                                <Text style={{ fontSize: "13px", fontWeight: "bold" }}>
+                                                    School :
+                                                </Text>
+                                            </div>
+                                            <div style={{ width: "80%", display: "flex", justifyContent: "flex-start" }}>
+                                                <Text style={{ color: "rgb(255, 20, 147)", fontSize: "13px", fontWeight: "bold" }}>
+                                                    {school}
                                                 </Text>
                                             </div>
                                         </div>
@@ -1220,7 +1248,7 @@ export default function ViewPDF() {
                                     {summary}
                                 </Text>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
-                                    Recommendation Developmental Activities
+                                    Recommendations
                                 </Text>
                                 <div style={{ width: "20px", height: "3px", backgroundColor: "hotpink", marginBottom: "10px" }}></div>
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "25px" }}>
@@ -1228,7 +1256,10 @@ export default function ViewPDF() {
                                 </Text>
                                 <div style={{ display: "flex", flexDirection: "row" }}>
                                     <div style={{ width: "55%", marginRight: "30px" }}>
-                                        <div style={{ display: "flex", flexDirection: "column", paddingLeft: "10px" }}>
+                                        <div style={{ display: "flex", flexDirection: "column" }}>
+                                            <Text style={{ fontSize: "12px", fontWeight: "bold", marginBottom: "10px" }}>
+                                                Recommendation Developmental Activities:
+                                            </Text>
                                             <Text style={{ fontSize: "12px", fontWeight: "bold", marginBottom: "10px" }}>
                                                 Speech and Language Development Activities
                                             </Text>

@@ -13,6 +13,8 @@ function TherapistRedirect() {
         speciality: "",
         id: "",
         Address: "",
+        branch: "",
+        school: "",
         image: null,
         Identity: null,
         Certification: null,
@@ -36,6 +38,8 @@ function TherapistRedirect() {
         form.append("password", therapistData.password)
         form.append("speciality", therapistData.speciality)
         form.append("id", therapistData.id)
+        form.append("branch", therapistData.branch)
+        form.append("school", therapistData.school)
         form.append("Address", therapistData.Address)
         form.append("image", document.getElementById("image").files[0])
         form.append("Identity", document.getElementById("iden").files[0])
@@ -55,6 +59,8 @@ function TherapistRedirect() {
                 speciality: "",
                 Address: "",
                 id: "",
+                branch: "",
+                school: "",
                 image: null,
                 Identity: null,
                 Certification: null,
@@ -107,6 +113,24 @@ function TherapistRedirect() {
                     name="id"
                     onChange={handleChange}
                     value={therapistData.id}
+                    required
+                ></TextField>
+                <TextField
+                    style={{ width: "30%", margin: "10px auto" }}
+                    variant="outlined"
+                    label="Branch"
+                    name="branch"
+                    onChange={handleChange}
+                    value={therapistData.branch}
+                    required
+                ></TextField>
+                <TextField
+                    style={{ width: "30%", margin: "10px auto" }}
+                    variant="outlined"
+                    label="School"
+                    name="school"
+                    onChange={handleChange}
+                    value={therapistData.school}
                     required
                 ></TextField>
                 <TextField
