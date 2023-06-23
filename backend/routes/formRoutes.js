@@ -130,7 +130,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = form_obj[i]["label"];
             name = name?.trim()
             name = db.escape(name);
-            Max_Marks = form_obj[i]["Marks"];
+            Max_Marks = parseInt(form_obj[i]["Marks"]);
             category = form_obj[i]["Category"];
             var options = form_obj[i]["values"];
             que_query = `Insert into questions Values(NULL,"${form_id}",${name},"${type}","${Max_Marks}","${category}")`
@@ -149,7 +149,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = form_obj[i]["label"];
             name = name?.trim()
             name = db.escape(name);
-            Max_Marks = form_obj[i]["Marks"];
+            Max_Marks = parseInt(form_obj[i]["Marks"]);
             category = form_obj[i]["Category"];
             que_query = `Insert into questions Values(NULL,"${form_id}",${name},"${type}","${Max_Marks}","${category}")`;
             let result = await query(que_query);
@@ -164,7 +164,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = form_obj[i]["label"];
             name = name?.trim()
             name = db.escape(name);
-            Max_Marks = form_obj[i]["Marks"];
+            Max_Marks = parseInt(form_obj[i]["Marks"]);
             category = form_obj[i]["Category"];
             que_query = `Insert into questions Values(NULL,'${form_id}',${name},'${type}',${Max_Marks},'${category}')`;
             await query(que_query);
@@ -173,7 +173,7 @@ const destructure_form_obj = async (form_obj, form_id) => {
             name = form_obj[i]["label"];
             name = name?.trim()
             name = db.escape(name);
-            Max_Marks = form_obj[i]["Marks"];
+            Max_Marks = parseInt(form_obj[i]["Marks"]);
             category = form_obj[i]["Category"];
             que_query = `Insert into questions Values(NULL,'${form_id}',${name},'${type}',${Max_Marks},'${category}')`;
             await query(que_query);
