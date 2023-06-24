@@ -1247,206 +1247,224 @@ export default function ViewPDF() {
                                 <Text style={{ fontSize: "12px", opacity: "0.6", marginBottom: "20px" }}>
                                     {summary}
                                 </Text>
-                                <div style={{ display: "flex", flexDirection: "column", width: "40%", marginRight: "20px", marginLeft: "10px", marginBottom: "50px" }}>
-                                    {total_speech ? <div style={{ marginBottom: "10px" }}>
-                                        <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
-                                            SPEECH
-                                        </Text>
-                                        <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                            {/* {total_speech_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
+                                <div style={{ display: "flex", flexDirection: "row" }}>
+                                    <div style={{ display: "flex", flexDirection: "column", width: "40%", marginRight: "20px", marginLeft: "10px", marginBottom: "50px" }}>
+                                        {total_speech ? <div style={{ marginBottom: "10px" }}>
+                                            <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
+                                                SPEECH
+                                            </Text>
+                                            <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
+                                                {/* {total_speech_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}` }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_speech_cor * 100 / total_speech))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_speech_cor * 100 / total_speech)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null} */}
-                                            {total_speech_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        {Math.round(total_speech_cor * 100 / total_speech)}%
-                                                    </Text>
-                                                </div>
-                                            </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        10%
-                                                    </Text>
-                                                </div>
-                                            </div>}
-                                        </div>
-                                    </div> : null}
-                                    {total_motor ? <div style={{ marginBottom: "10px" }}>
-                                        <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
-                                            MOTOR
-                                        </Text>
-                                        <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                            {/* {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_motor_cor * 100 / total_motor))}` }}>
+                                                {total_speech_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_speech_cor * 100 / total_speech) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            {Math.round(total_speech_cor * 100 / total_speech)}%
+                                                        </Text>
+                                                    </div>
+                                                </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            10%
+                                                        </Text>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        </div> : null}
+                                        {total_motor ? <div style={{ marginBottom: "10px" }}>
+                                            <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
+                                                MOTOR
+                                            </Text>
+                                            <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
+                                                {/* {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_motor_cor * 100 / total_motor))}` }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_motor_cor * 100 / total_motor))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_motor_cor * 100 / total_motor)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null} */}
-                                            {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        {Math.round(total_motor_cor * 100 / total_motor)}%
-                                                    </Text>
-                                                </div>
-                                            </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        10%
-                                                    </Text>
-                                                </div>
-                                            </div>}
-                                        </div>
-                                    </div> : null}
-                                    {total_social ? <div style={{ marginBottom: "10px" }}>
-                                        <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
-                                            SOCIAL
-                                        </Text>
-                                        <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                            {/* {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_social_cor * 100 / total_social))}` }}>
+                                                {total_motor_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_motor_cor * 100 / total_motor) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            {Math.round(total_motor_cor * 100 / total_motor)}%
+                                                        </Text>
+                                                    </div>
+                                                </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            10%
+                                                        </Text>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        </div> : null}
+                                        {total_social ? <div style={{ marginBottom: "10px" }}>
+                                            <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
+                                                SOCIAL
+                                            </Text>
+                                            <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
+                                                {/* {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_social_cor * 100 / total_social))}` }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_social_cor * 100 / total_social))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_social_cor * 100 / total_social)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null} */}
-                                            {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        {Math.round(total_social_cor * 100 / total_social)}%
-                                                    </Text>
-                                                </div>
-                                            </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        10%
-                                                    </Text>
-                                                </div>
-                                            </div>}
-                                        </div>
-                                    </div> : null}
-                                    {total_cognition ? <div style={{ marginBottom: "10px" }}>
-                                        <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
-                                            COGNITIVE
-                                        </Text>
-                                        <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                            {/* {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_cognition_cor * 100 / total_cognition))}` }}>
+                                                {total_social_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_social_cor * 100 / total_social) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            {Math.round(total_social_cor * 100 / total_social)}%
+                                                        </Text>
+                                                    </div>
+                                                </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            10%
+                                                        </Text>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        </div> : null}
+                                        {total_cognition ? <div style={{ marginBottom: "10px" }}>
+                                            <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
+                                                COGNITIVE
+                                            </Text>
+                                            <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
+                                                {/* {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_cognition_cor * 100 / total_cognition))}` }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_cognition_cor * 100 / total_cognition))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_cognition_cor * 100 / total_cognition)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null} */}
-                                            {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        {Math.round(total_cognition_cor * 100 / total_cognition)}%
-                                                    </Text>
-                                                </div>
-                                            </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        10%
-                                                    </Text>
-                                                </div>
-                                            </div>}
-                                        </div>
-                                    </div> : null}
-                                    {total_emotional ? <div style={{ marginBottom: "10px" }}>
-                                        <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
-                                            EMOTIONAL
-                                        </Text>
-                                        <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                            {/* {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_emotional_cor * 100 / total_emotional))}` }}>
+                                                {total_cognition_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_cognition_cor * 100 / total_cognition) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            {Math.round(total_cognition_cor * 100 / total_cognition)}%
+                                                        </Text>
+                                                    </div>
+                                                </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            10%
+                                                        </Text>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        </div> : null}
+                                        {total_emotional ? <div style={{ marginBottom: "10px" }}>
+                                            <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
+                                                EMOTIONAL
+                                            </Text>
+                                            <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
+                                                {/* {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_emotional_cor * 100 / total_emotional))}` }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_emotional_cor * 100 / total_emotional))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_emotional_cor * 100 / total_emotional)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null} */}
-                                            {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        {Math.round(total_emotional_cor * 100 / total_emotional)}%
-                                                    </Text>
-                                                </div>
-                                            </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        10%
-                                                    </Text>
-                                                </div>
-                                            </div>}
-                                        </div>
-                                    </div> : null}
-                                    {total_sensory ? <div style={{ marginBottom: "10px" }}>
-                                        <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
-                                            SENSORY
-                                        </Text>
-                                        <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                            {/* {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_sensory_cor * 100 / total_sensory))}` }}>
+                                                {total_emotional_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_emotional_cor * 100 / total_emotional) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "hotpink" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "hotpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            {Math.round(total_emotional_cor * 100 / total_emotional)}%
+                                                        </Text>
+                                                    </div>
+                                                </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            10%
+                                                        </Text>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        </div> : null}
+                                        {total_sensory ? <div style={{ marginBottom: "10px" }}>
+                                            <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
+                                                SENSORY
+                                            </Text>
+                                            <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
+                                                {/* {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_sensory_cor * 100 / total_sensory))}` }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_sensory_cor * 100 / total_sensory))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_sensory_cor * 100 / total_sensory)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null} */}
-                                            {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        {Math.round(total_sensory_cor * 100 / total_sensory)}%
-                                                    </Text>
-                                                </div>
-                                            </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        10%
-                                                    </Text>
-                                                </div>
-                                            </div>}
-                                        </div>
-                                    </div> : null}
-                                    {total_behaviour ? <div style={{ marginBottom: "10px" }}>
-                                        <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
-                                            BEHAVIOUR
-                                        </Text>
-                                        <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
-                                            {/* {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_behaviour_cor * 100 / total_behaviour))}` }}>
+                                                {total_sensory_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_sensory_cor * 100 / total_sensory) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "lightpink" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "lightpink", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            {Math.round(total_sensory_cor * 100 / total_sensory)}%
+                                                        </Text>
+                                                    </div>
+                                                </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            10%
+                                                        </Text>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        </div> : null}
+                                        {total_behaviour ? <div style={{ marginBottom: "10px" }}>
+                                            <Text style={{ color: "#191970", fontSize: "10px", fontWeight: "bold", marginBottom: "3px" }}>
+                                                BEHAVIOUR
+                                            </Text>
+                                            <div style={{ width: "100%", backgroundColor: "#ddd", height: "10px", borderRadius: "10px" }}>
+                                                {/* {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: `${getcolour(Math.round(total_behaviour_cor * 100 / total_behaviour))}` }}>
                                                     <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: `${getcolour(Math.round(total_behaviour_cor * 100 / total_behaviour))}`, display: "flex", alignItems: "center", justifyContent: "center" }} >
                                                         <Text style={{ color: "white", fontSize: "6px" }}>
                                                             {Math.round(total_behaviour_cor * 100 / total_behaviour)}%
                                                         </Text>
                                                     </div>
                                                 </div> : null} */}
-                                            {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        {Math.round(total_behaviour_cor * 100 / total_behaviour)}%
-                                                    </Text>
-                                                </div>
-                                            </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
-                                                <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                                                    <Text style={{ color: "white", fontSize: "6px" }}>
-                                                        10%
-                                                    </Text>
-                                                </div>
-                                            </div>}
+                                                {total_behaviour_cor !== 0 ? <div style={{ position: "relative", width: `${Math.round(total_behaviour_cor * 100 / total_behaviour) + "%"}`, borderRadius: "10px", height: "100%", backgroundColor: "#7f53ac" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#7f53ac", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            {Math.round(total_behaviour_cor * 100 / total_behaviour)}%
+                                                        </Text>
+                                                    </div>
+                                                </div> : <div style={{ position: "relative", width: "10%", borderRadius: "10px", height: "100%", backgroundColor: "red" }}>
+                                                    <div style={{ position: "absolute", right: "-8px", top: "-2.5px", width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "red", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                                                        <Text style={{ color: "white", fontSize: "6px" }}>
+                                                            10%
+                                                        </Text>
+                                                    </div>
+                                                </div>}
+                                            </div>
+                                        </div> : null}
+                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "5px" }}>
+                                            <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
+                                                DELAYED
+                                            </Text>
+                                            <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
+                                                ON-TRACK
+                                            </Text>
+                                            <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
+                                                ADVANCED
+                                            </Text>
                                         </div>
-                                    </div> : null}
-                                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "5px" }}>
-                                        <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                                            DELAYED
+                                    </div>
+                                    <div style={{ width: "30%", display: "flex", marginLeft: "80px", alignItems: "center", flexDirection: "column" }}>
+                                        <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px", color: "rgb(0, 180, 219)" }}>
+                                            SCORE
                                         </Text>
-                                        <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                                            ON-TRACK
-                                        </Text>
-                                        <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                                            ADVANCED
-                                        </Text>
+                                        <Svg height="100" width="100">
+                                            <Circle
+                                                cx="50"
+                                                cy="50"
+                                                r="30"
+                                                fill="white"
+                                                stroke="#e0115f"
+                                                strokeWidth={10}
+                                            />
+                                            <Text x="38" y="55">{(total_speech_cor + total_motor_cor + total_behaviour_cor + total_cognition_cor + total_emotional_cor + total_sensory_cor + total_social_cor) + "/" + (total_speech + total_motor + total_behaviour + total_cognition + total_emotional + total_sensory + total_social)}</Text>
+                                        </Svg>
                                     </div>
                                 </div>
                                 <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
@@ -1489,56 +1507,56 @@ export default function ViewPDF() {
                         </div>
                         <Image src={logo} style={{ width: "90px", height: "50px", marginTop: "-30px", zIndex: "-10" }} />
                     </div>
-                    <div style={{ marginRight: "30px", marginLeft: "30px",marginTop:"20px" }}>
+                    <div style={{ marginRight: "30px", marginLeft: "30px", marginTop: "20px" }}>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                 Recommendation Developmental Activities:
                             </Text>
-                            <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
+                            {act_speech.length > 0 ? <div> <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                 Speech and Language Development Activities
                             </Text>
-                            {act_speech?.map((ele, idx) => {
-                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
-                                    <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
-                                </div>
-                            })}
-                            <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
+                                {act_speech?.map((ele, idx) => {
+                                    return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                        {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                        <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
+                                    </div>
+                                })}</div> : null}
+                            {act_motor.length > 0 ? <div> <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                 Motor Development Activities
                             </Text>
-                            {act_motor?.map((ele, idx) => {
-                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
-                                    <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
-                                </div>
-                            })}
-                            <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
+                                {act_motor?.map((ele, idx) => {
+                                    return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                        {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                        <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
+                                    </div>
+                                })}</div> : null}
+                            {act_social.length > 0 ? <div> <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                 Social Emotional Development Activities
                             </Text>
-                            {act_social?.map((ele, idx) => {
-                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
-                                    <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
-                                </div>
-                            })}
-                            <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
+                                {act_social?.map((ele, idx) => {
+                                    return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                        {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                        <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
+                                    </div>
+                                })}</div> : null}
+                            {act_cognitive.length > 0 ? <div> <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                 Cognitive Development Activities
                             </Text>
-                            {act_cognitive?.map((ele, idx) => {
-                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
-                                    <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
-                                </div>
-                            })}
-                            <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
+                                {act_cognitive?.map((ele, idx) => {
+                                    return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                        {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                        <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
+                                    </div>
+                                })}</div> : null}
+                            {act_sensory.length > 0 ? <div> <Text style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px" }}>
                                 Sensory Development Activities
                             </Text>
-                            {act_sensory?.map((ele, idx) => {
-                                return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-                                    {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
-                                    <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
-                                </div>
-                            })}
+                                {act_sensory?.map((ele, idx) => {
+                                    return <div key={idx} style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                        {/* <Text style={{ fontSize: "12px", fontWeight: "bold" }}>{idx + 1}. </Text> */}
+                                        <Text style={{ opacity: "0.7", fontSize: "12px" }}>{ele}</Text>
+                                    </div>
+                                })}</div> : null}
                         </div>
                     </div>
 
